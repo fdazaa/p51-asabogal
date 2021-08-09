@@ -1,0 +1,10 @@
+name: 'Curso Module'
+type: module
+core_version_requirement: ^9
+
+description: 'Modulo de pruebas'
+version: 1.0.0
+
+package: 'Curso'
+dependencies:
+  -drupal:node

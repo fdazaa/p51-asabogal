@@ -1,0 +1,62 @@
+curso_module.primera_ruta:
+  path: '/curso/controller/pagina/{node}'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\CursoController::home'
+  requirements:
+    _permission: 'access content'
+
+curso_module.curso_form:
+  path: '/curso/form/curso'
+  defaults:
+    _form: '\Drupal\curso_module\Form\CursoForm'
+  requirements:
+    _permission: 'access content'
+
+curso_module.ruta_con_formulario:
+  path: '/curso/controller/form'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\CursoController::formController'
+  requirements:
+    _permission: 'access content'
+
+curso_module.ruta_configuracion:
+  path: '/curso/controller/config'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\CursoController::configCurso'
+  requirements:
+    _permission: 'access content'
+
+curso_module.ruta_entityload:
+  path: '/curso/controller/entity/load'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\EntityController::entityLoad'
+  requirements:
+    _permission: 'access content'
+
+curso_module.ruta_entitycreate:
+  path: '/curso/controller/entity/create'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\EntityController::entityCreate'
+  requirements:
+    _permission: 'access content'
+
+curso_module.ruta_entityedit:
+  path: '/curso/controller/entity/edit'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\EntityController::entityEdit'
+  requirements:
+    _permission: 'access content'
+
+curso_module.ruta_entitydelete:
+  path: '/curso/controller/entity/delete'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\EntityController::entityDelete'
+  requirements:
+    _permission: 'access content'
+
+curso_module.ruta_entityquery:
+  path: '/curso/controller/entity/query'
+  defaults:
+    _controller: '\Drupal\curso_module\Controller\EntityController::entityQuery'
+  requirements:
+    _permission: 'access content'
