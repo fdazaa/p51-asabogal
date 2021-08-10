@@ -70,10 +70,20 @@ class EntityController extends ControllerBase
           foreach ($roles as $rol){
             if($rol){$rol_member = $rol->label();}
             if($rol_member != 'Member'){$rm = $rol_member;}
-            dpm($rm);
+            //dpm($rm);
           }
         }
       }
+    }
+
+    $storage =\Drupal::entityTypeManager()->getStorage('quiz_question');
+    $query = $storage->getQuery();
+    $ids = $query ->execute();
+    $quizzes = !empty($ids) ? $storage ->loadMultiple($ids):[];
+    foreach ($quizzes as $quiz){
+
+      dpm(get_class_methods($quiz));
+      //dpm($quiz->save());
     }
 
 
