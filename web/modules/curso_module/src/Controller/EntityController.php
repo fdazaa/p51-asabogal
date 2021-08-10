@@ -65,23 +65,15 @@ class EntityController extends ControllerBase
     $node->save();
     dpm($node, 'node');
 
-   /* $values = [
-      'name' => 'test',
-      'mail' => 'ejemplo@escueladrupal.com',
-      'pass' => '122345',
-      'status' => 1,
-    ];
-
-    $user = $this->entityTypeManager->getStorage('user')->create($values);
-    $user->save();*/
-
     $values = [
-      'name' => 'Drupal',
-      'vid' => 'tags',
+      'type' => 'group_content_type_0b89a4774c92a',
+      'gid' => 4,
+      'entity_id' => ['target_id' => $node->id()],
     ];
 
-    $term = $this->entityTypeManager->getStorage('taxonomy_term')->create($values);
-    $term->save();
+    $entity = $this->entityTypeManager->getStorage('group_content')->create($values);
+    $entity->save();
+
 
     return ['#markup' => 'Ruta que crear entidades'];
   }
