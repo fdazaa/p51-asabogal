@@ -54,8 +54,43 @@ class EntityController extends ControllerBase
 
   public function entityCreate() {
 
+    $storage =\Drupal::entityTypeManager()->getStorage('group');
+    $query = $storage->getQuery();
+    $ids =$query->execute();
+    $groups = !empty($ids) ? $storage->loadMultiple($ids):[];
+
+    foreach ($groups as $group){
+      $members = $group->getMembers();
+      foreach ($members as $member){
+        $id_members = $member->getUser();
+        if ($id_members){$id_member = $id_members->id();}
+        $id_general = \Drupal::currentUser()->id();
+        if ($id_member == $id_general){
+          $roles = $member->getRoles();
+          foreach ($roles as $rol){
+            if($rol){$rol_member = $rol->label();}
+            if($rol_member != 'Member'){$rm = $rol_member;}
+            dpm($rm);
+          }
+        }
+      }
+    }
+
+
+
+    //$this->adopcionCreateIndicadores($rm);
+
+
+
+
+
+    return ['#markup' => 'Ruta que crear entidades'];
+  }
+
+
+  public function adopcionCreateIndicadores($title){
     $values = [
-      'title' => 'Prueba de nodo Insert',
+      'title' => $title,
       'proceso_1'=> 3,
       'type' => 'analisis_de_respuesta'
 
@@ -74,9 +109,16 @@ class EntityController extends ControllerBase
     $entity = $this->entityTypeManager->getStorage('group_content')->create($values);
     $entity->save();
 
-
-    return ['#markup' => 'Ruta que crear entidades'];
   }
+
+
+
+
+
+
+
+
+
 
   public function entityEdit() {
 
