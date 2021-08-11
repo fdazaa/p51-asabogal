@@ -76,14 +76,14 @@ class EntityController extends ControllerBase
       }
     }
 
-    $storage =\Drupal::entityTypeManager()->getStorage('quiz_question');
+    $storage =\Drupal::entityTypeManager()->getStorage('quiz_result_answer');
     $query = $storage->getQuery();
     $ids = $query ->execute();
     $quizzes = !empty($ids) ? $storage ->loadMultiple($ids):[];
     foreach ($quizzes as $quiz){
 
-      dpm(get_class_methods($quiz));
-      //dpm($quiz->save());
+      $score = $quiz;
+      dpm($score);
     }
 
 

@@ -931,7 +931,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
         }
       }
     }
-    //dpm($total_questions);
+    dpm($total_questions);
 
     return $total_questions;
 
@@ -979,6 +979,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
       $found_questions = QuizQuestion::loadMultiple($question_ids);
 
       foreach ($found_questions as $qqid => $question) {
+
         $total_questions[] = [
           'qqid' => $qqid,
           'tid' => $tid,
@@ -991,6 +992,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
 
     // Optionally shuffle all categories together?
     //shuffle($total_questions);
+    dpm($total_questions);
 
     return $total_questions;
   }
