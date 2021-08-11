@@ -948,6 +948,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
    *   Array of question information.
    */
   function buildCategorizedQuestionList() {
+
     /* @var $terms Drupal\paragraphs\Entity\Paragraph[] */
     $terms = $this->get('quiz_terms')->referencedEntities();
     $total_questions = [];
@@ -992,7 +993,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
 
     // Optionally shuffle all categories together?
     //shuffle($total_questions);
-    dpm($total_questions);
+    //dpm($total_questions);
 
     return $total_questions;
   }
