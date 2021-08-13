@@ -1,0 +1,23 @@
+uuid: b0216d49-1cb7-448b-976b-8d14c2143ff5
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.proceso_1
+    - node.type.analisis_de_respuesta
+id: node.analisis_de_respuesta.proceso_1
+field_name: proceso_1
+entity_type: node
+bundle: analisis_de_respuesta
+label: 'PROCESO 1'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

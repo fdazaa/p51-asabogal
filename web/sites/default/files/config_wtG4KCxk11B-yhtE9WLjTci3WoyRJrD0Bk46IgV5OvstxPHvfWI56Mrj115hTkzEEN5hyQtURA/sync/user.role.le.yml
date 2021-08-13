@@ -1,0 +1,17 @@
+uuid: 2d7c6f49-c77b-465a-a2ba-a4092f59c3af
+langcode: es
+status: true
+dependencies: {  }
+id: le
+label: LE
+weight: 12
+is_admin: null
+permissions:
+  - 'access quiz overview'
+  - 'access quiz_question overview'
+  - 'create quiz quiz'
+  - 'create quiz_result'
+  - 'view own field_tamano_de_empresa'
+  - 'view own field_tipo'
+  - 'view own quiz'
+  - 'view results for own quiz'

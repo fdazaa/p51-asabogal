@@ -1,0 +1,32 @@
+uuid: 2a9a7246-9095-4a5e-9aa9-4c16517b45dd
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.field.node.analisis_de_respuesta.proceso_1
+    - node.type.analisis_de_respuesta
+  module:
+    - user
+id: node.analisis_de_respuesta.default
+targetEntityType: node
+bundle: analisis_de_respuesta
+mode: default
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  proceso_1:
+    weight: 101
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+hidden:
+  langcode: true

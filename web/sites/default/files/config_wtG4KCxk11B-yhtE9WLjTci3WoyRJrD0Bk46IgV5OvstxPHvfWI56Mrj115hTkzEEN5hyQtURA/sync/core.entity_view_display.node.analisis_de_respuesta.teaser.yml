@@ -1,0 +1,23 @@
+uuid: c7f39953-8b1a-4b98-8a4c-36b7d54b0e07
+langcode: es
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.analisis_de_respuesta.proceso_1
+    - node.type.analisis_de_respuesta
+  module:
+    - user
+id: node.analisis_de_respuesta.teaser
+targetEntityType: node
+bundle: analisis_de_respuesta
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true
+  proceso_1: true

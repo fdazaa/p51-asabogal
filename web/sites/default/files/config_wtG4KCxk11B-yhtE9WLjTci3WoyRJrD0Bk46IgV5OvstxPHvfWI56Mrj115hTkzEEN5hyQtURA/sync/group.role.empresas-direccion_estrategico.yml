@@ -1,0 +1,28 @@
+uuid: 9bffa63a-7273-4b99-9d9c-89413d22a223
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.empresas
+id: empresas-direccion_estrategico
+label: 'Dirección - Estratégico'
+weight: 27
+internal: false
+audience: member
+group_type: empresas
+permissions_ui: true
+permissions:
+  - 'administer members'
+  - 'create group_node:analisis_de_respuesta content'
+  - 'create group_node:analisis_de_respuesta entity'
+  - 'edit group'
+  - 'update any group_node:analisis_de_respuesta entity'
+  - 'update own group_membership content'
+  - 'update own group_node:analisis_de_respuesta entity'
+  - 'view any unpublished group'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_node:analisis_de_respuesta content'
+  - 'view group_node:analisis_de_respuesta entity'
+  - 'view own unpublished group'
+  - 'view unpublished group_node:analisis_de_respuesta entity'
