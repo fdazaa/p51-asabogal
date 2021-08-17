@@ -631,7 +631,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
    *   Array of question information.
    */
   /*--------------------------------------------------------------*/
-  function buildCategorizedQuestionListTIE() {
+  function buildCategorizedQuestionList() {
 
     $storage=\Drupal::entityTypeManager()->getStorage('group');
     $query = $storage->getQuery();
@@ -773,6 +773,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                         }
                         else{
                           $key = array_rand($questions_alto, $tamano_alto);
+                          dpm($key,'key alto');
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
@@ -786,6 +787,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           }
                           else{
                             $key_m = array_rand($questions_medio, $tamano_medio);
+                            dpm($key_m,'key medio');
                             if($diff_ap == 1){
                               $total_questions[]=$questions_medio[$key_m];
                             }else{
@@ -804,6 +806,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                             }
                             else{
                               $key_b = array_rand($questions_bajo, $diff_mp);
+                              dpm($key,'key bajo');
                               if($diff_mp == 1){
                                 $total_questions[]=$questions_bajo[$key_b];
                               }else{
@@ -821,6 +824,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           }
                           else{
                             $key_m = array_rand($questions_medio, $diff_ap);
+                            dpm($key_m,'key medio');
                             if($diff_ap == 1){
                               $total_questions[]=$questions_medio[$key_m];
                             }else{
@@ -837,6 +841,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                         }
                         else{
                           $key = array_rand($questions_alto, $questions_numbers_p);
+                          dpm($key,'key alto');
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
@@ -847,75 +852,39 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                       //TERMINA CONDICIONALES PARA PREGUNTAS TIPO P
 
                     }
-                    elseif($clasificacion=='TC'){
-                      $storage = \Drupal::entityTypeManager()->getStorage('quiz_question');
-                      $query = $storage->getQuery();
-                      $ids = $query->execute();
-                      $questions = !empty($ids) ? $storage->loadMultiple($ids):[];
-                      //BARRE PREGUNTA POR PREGUNTA
-                      foreach($questions as $quiz_question){
-                        $field_clase = $quiz_question->get('field_clasificacion')->entity;
-                        $clase = $field_clase ? $field_clase->get('field_id_estatico_terms')[0]->getString() : NULL;
-                        ///TIPO DE PREGUNTA
-                        $field_tipo_q = $quiz_question ? $quiz_question->get('field_tipo')->referencedEntities()[0]->id() : NULL;
-                        //TIPO DE FORMULARIO
-                        $field_tipo_f = $quizzes ? $quizzes->get('field_tipo')->referencedEntities()[0]->id():NULL;
-                        //REVISA SI LA CLASE DE LAS PREGUNTAS
-                        if($clase=='TC'&& $field_tipo_q == $field_tipo_f){
-                          //dpm('Ingresa TC');
-                          $questions_tc[] = [
-                            'qqid'=>$quiz_question->get('qqid')->value,
-                            'tid'=>$tid,
-                            'type'=>$quiz_question->bundle(),
-                            'vid'=>$quiz_question->getRevisionId()
-                          ];
-                        }
-                      }
-                      $questions_numbers_p = $term->get('quiz_question_number')[0]->value;
-                      $key= array_rand($questions_tc, $questions_numbers_p);
-                      if($questions_numbers_p==1){
-                        $total_questions[]=$questions_tc[$key];
-                      }else{
-                        foreach($key as $paso){
-                          $total_questions[]=$questions_tc[$paso];
-                        }
-                      }
-                    }
-                    elseif($clasificacion=='TMP'){
+                    else{
+                      $query = \Drupal::entityQuery('quiz_question');
 
-                      $storage = \Drupal::entityTypeManager()->getStorage('quiz_question');
-                      $query = $storage->getQuery();
-                      $ids = $query->execute();
-                      $questions = !empty($ids) ? $storage->loadMultiple($ids):[];
-                      //BARRE PREGUNTA POR PREGUNTA
-                      foreach($questions as $quiz_question){
-                        $field_clase = $quiz_question->get('field_clasificacion')->entity;
-                        $clase = $field_clase ? $field_clase->get('field_id_estatico_terms')[0]->getString() : NULL;
-                        ///TIPO DE PREGUNTA
-                        $field_tipo_q = $quiz_question ? $quiz_question->get('field_tipo')->referencedEntities()[0]->id() : NULL;
-                        //TIPO DE FORMULARIO
-                        $field_tipo_f = $quizzes ? $quizzes->get('field_tipo')->referencedEntities()[0]->id():NULL;
-                        //REVISA SI LA CLASE DE LAS PREGUNTAS
-                        if($clase=='TMP' && $field_tipo_q == $field_tipo_f){
-                          //dpm('Ingresa TMP');
-                          $questions_tmp[] = [
-                            'qqid'=>$quiz_question->get('qqid')->value,
-                            'tid'=>$tid,
-                            'type'=>$quiz_question->bundle(),
-                            'vid'=>$quiz_question->getRevisionId()
-                          ];
+                      // Find all taxonomy fields on questions.
+                      $fields = \Drupal::service('entity_field.manager')
+                        ->getFieldStorageDefinitions('quiz_question');
+                      $or = $query->orConditionGroup();
+                      foreach ($fields as $field_name => $field) {
+                        if ($field->getType() == 'entity_reference' && $field->getSetting('target_type') == 'taxonomy_term') {
+                          $or->condition("{$field_name}.target_id", $tid);
                         }
                       }
-                      $questions_numbers_p = $term->get('quiz_question_number')[0]->value;
-                      $key= array_rand($questions_tmp, $questions_numbers_p);
-                      if($questions_numbers_p==1){
-                        $total_questions[]=$questions_tmp[$key];
-                      }else{
-                        foreach($key as $paso){
-                          $total_questions[]=$questions_tmp[$paso];
-                        }
+                      $query->condition($or);
+                      $query->condition('status', 1);
+                      $query->addTag('quiz_build_categorized_questions');
+                      $query->addTag('quiz_random');
+                      $query->range(0, $term->get('quiz_question_number')->getString());
+                      $question_ids = $query->execute();
+                      if (count($question_ids) != $term->get('quiz_question_number')->getString()) {
+                        // Didn't find enough questions in this category.
+                        return [];
                       }
 
+                      $found_questions = QuizQuestion::loadMultiple($question_ids);
+
+                      foreach ($found_questions as $qqid => $question) {
+                        $total_questions[] = [
+                          'qqid' => $qqid,
+                          'tid' => $tid,
+                          'type' => $question->bundle(),
+                          'vid' => $question->getRevisionId(),
+                        ];
+                      }
                     }
 
                   }
@@ -937,66 +906,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
 
   }
 
-
-
-
-
-  /**
-   * Build a question list for quizzes with categorized random questions.
-   *
-   * @return array
-   *   Array of question information.
-   */
-  function buildCategorizedQuestionList() {
-
-    /* @var $terms Drupal\paragraphs\Entity\Paragraph[] */
-    $terms = $this->get('quiz_terms')->referencedEntities();
-    $total_questions = [];
-    foreach ($terms as $term) {
-      // Get the term ID referenced on the quiz question pool.
-      $tid = $term->get('quiz_question_tid')->referencedEntities()[0]->id();
-      $query = \Drupal::entityQuery('quiz_question');
-
-      // Find all taxonomy fields on questions.
-      $fields = \Drupal::service('entity_field.manager')
-        ->getFieldStorageDefinitions('quiz_question');
-      $or = $query->orConditionGroup();
-      foreach ($fields as $field_name => $field) {
-        if ($field->getType() == 'entity_reference' && $field->getSetting('target_type') == 'taxonomy_term') {
-          $or->condition("{$field_name}.target_id", $tid);
-        }
-      }
-      $query->condition($or);
-      $query->condition('status', 1);
-      $query->addTag('quiz_build_categorized_questions');
-      $query->addTag('quiz_random');
-      $query->range(0, $term->get('quiz_question_number')->getString());
-      $question_ids = $query->execute();
-      if (count($question_ids) != $term->get('quiz_question_number')->getString()) {
-        // Didn't find enough questions in this category.
-        return [];
-      }
-
-      $found_questions = QuizQuestion::loadMultiple($question_ids);
-
-      foreach ($found_questions as $qqid => $question) {
-
-        $total_questions[] = [
-          'qqid' => $qqid,
-          'tid' => $tid,
-          'type' => $question->bundle(),
-          'vid' => $question->getRevisionId(),
-        ];
-      }
-    }
-
-
-    // Optionally shuffle all categories together?
-    //shuffle($total_questions);
-    //dpm($total_questions);
-
-    return $total_questions;
-  }
 
   /**
    * Get the number of required questions for a quiz.
