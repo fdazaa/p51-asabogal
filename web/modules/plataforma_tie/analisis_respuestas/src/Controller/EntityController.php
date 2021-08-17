@@ -227,9 +227,6 @@ class EntityController extends ControllerBase
                     }
                   }
 
-
-
-
                   //-----------------------------------------------------------------------------------------
 
 
@@ -266,13 +263,7 @@ class EntityController extends ControllerBase
 
     $this->adopcionCreateIndicadores($result);
 
-
-
     dpm($result);
-
-
-
-
 
     //$this->adopcionCreateIndicadores($rm);
     return ['#markup' => 'Ruta que crear entidades'];
@@ -288,7 +279,7 @@ class EntityController extends ControllerBase
     }
     $longitud = sizeof($proceso);
     $promedio = $suma / $longitud;
-    $valor_maximo = $longitud *60; //cambiar 60, por valor de maximo score
+    $valor_maximo = $longitud * 60; //cambiar 60, por valor de maximo score
     $porcentaje = ($promedio*100)/$valor_maximo;
 
     return $porcentaje;
@@ -377,15 +368,6 @@ class EntityController extends ControllerBase
     $entity->save();
 
   }
-
-
-
-
-
-
-
-
-
 
   public function entityEdit() {
 

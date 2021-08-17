@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Analisis_respuestasController extends  ControllerBase
 {
-  public function configAnalisis_respuesta(){
+  public function configAnalisis_respuestas(){
     $config = $this->config('system.site');
 
     dpm($config, 'config');

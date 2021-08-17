@@ -1,8 +1,0 @@
-name: 'Evaluation TIE'
-type: module
-core_version_requirement: ^9
-description: 'Realiza la evaluacion de procesos de TIE'
-version: 1.0
-package: 'custom'
-dependecies:
-  -durpal:node

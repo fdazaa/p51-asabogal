@@ -1,7 +1,7 @@
 analisis_respuestas.ruta_configuracion:
   path: '/analisis_respuestas/controller/config'
   defaults:
-    _controller: '\Drupal\analisis_respuestas\Controlles\Analisis_respuestasController::configAnalisis_respuestas'
+    _controller: '\Drupal\analisis_respuestas\Controller\Analisis_respuestasController::configAnalisis_respuestas'
   requeriments:
     _permission: 'acces content'
 
