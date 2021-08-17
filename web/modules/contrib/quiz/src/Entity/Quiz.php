@@ -196,8 +196,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
         0 => 'No randomization',
         1 => 'Random order',
         2 => 'Random questions',
-        3 => 'Categorized random questions',
-        4 => 'Aleatorio TIE basado en Matriz del Marco de Procesos',
+        3 => 'Categorized random questions for TIE'
       ])
       ->setDescription("
 <strong>Categorized random questions</strong> - specific number of questions are drawn from each specified taxonomy term<br>
@@ -522,10 +521,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
   function buildLayout() {
     $questions = [];
 
-    if ($this-> get('randomization')->getString() == 4){
-      $questions = $this->buildCategorizedQuestionListTIE();
-    }
-    elseif ($this->get('randomization')->getString() == 3) {
+    if ($this->get('randomization')->getString() == 3) {
       $questions = $this->buildCategorizedQuestionList();
     }
     else {
