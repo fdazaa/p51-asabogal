@@ -3,7 +3,22 @@ langcode: es
 status: true
 dependencies:
   config:
-    - field.field.node.analisis_de_respuesta.proceso_1
+    - field.field.node.analisis_de_respuesta.field_proceso_1
+    - field.field.node.analisis_de_respuesta.field_proceso_10
+    - field.field.node.analisis_de_respuesta.field_proceso_11
+    - field.field.node.analisis_de_respuesta.field_proceso_12
+    - field.field.node.analisis_de_respuesta.field_proceso_13
+    - field.field.node.analisis_de_respuesta.field_proceso_14
+    - field.field.node.analisis_de_respuesta.field_proceso_15
+    - field.field.node.analisis_de_respuesta.field_proceso_16
+    - field.field.node.analisis_de_respuesta.field_proceso_2
+    - field.field.node.analisis_de_respuesta.field_proceso_3
+    - field.field.node.analisis_de_respuesta.field_proceso_4
+    - field.field.node.analisis_de_respuesta.field_proceso_5
+    - field.field.node.analisis_de_respuesta.field_proceso_6
+    - field.field.node.analisis_de_respuesta.field_proceso_7
+    - field.field.node.analisis_de_respuesta.field_proceso_8
+    - field.field.node.analisis_de_respuesta.field_proceso_9
     - node.type.analisis_de_respuesta
   module:
     - hide_revision_field
@@ -19,6 +34,118 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_proceso_1:
+    weight: 123
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_10:
+    weight: 132
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_11:
+    weight: 133
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_12:
+    weight: 134
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_13:
+    weight: 135
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_14:
+    weight: 136
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_15:
+    weight: 137
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_16:
+    weight: 138
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_2:
+    weight: 122
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_3:
+    weight: 124
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_4:
+    weight: 125
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_5:
+    weight: 126
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_6:
+    weight: 127
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_7:
+    weight: 130
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_8:
+    weight: 129
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_proceso_9:
+    weight: 131
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   langcode:
     type: language_select
     weight: 2
@@ -32,13 +159,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  proceso_1:
-    weight: 121
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   promote:
     type: boolean_checkbox
     settings:
