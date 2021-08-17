@@ -62,6 +62,9 @@
         "patches": {
             "drupal/business_rules": {
                 "Activa acciones en condiciones": "web/patch/businessrules/cannot_add_action-3200711-29.patch"
+            },
+            "drupal/quiz": {
+                "Genera aleatorio de plataforma TIE": "web/patch/quiz/v15p1d92-aleatorio-tie.patch"
             }
         },
         "installer-paths": {
