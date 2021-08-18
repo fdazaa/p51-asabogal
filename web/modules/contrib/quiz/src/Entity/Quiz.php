@@ -769,7 +769,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                         }
                         else{
                           $key = array_rand($questions_alto, $tamano_alto);
-                          dpm($key,'key alto');
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
@@ -783,7 +782,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           }
                           else{
                             $key_m = array_rand($questions_medio, $tamano_medio);
-                            dpm($key_m,'key medio');
                             if($diff_ap == 1){
                               $total_questions[]=$questions_medio[$key_m];
                             }else{
@@ -801,8 +799,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                               $total_questions[]=$questions_bajo[0];
                             }
                             else{
-                              $key_b = array_rand($questions_bajo, $diff_mp);
-                              dpm($key,'key bajo');
                               if($diff_mp == 1){
                                 $total_questions[]=$questions_bajo[$key_b];
                               }else{
@@ -820,7 +816,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           }
                           else{
                             $key_m = array_rand($questions_medio, $diff_ap);
-                            dpm($key_m,'key medio');
                             if($diff_ap == 1){
                               $total_questions[]=$questions_medio[$key_m];
                             }else{
@@ -836,8 +831,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           $total_questions[]=$questions_alto[0];
                         }
                         else{
-                          $key = array_rand($questions_alto, $questions_numbers_p);
-                          dpm($key,'key alto');
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
@@ -887,8 +880,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                   break 4;
 
                 }
-
-                //return $total_questions;
               }
             }
           }
@@ -896,7 +887,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
         }
       }
     }
-    dpm($total_questions);
 
     return $total_questions;
 
