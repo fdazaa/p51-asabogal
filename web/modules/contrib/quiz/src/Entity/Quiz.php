@@ -635,24 +635,15 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
     $groups =!empty($ids) ? $storage->loadMultiple($ids):[];
 
     $total_questions = [];
-    $questions_alto =[];
-    $questions_medio = [];
-    $questions_bajo = [];
 
     foreach($groups as $group){
       //EXTRAE MIEMBROS DEL GRUPO
       $members = $group->getMembers();
-
       foreach($members as $member){
-        $id_members = $member->getUser();
 
-        if ($id_members) {  $id_member=$id_members->id();}
-
-
-        //$id_member = $member->getUser()->id(); //EXTRAE ID DE LOS MIEMBROS DEL GRUPO
+        $id_member = $member->getUser()->id(); //EXTRAE ID DE LOS MIEMBROS DEL GRUPO
         $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
         if($id_general == $id_member){
-
           //Acceso a la matriz de calor
           $storage_mc = \Drupal::entityTypeManager()->getStorage('node');
           $query_mc = $storage_mc->getQuery()
@@ -660,7 +651,9 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
             ->condition('status',1);
           $ids_mc =$query_mc->execute();
           $nodes =  !empty($ids_mc) ? $storage_mc->loadMultiple($ids_mc) : [];
+          //dpm($nodes);
           foreach ($nodes as $node){
+            //dpm('AQUI');
             //EXTRAE EL ROL DE LA MATRIZ
             $field_rol = $node->get('field_rol_del_evaluador')->referencedEntities();
             foreach($field_rol as $rol_mc){
@@ -687,6 +680,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                 $total_questions = [];
                 $quiz_to = $quizzes->id();
                 $quiz_id = $this -> id();
+                //if($quiz_to == $quiz_id){
                 if($terms != [] && $quiz_to!=[] && $quiz_id !=[] && $quiz_to == $quiz_id){
                   foreach($terms as $term){
 
@@ -710,6 +704,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
 
                         //REVISA SI LA CLASE DE LA PREGUNTA ES P
                         if($clase=='P' && $field_tipo_q == $field_tipo_f){
+                          //dpm('INGRESA');
                           $filed_catp = $quiz_question->get('field_categoria_proceso')->getValue();
                           $categoria_q = $filed_catp[0]['target_id']?? NULL;
                           $proceso_q = $filed_catp[1]['target_id']?? NULL;
@@ -838,39 +833,75 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                       //TERMINA CONDICIONALES PARA PREGUNTAS TIPO P
 
                     }
-                    else{
-                      $query = \Drupal::entityQuery('quiz_question');
-
-                      // Find all taxonomy fields on questions.
-                      $fields = \Drupal::service('entity_field.manager')
-                        ->getFieldStorageDefinitions('quiz_question');
-                      $or = $query->orConditionGroup();
-                      foreach ($fields as $field_name => $field) {
-                        if ($field->getType() == 'entity_reference' && $field->getSetting('target_type') == 'taxonomy_term') {
-                          $or->condition("{$field_name}.target_id", $tid);
+                    elseif($clasificacion=='TC'){
+                      $storage = \Drupal::entityTypeManager()->getStorage('quiz_question');
+                      $query = $storage->getQuery();
+                      $ids = $query->execute();
+                      $questions = !empty($ids) ? $storage->loadMultiple($ids):[];
+                      //BARRE PREGUNTA POR PREGUNTA
+                      foreach($questions as $quiz_question){
+                        $field_clase = $quiz_question->get('field_clasificacion')->entity;
+                        $clase = $field_clase ? $field_clase->get('field_id_estatico_terms')[0]->getString() : NULL;
+                        ///TIPO DE PREGUNTA
+                        $field_tipo_q = $quiz_question ? $quiz_question->get('field_tipo')->referencedEntities()[0]->id() : NULL;
+                        //TIPO DE FORMULARIO
+                        $field_tipo_f = $quizzes ? $quizzes->get('field_tipo')->referencedEntities()[0]->id():NULL;
+                        //REVISA SI LA CLASE DE LAS PREGUNTAS
+                        if($clase=='TC'&& $field_tipo_q == $field_tipo_f){
+                          //dpm('Ingresa TC');
+                          $questions_tc[] = [
+                            'qqid'=>$quiz_question->get('qqid')->value,
+                            'tid'=>$tid,
+                            'type'=>$quiz_question->bundle(),
+                            'vid'=>$quiz_question->getRevisionId()
+                          ];
                         }
                       }
-                      $query->condition($or);
-                      $query->condition('status', 1);
-                      $query->addTag('quiz_build_categorized_questions');
-                      $query->addTag('quiz_random');
-                      $query->range(0, $term->get('quiz_question_number')->getString());
-                      $question_ids = $query->execute();
-                      if (count($question_ids) != $term->get('quiz_question_number')->getString()) {
-                        // Didn't find enough questions in this category.
-                        return [];
+                      $questions_numbers_p = $term->get('quiz_question_number')[0]->value;
+                      $key= array_rand($questions_tc, $questions_numbers_p);
+                      if($questions_numbers_p==1){
+                        $total_questions[]=$questions_tc[$key];
+                      }else{
+                        foreach($key as $paso){
+                          $total_questions[]=$questions_tc[$paso];
+                        }
+                      }
+                    }
+                    elseif($clasificacion=='TMP'){
+
+                      $storage = \Drupal::entityTypeManager()->getStorage('quiz_question');
+                      $query = $storage->getQuery();
+                      $ids = $query->execute();
+                      $questions = !empty($ids) ? $storage->loadMultiple($ids):[];
+                      //BARRE PREGUNTA POR PREGUNTA
+                      foreach($questions as $quiz_question){
+                        $field_clase = $quiz_question->get('field_clasificacion')->entity;
+                        $clase = $field_clase ? $field_clase->get('field_id_estatico_terms')[0]->getString() : NULL;
+                        ///TIPO DE PREGUNTA
+                        $field_tipo_q = $quiz_question ? $quiz_question->get('field_tipo')->referencedEntities()[0]->id() : NULL;
+                        //TIPO DE FORMULARIO
+                        $field_tipo_f = $quizzes ? $quizzes->get('field_tipo')->referencedEntities()[0]->id():NULL;
+                        //REVISA SI LA CLASE DE LAS PREGUNTAS
+                        if($clase=='TMP' && $field_tipo_q == $field_tipo_f){
+                          //dpm('Ingresa TMP');
+                          $questions_tmp[] = [
+                            'qqid'=>$quiz_question->get('qqid')->value,
+                            'tid'=>$tid,
+                            'type'=>$quiz_question->bundle(),
+                            'vid'=>$quiz_question->getRevisionId()
+                          ];
+                        }
+                      }
+                      $questions_numbers_p = $term->get('quiz_question_number')[0]->value;
+                      $key= array_rand($questions_tmp, $questions_numbers_p);
+                      if($questions_numbers_p==1){
+                        $total_questions[]=$questions_tmp[$key];
+                      }else{
+                        foreach($key as $paso){
+                          $total_questions[]=$questions_tmp[$paso];
+                        }
                       }
 
-                      $found_questions = QuizQuestion::loadMultiple($question_ids);
-
-                      foreach ($found_questions as $qqid => $question) {
-                        $total_questions[] = [
-                          'qqid' => $qqid,
-                          'tid' => $tid,
-                          'type' => $question->bundle(),
-                          'vid' => $question->getRevisionId(),
-                        ];
-                      }
                     }
 
                   }
@@ -886,6 +917,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
         }
       }
     }
+    //dpm($total_questions);
 
     return $total_questions;
 
