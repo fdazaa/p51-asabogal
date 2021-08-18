@@ -827,10 +827,9 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           $total_questions[]=$questions_alto[0];
                         }
                         else{
-<<<<<<< HEAD
-=======
+
+
                           $key = array_rand($questions_alto, $questions_numbers_p);
->>>>>>> feature/f4
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
