@@ -650,7 +650,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
 
 
         //$id_member = $member->getUser()->id(); //EXTRAE ID DE LOS MIEMBROS DEL GRUPO
-        //dpm($id_member);
         $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
         if($id_general == $id_member){
 
@@ -661,9 +660,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
             ->condition('status',1);
           $ids_mc =$query_mc->execute();
           $nodes =  !empty($ids_mc) ? $storage_mc->loadMultiple($ids_mc) : [];
-          //dpm($nodes);
           foreach ($nodes as $node){
-            //dpm('AQUI');
             //EXTRAE EL ROL DE LA MATRIZ
             $field_rol = $node->get('field_rol_del_evaluador')->referencedEntities();
             foreach($field_rol as $rol_mc){
@@ -690,7 +687,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                 $total_questions = [];
                 $quiz_to = $quizzes->id();
                 $quiz_id = $this -> id();
-                //if($quiz_to == $quiz_id){
                 if($terms != [] && $quiz_to!=[] && $quiz_id !=[] && $quiz_to == $quiz_id){
                   foreach($terms as $term){
 
@@ -714,7 +710,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
 
                         //REVISA SI LA CLASE DE LA PREGUNTA ES P
                         if($clase=='P' && $field_tipo_q == $field_tipo_f){
-                          //dpm('INGRESA');
                           $filed_catp = $quiz_question->get('field_categoria_proceso')->getValue();
                           $categoria_q = $filed_catp[0]['target_id']?? NULL;
                           $proceso_q = $filed_catp[1]['target_id']?? NULL;
@@ -799,6 +794,10 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                               $total_questions[]=$questions_bajo[0];
                             }
                             else{
+<<<<<<< HEAD
+=======
+                              $key_b = array_rand($questions_bajo, $diff_mp);
+>>>>>>> feature/f4
                               if($diff_mp == 1){
                                 $total_questions[]=$questions_bajo[$key_b];
                               }else{
@@ -831,6 +830,10 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           $total_questions[]=$questions_alto[0];
                         }
                         else{
+<<<<<<< HEAD
+=======
+                          $key = array_rand($questions_alto, $questions_numbers_p);
+>>>>>>> feature/f4
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
