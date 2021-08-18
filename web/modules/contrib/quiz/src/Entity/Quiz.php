@@ -918,7 +918,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                   break 4;
 
                 }
-                //return $total_questions;
               }
             }
           }
