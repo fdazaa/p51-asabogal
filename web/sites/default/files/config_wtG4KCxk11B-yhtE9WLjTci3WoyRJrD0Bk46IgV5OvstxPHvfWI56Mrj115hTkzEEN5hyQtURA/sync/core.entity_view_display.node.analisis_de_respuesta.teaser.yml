@@ -4,7 +4,22 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.analisis_de_respuesta.proceso_1
+    - field.field.node.analisis_de_respuesta.field_proceso_1
+    - field.field.node.analisis_de_respuesta.field_proceso_10
+    - field.field.node.analisis_de_respuesta.field_proceso_11
+    - field.field.node.analisis_de_respuesta.field_proceso_12
+    - field.field.node.analisis_de_respuesta.field_proceso_13
+    - field.field.node.analisis_de_respuesta.field_proceso_14
+    - field.field.node.analisis_de_respuesta.field_proceso_15
+    - field.field.node.analisis_de_respuesta.field_proceso_16
+    - field.field.node.analisis_de_respuesta.field_proceso_2
+    - field.field.node.analisis_de_respuesta.field_proceso_3
+    - field.field.node.analisis_de_respuesta.field_proceso_4
+    - field.field.node.analisis_de_respuesta.field_proceso_5
+    - field.field.node.analisis_de_respuesta.field_proceso_6
+    - field.field.node.analisis_de_respuesta.field_proceso_7
+    - field.field.node.analisis_de_respuesta.field_proceso_8
+    - field.field.node.analisis_de_respuesta.field_proceso_9
     - node.type.analisis_de_respuesta
   module:
     - user
@@ -19,5 +34,20 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_proceso_1: true
+  field_proceso_10: true
+  field_proceso_11: true
+  field_proceso_12: true
+  field_proceso_13: true
+  field_proceso_14: true
+  field_proceso_15: true
+  field_proceso_16: true
+  field_proceso_2: true
+  field_proceso_3: true
+  field_proceso_4: true
+  field_proceso_5: true
+  field_proceso_6: true
+  field_proceso_7: true
+  field_proceso_8: true
+  field_proceso_9: true
   langcode: true
-  proceso_1: true
