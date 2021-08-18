@@ -653,7 +653,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
         //dpm($id_member);
         $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
         if($id_general == $id_member){
-          dpm('miembro');
 
           //Acceso a la matriz de calor
           $storage_mc = \Drupal::entityTypeManager()->getStorage('node');
@@ -670,8 +669,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
             foreach($field_rol as $rol_mc){
               $rol_r= $rol_mc->get('field_rol')->referencedEntities()[0]->id();
               $rol = \Drupal::currentUser()->getRoles()[1]; //EXTRAE EL ROL DEL USUARIO LOG IN
-              dpm($rol,'rol');
-              dpm($rol_r, 'rol_r');
               if($rol_r == $rol){
                 $rol_act[0]=1;
               }else{
@@ -683,7 +680,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
             $field_tpe = $node->get('field_tipo_de_empresa')->getValue()[0]['target_id']??NULL;
             $tipo = $group->get('field_tipo')->getValue()[0]['target_id']??NULL;
             if($field_te == $tamano && $field_tpe == $tipo && $rol_act[0]==1){
-              dpm('tipo y tamaño');
 
               $storage=\Drupal::entityTypeManager()->getStorage('quiz');
               $query = $storage->getQuery();
@@ -773,7 +769,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                         }
                         else{
                           $key = array_rand($questions_alto, $tamano_alto);
-                          dpm($key,'key alto');
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
@@ -787,7 +782,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           }
                           else{
                             $key_m = array_rand($questions_medio, $tamano_medio);
-                            dpm($key_m,'key medio');
                             if($diff_ap == 1){
                               $total_questions[]=$questions_medio[$key_m];
                             }else{
@@ -806,7 +800,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                             }
                             else{
                               $key_b = array_rand($questions_bajo, $diff_mp);
-                              dpm($key,'key bajo');
                               if($diff_mp == 1){
                                 $total_questions[]=$questions_bajo[$key_b];
                               }else{
@@ -824,7 +817,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                           }
                           else{
                             $key_m = array_rand($questions_medio, $diff_ap);
-                            dpm($key_m,'key medio');
                             if($diff_ap == 1){
                               $total_questions[]=$questions_medio[$key_m];
                             }else{
@@ -843,7 +835,6 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
 
 
                           $key = array_rand($questions_alto, $questions_numbers_p);
-                          dpm($key,'key alto');
                           foreach($key as $paso){
                             $total_questions[]=$questions_alto[$paso];
                           }
@@ -932,11 +923,9 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
               }
             }
           }
-
         }
       }
     }
-    dpm($total_questions);
 
     return $total_questions;
 
