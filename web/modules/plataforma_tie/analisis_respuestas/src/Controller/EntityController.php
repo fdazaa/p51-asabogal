@@ -66,6 +66,8 @@ class EntityController extends ControllerBase
 
     $categoria1 =[];    $categoria2 =[];    $categoria3 =[];    $categoria4 =[];    $categoria5 =[];
 
+    $tmp =[];
+
     $storage = \Drupal::entityTypeManager()->getStorage('quiz_result');
     $query = $storage->getQuery();
     $ids_result = $query->execute();
@@ -148,12 +150,13 @@ class EntityController extends ControllerBase
                   elseif($categoria == 'categoria4'){$log = sizeof($categoria4);$categoria4[$log] = $score;}
                   elseif($categoria == 'categoria5'){$log = sizeof($categoria5);$categoria5[$log] = $score;}
 
-
-
                 }else{
-
+                  $score = $answers->getPoints();
+                  $log=sizeof($tmp);
+                  $tmp[$log]=$score;
                 }
                 $cc[0]=$categoria1;     $cc[1]=$categoria2;     $cc[2]=$categoria3;      $cc[3]=$categoria4;     $cc[4]=$categoria5;
+
 
                 //ARRAY DE ADOPCION
                 $array_adopcion[0]=$proceso1; $array_adopcion[1]=$proceso2; $array_adopcion[2]=$proceso3; $array_adopcion[3]=$proceso4;
@@ -196,10 +199,28 @@ class EntityController extends ControllerBase
     for($i=0; $i<= sizeof($cc)-1; $i++) {
       $result_ctc[$i] = $this->CalculoDeProcesos($cc[$i]); //resultados de promedios por categoria
     }
-    $this->adopcionCreateIndicadores($result,$result_cpp,$result_ctc,$nombre_user,$form);
+
+    $result_tmp=$this->CalculoDeProcesos($tmp);
+
+    $result_total = $this->CalculoFinal($result_cpp,$result_ctc,$result_tmp);
+
+    $this->adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$nombre_user,$form);
 
 
     return ['#markup' => 'Ruta que crear entidades'];
+  }
+
+
+  public function CalculoFinal($cpp,$ctc,$tmp){
+    $log = 1;
+    for($i=0;$i<=4;$i++){
+      if($cpp[$i]!=[]){$log++;}
+      if($ctc[$i]!=[]){$log++;}
+
+      $result_total[$i]=($cpp[$i] + $ctc[$i] + $tmp)/$log;
+      $log=1;
+    }
+    return $result_total;
   }
 
   public function  CalculoDeProcesos($proceso){
@@ -235,7 +256,7 @@ class EntityController extends ControllerBase
   }
 
 
-  public function adopcionCreateIndicadores($p,$rcp,$ctc,$name,$form){
+  public function adopcionCreateIndicadores($p,$rcp,$ctc,$tmp,$tad,$name,$form){
     $values = [
       'title' => "Analisis de" . $form . "por " . $name,
       'type' => 'analisis_de_respuesta',
@@ -264,8 +285,15 @@ class EntityController extends ControllerBase
       'field_ptcc2'=> $ctc[1],
       'field_ptcc3'=> $ctc[2],
       'field_ptcc4'=> $ctc[3],
-      'field_ptcc5'=> $ctc[4]
+      'field_ptcc5'=> $ctc[4],
+      'field_tmp'=> $tmp,
+      'field_c1ad'=>$tad[0],
+      'field_c2ad'=>$tad[1],
+      'field_c3ad'=>$tad[2],
+      'field_c4ad'=>$tad[3],
+      'field_c5ad'=>$tad[4]
     ];
+
 
     $node = $this->entityTypeManager->getStorage('node')->create($values);
     $node->save();
