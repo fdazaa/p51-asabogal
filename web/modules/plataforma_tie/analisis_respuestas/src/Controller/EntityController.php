@@ -205,24 +205,24 @@ class EntityController extends ControllerBase
       }
     }
 
+    $nombre_user = \Drupal::currentUser()->getAccountName();
     foreach ($array_adopcion as $proceso){
-      $result[$i]=$this->calculo($proceso);
+      $result_ad[$i]=$this->CalculoDeProcesos($proceso);
       $i++;
       $form = " Adopción Tecnológica ";
     }
 
-    $nombre_user = \Drupal::currentUser()->getAccountName();
-
-
-    $this->adopcionCreateIndicadores($result,$nombre_user,$form);
 
 
 
-    //$this->adopcionCreateIndicadores($rm);
+
+    $this->adopcionCreateIndicadores($result_ad,$nombre_user,$form);
+
+
     return ['#markup' => 'Ruta que crear entidades'];
   }
 
-  public function  calculo($proceso){
+  public function  CalculoDeProcesos($proceso){
     $suma =0;
     if($proceso == []){
       return;
@@ -267,7 +267,6 @@ class EntityController extends ControllerBase
             $categoria_node =$paragraph->get('field_categoria_proceso')->getValue()[0]['target_id'] ?? NULL;
             $proceso_node =$paragraph->get('field_categoria_proceso')->getValue()[1]['target_id'] ?? NULL;
             if($categoria_node == $categoria_q && $proceso_node == $proceso_q){
-              //$criticidad = $paragraph->get('field_criticidad')->entity->get('field_id_estatico')->getString();
               $criticidad_value = $paragraph->get('field_criticidad')->entity->get('field_valor')->getValue()[0]['value'];
               return $criticidad_value;
             }
