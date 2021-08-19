@@ -97,7 +97,7 @@ class EntityController extends ControllerBase
                   $cat = $proceso_txt ? $proceso_txt->get('field_id_categoria')[0]->getString(): NULL;
                   $score = $answers->getPoints();
                   //-----------------------------------------------------------------------------------------
-                  if($tipo == 'adopcion'){
+                  //if($tipo == 'adopcion'){
 
                     if($process == 'proceso1'){$log = sizeof($proceso1); $proceso1[$log] = $score;}
                     elseif($process == 'proceso2'){$log = sizeof($proceso2);$proceso2[$log] = $score;}
@@ -116,27 +116,7 @@ class EntityController extends ControllerBase
                     elseif($process == 'proceso15'){$log = sizeof($proceso15);$proceso15[$log] = $score;}
                     else{$log = sizeof($proceso16);$proceso16[$log] = $score;}
 
-                  }
-                  else{
-
-                    if($process == 'proceso1'){$log = sizeof($proceso1_ap);$proceso1_ap[$log] = $score;}
-                    elseif($process == 'proceso2'){$log = sizeof($proceso2_ap);$proceso2_ap[$log] = $score;}
-                    elseif($process == 'proceso3'){$log = sizeof($proceso3_ap);$proceso3_ap[$log] = $score;}
-                    elseif($process == 'proceso4'){$log = sizeof($proceso4_ap);$proceso4_ap[$log] = $score;}
-                    elseif($process == 'proceso5'){$log = sizeof($proceso5_ap);$proceso5_ap[$log] = $score;}
-                    elseif($process == 'proceso6'){$log = sizeof($proceso6_ap);$proceso6_ap[$log] = $score;}
-                    elseif($process == 'proceso7'){$log = sizeof($proceso7_ap);$proceso7_ap[$log] = $score;}
-                    elseif($process == 'proceso8'){$log = sizeof($proceso8_ap);$proceso8_ap[$log] = $score;}
-                    elseif($process == 'proceso9'){$log = sizeof($proceso9_ap);$proceso9_ap[$log] = $score;}
-                    elseif($process == 'proceso10'){$log = sizeof($proceso10_ap);$proceso10_ap[$log] = $score;}
-                    elseif($process == 'proceso11'){$log = sizeof($proceso11_ap);$proceso11_ap[$log] = $score;}
-                    elseif($process == 'proceso12'){$log = sizeof($proceso12_ap);$proceso12_ap[$log] = $score;}
-                    elseif($process == 'proceso13'){$log = sizeof($proceso13_ap);$proceso13_ap[$log] = $score;}
-                    elseif($process == 'proceso14'){$log = sizeof($proceso14_ap);$proceso14_ap[$log] = $score;}
-                    elseif($process == 'proceso15'){$log = sizeof($proceso15_ap);$proceso15_ap[$log] = $score;}
-                    else{$log = sizeof($proceso16_ap);$proceso16_ap[$log] = $score;}
-                  }
-
+                  //}
                   //-----------------------------------------------------------------------------------------
 
 
@@ -186,7 +166,6 @@ class EntityController extends ControllerBase
     foreach ($array_adopcion as $proceso){
       $result[$i]=$this->CalculoDeProcesos($proceso); //resultados pro proceso
       $i++;
-      $form = " Adopción Tecnológica ";
     }
     $cpp = [];
     $cpp[0]= [$result[0], $result[1]];
@@ -212,10 +191,12 @@ class EntityController extends ControllerBase
 
     //----------- CALCULOS APROPIACION --------------------------------------------------------------------------
 
+    dpm($tipo);
 
 
 
-    $this->adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$form);
+
+    $this->adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$tipo);
 
 
     return ['#markup' => 'Ruta que crear entidades'];
@@ -278,8 +259,9 @@ class EntityController extends ControllerBase
 
   public function adopcionCreateIndicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
     $values = [
-      'title' => "Analisis de" . $form . "por " . $name,
+      'title' => "Analisis de " . $form . " tecnológica por " . $name,
       'type' => 'analisis_de_respuesta',
+      'field_origen' => $form,
       'field_proceso_1'=> $p[0],
       'field_proceso_2'=> $p[1],
       'field_proceso_3'=> $p[2],
