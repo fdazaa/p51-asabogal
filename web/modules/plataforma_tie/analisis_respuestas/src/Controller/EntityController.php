@@ -55,16 +55,16 @@ class EntityController extends ControllerBase
   public function entityCreate() {
     $i=0;
     $result=[];
+
     $array_adopcion =[];
     $proceso1 =[]; $proceso2 =[]; $proceso3 =[]; $proceso4 =[]; $proceso5 =[]; $proceso6 =[]; $proceso7 =[]; $proceso8 =[]; $proceso9 =[];
     $proceso10 =[]; $proceso11 =[]; $proceso12 =[]; $proceso13 =[]; $proceso14 =[]; $proceso15 =[]; $proceso16 =[];
+
     $array_apropiacion = [];
     $proceso1_ap =[]; $proceso2_ap =[]; $proceso3_ap =[]; $proceso4_ap =[]; $proceso5_ap =[]; $proceso6_ap =[]; $proceso7_ap =[]; $proceso8_ap =[]; $proceso9_ap =[];
     $proceso10_ap =[]; $proceso11_ap =[]; $proceso12_ap =[]; $proceso13_ap =[]; $proceso14_ap =[]; $proceso15_ap =[]; $proceso16_ap =[];
 
-    $categoria_adp =[];
-
-
+    $categoria1 =[];    $categoria2 =[];    $categoria3 =[];    $categoria4 =[];    $categoria5 =[];
 
     $storage = \Drupal::entityTypeManager()->getStorage('quiz_result');
     $query = $storage->getQuery();
@@ -139,12 +139,22 @@ class EntityController extends ControllerBase
 
 
                 }elseif($clase == 'TC'){
-                  $categoria_proceso = $question->get('field_categoria_proceso')->getValue();
-                  $categoria = $categoria_proceso[0]['target_id'] ?? NULL;
+                  $categoria_txt = $question->get('field_categoria_proceso')->referencedEntities()[0];
+                  $categoria = $categoria_txt ? $categoria_txt->get('field_id_categoria')[0]->getString(): NULL;
+                  $score = $answers->getPoints();
+                  if($categoria == 'categoria1'){$log = sizeof($categoria1); $categoria1[$log] = $score;}
+                  elseif($categoria == 'categoria2'){$log = sizeof($categoria2);$categoria2[$log] = $score;}
+                  elseif($categoria == 'categoria3'){$log = sizeof($categoria3);$categoria3[$log] = $score;}
+                  elseif($categoria == 'categoria4'){$log = sizeof($categoria4);$categoria4[$log] = $score;}
+                  elseif($categoria == 'categoria5'){$log = sizeof($categoria5);$categoria5[$log] = $score;}
+
+
 
                 }else{
 
                 }
+                $cc[0]=$categoria1;     $cc[1]=$categoria2;     $cc[2]=$categoria3;      $cc[3]=$categoria4;     $cc[4]=$categoria5;
+
                 //ARRAY DE ADOPCION
                 $array_adopcion[0]=$proceso1; $array_adopcion[1]=$proceso2; $array_adopcion[2]=$proceso3; $array_adopcion[3]=$proceso4;
                 $array_adopcion[4]=$proceso5; $array_adopcion[5]=$proceso6; $array_adopcion[6]=$proceso7; $array_adopcion[7]=$proceso8;
@@ -168,7 +178,7 @@ class EntityController extends ControllerBase
 
     $nombre_user = \Drupal::currentUser()->getAccountName();
     foreach ($array_adopcion as $proceso){
-      $result[$i]=$this->CalculoDeProcesos($proceso);
+      $result[$i]=$this->CalculoDeProcesos($proceso); //resultados pro proceso
       $i++;
       $form = " Adopción Tecnológica ";
     }
@@ -180,11 +190,13 @@ class EntityController extends ControllerBase
     $cpp[4]= [$result[13], $result[14],  $result[15]];
 
     for($i=0; $i<= sizeof($cpp)-1; $i++) {
-      $result_cpp[$i] = $this->CalculoDeCategoriasProceso($cpp[$i]);
+      $result_cpp[$i] = $this->CalculoDeCategoriasProceso($cpp[$i]); //resultados de promedios por categoria
     }
 
-
-    $this->adopcionCreateIndicadores($result,$result_cpp,$nombre_user,$form);
+    for($i=0; $i<= sizeof($cc)-1; $i++) {
+      $result_ctc[$i] = $this->CalculoDeProcesos($cc[$i]); //resultados de promedios por categoria
+    }
+    $this->adopcionCreateIndicadores($result,$result_cpp,$result_ctc,$nombre_user,$form);
 
 
     return ['#markup' => 'Ruta que crear entidades'];
@@ -223,50 +235,7 @@ class EntityController extends ControllerBase
   }
 
 
-
-  public function MatrizDeCalor($categoria_q, $proceso_q){
-
-    $storage =\Drupal::entityTypeManager()->getStorage('group');
-    $query = $storage->getQuery();
-    $ids =$query->execute();
-    $groups = !empty($ids) ? $storage->loadMultiple($ids):[];
-    foreach ($groups as $group){
-      $tipo_empresa_group = $group->get('field_tipo')->getValue()[0]['target_id'] ?? NULL;
-      $tamano_empresa_group = $group->get('field_tamano_de_empresa')->getValue()[0]['target_id'] ?? NULL;
-      $storage = \Drupal::entityTypeManager()->getStorage('node');
-      $query = $storage->getQuery()
-        ->condition('type','matriz_de_calor')
-        ->condition('status',1);
-      $ids = $query->execute();
-      $nodes = !empty($ids) ? $storage->loadMultiple($ids):[];
-      foreach ($nodes as $node){
-        $rol_node = $node->get('field_rol_del_evaluador')->entity->get('field_rol')->referencedEntities()[0]->id();
-        $tipo_empresa_node = $node->get('field_tipo_de_empresa')->getValue()[0]['target_id'] ?? NULL;
-        $tamano_empresa_node = $node->get('field_tamano_de_empresa')->getValue()[0]['target_id'] ?? NULL;
-        $rol = \Drupal::currentUser()->getRoles()[1];
-        if($tipo_empresa_group == $tipo_empresa_node && $tamano_empresa_group == $tamano_empresa_node && $rol == $rol_node){
-          $cumple =1;
-          $categoria_proceso_node = $node->get('field_categoria_proceso_y_critic')->referencedEntities();
-          foreach ($categoria_proceso_node as $paragraph){
-            $categoria_node =$paragraph->get('field_categoria_proceso')->getValue()[0]['target_id'] ?? NULL;
-            $proceso_node =$paragraph->get('field_categoria_proceso')->getValue()[1]['target_id'] ?? NULL;
-            if($categoria_node == $categoria_q && $proceso_node == $proceso_q){
-              $criticidad_value = $paragraph->get('field_criticidad')->entity->get('field_valor')->getValue()[0]['value'];
-              return $criticidad_value;
-            }
-          }
-        }else{
-          $cumple=0;
-        }
-      }
-    }
-    //return $criticidad;
-
-  }
-
-
-
-  public function adopcionCreateIndicadores($p,$rcp,$name, $form){
+  public function adopcionCreateIndicadores($p,$rcp,$ctc,$name,$form){
     $values = [
       'title' => "Analisis de" . $form . "por " . $name,
       'type' => 'analisis_de_respuesta',
@@ -290,7 +259,12 @@ class EntityController extends ControllerBase
       'field_ppc2'=> $rcp[1],
       'field_ppc3'=> $rcp[2],
       'field_ppc4'=> $rcp[3],
-      'field_ppc5'=> $rcp[4]
+      'field_ppc5'=> $rcp[4],
+      'field_ptcc1'=> $ctc[0],
+      'field_ptcc2'=> $ctc[1],
+      'field_ptcc3'=> $ctc[2],
+      'field_ptcc4'=> $ctc[3],
+      'field_ptcc5'=> $ctc[4]
     ];
 
     $node = $this->entityTypeManager->getStorage('node')->create($values);
@@ -345,8 +319,6 @@ class EntityController extends ControllerBase
     $node->delete();
     return ['#markup' => 'Ruta que elimina entidades'];
   }
-
-
 
 
   public function entityQuery() {
