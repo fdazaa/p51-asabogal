@@ -62,6 +62,10 @@ class EntityController extends ControllerBase
     $proceso1_ap =[]; $proceso2_ap =[]; $proceso3_ap =[]; $proceso4_ap =[]; $proceso5_ap =[]; $proceso6_ap =[]; $proceso7_ap =[]; $proceso8_ap =[]; $proceso9_ap =[];
     $proceso10_ap =[]; $proceso11_ap =[]; $proceso12_ap =[]; $proceso13_ap =[]; $proceso14_ap =[]; $proceso15_ap =[]; $proceso16_ap =[];
 
+    $categoria_adp =[];
+
+
+
     $storage = \Drupal::entityTypeManager()->getStorage('quiz_result');
     $query = $storage->getQuery();
     $ids_result = $query->execute();
@@ -88,9 +92,11 @@ class EntityController extends ControllerBase
                 if($clase == 'P') {
                   $proceso_txt = $question->get('field_categoria_proceso')->referencedEntities()[1];
                   $process = $proceso_txt ? $proceso_txt->get('field_id_proceso')[0]->getString(): NULL;
+                  $cat = $proceso_txt ? $proceso_txt->get('field_id_categoria')[0]->getString(): NULL;
                   $score = $answers->getPoints();
                   //-----------------------------------------------------------------------------------------
                   if($tipo == 'adopcion'){
+
                     if($process == 'proceso1'){$log = sizeof($proceso1); $proceso1[$log] = $score;}
                     elseif($process == 'proceso2'){$log = sizeof($proceso2);$proceso2[$log] = $score;}
                     elseif($process == 'proceso3'){$log = sizeof($proceso3);$proceso3[$log] = $score;}
@@ -107,73 +113,26 @@ class EntityController extends ControllerBase
                     elseif($process == 'proceso14'){$log = sizeof($proceso14);$proceso14[$log] = $score;}
                     elseif($process == 'proceso15'){$log = sizeof($proceso15);$proceso15[$log] = $score;}
                     else{$log = sizeof($proceso16);$proceso16[$log] = $score;}
+
                   }
                   else{
 
-                    if($process == 'proceso1'){
-                      $log = sizeof($proceso1_ap);
-                      $proceso1_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso2'){
-                      $log = sizeof($proceso2_ap);
-                      $proceso2_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso3'){
-                      $log = sizeof($proceso3_ap);
-                      $proceso3_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso4'){
-                      $log = sizeof($proceso4_ap);
-                      $proceso4_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso5'){
-                      $log = sizeof($proceso5_ap);
-                      $proceso5_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso6'){
-                      $log = sizeof($proceso6_ap);
-                      $proceso6_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso7'){
-                      $log = sizeof($proceso7_ap);
-                      $proceso7_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso8'){
-                      $log = sizeof($proceso8_ap);
-                      $proceso8_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso9'){
-                      $log = sizeof($proceso9_ap);
-                      $proceso9_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso10'){
-                      $log = sizeof($proceso10_ap);
-                      $proceso10_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso11'){
-                      $log = sizeof($proceso11_ap);
-                      $proceso11_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso12'){
-                      $log = sizeof($proceso12_ap);
-                      $proceso12_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso13'){
-                      $log = sizeof($proceso13_ap);
-                      $proceso13_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso14'){
-                      $log = sizeof($proceso14_ap);
-                      $proceso14_ap[$log] = $score;
-                    }
-                    elseif($process == 'proceso15'){
-                      $log = sizeof($proceso15_ap);
-                      $proceso15_ap[$log] = $score;
-                    }
-                    else{
-                      $log = sizeof($proceso16_ap);
-                      $proceso16_ap[$log] = $score;
-                    }
+                    if($process == 'proceso1'){$log = sizeof($proceso1_ap);$proceso1_ap[$log] = $score;}
+                    elseif($process == 'proceso2'){$log = sizeof($proceso2_ap);$proceso2_ap[$log] = $score;}
+                    elseif($process == 'proceso3'){$log = sizeof($proceso3_ap);$proceso3_ap[$log] = $score;}
+                    elseif($process == 'proceso4'){$log = sizeof($proceso4_ap);$proceso4_ap[$log] = $score;}
+                    elseif($process == 'proceso5'){$log = sizeof($proceso5_ap);$proceso5_ap[$log] = $score;}
+                    elseif($process == 'proceso6'){$log = sizeof($proceso6_ap);$proceso6_ap[$log] = $score;}
+                    elseif($process == 'proceso7'){$log = sizeof($proceso7_ap);$proceso7_ap[$log] = $score;}
+                    elseif($process == 'proceso8'){$log = sizeof($proceso8_ap);$proceso8_ap[$log] = $score;}
+                    elseif($process == 'proceso9'){$log = sizeof($proceso9_ap);$proceso9_ap[$log] = $score;}
+                    elseif($process == 'proceso10'){$log = sizeof($proceso10_ap);$proceso10_ap[$log] = $score;}
+                    elseif($process == 'proceso11'){$log = sizeof($proceso11_ap);$proceso11_ap[$log] = $score;}
+                    elseif($process == 'proceso12'){$log = sizeof($proceso12_ap);$proceso12_ap[$log] = $score;}
+                    elseif($process == 'proceso13'){$log = sizeof($proceso13_ap);$proceso13_ap[$log] = $score;}
+                    elseif($process == 'proceso14'){$log = sizeof($proceso14_ap);$proceso14_ap[$log] = $score;}
+                    elseif($process == 'proceso15'){$log = sizeof($proceso15_ap);$proceso15_ap[$log] = $score;}
+                    else{$log = sizeof($proceso16_ap);$proceso16_ap[$log] = $score;}
                   }
 
                   //-----------------------------------------------------------------------------------------
@@ -192,6 +151,8 @@ class EntityController extends ControllerBase
                 $array_adopcion[8]=$proceso9; $array_adopcion[9]=$proceso10; $array_adopcion[10]=$proceso11; $array_adopcion[11]=$proceso12;
                 $array_adopcion[12]=$proceso13; $array_adopcion[13]=$proceso14; $array_adopcion[14]=$proceso15; $array_adopcion[15]=$proceso16;
 
+
+
                 //ARRAY DE APROPIACION
 
                 $array_apropiacion[0] = $proceso1_ap; $array_apropiacion[1] = $proceso2_ap; $array_apropiacion[2] = $proceso3_ap; $array_apropiacion[3] = $proceso4_ap;
@@ -207,16 +168,23 @@ class EntityController extends ControllerBase
 
     $nombre_user = \Drupal::currentUser()->getAccountName();
     foreach ($array_adopcion as $proceso){
-      $result_ad[$i]=$this->CalculoDeProcesos($proceso);
+      $result[$i]=$this->CalculoDeProcesos($proceso);
       $i++;
       $form = " Adopción Tecnológica ";
     }
+    $cpp = [];
+    $cpp[0]= [$result[0], $result[1]];
+    $cpp[1]= [$result[2], $result[3],    $result[4]];
+    $cpp[2]= [$result[5], $result[6],    $result[7],    $result[8],    $result[9]];
+    $cpp[3]= [$result[10], $result[11],  $result[12]];
+    $cpp[4]= [$result[13], $result[14],  $result[15]];
+
+    for($i=0; $i<= sizeof($cpp)-1; $i++) {
+      $result_cpp[$i] = $this->CalculoDeCategoriasProceso($cpp[$i]);
+    }
 
 
-
-
-
-    $this->adopcionCreateIndicadores($result_ad,$nombre_user,$form);
+    $this->adopcionCreateIndicadores($result,$result_cpp,$nombre_user,$form);
 
 
     return ['#markup' => 'Ruta que crear entidades'];
@@ -235,6 +203,22 @@ class EntityController extends ControllerBase
     $porcentaje = ($suma*100)/$valor_maximo;
 
     return $porcentaje;
+
+  }
+
+  public function  CalculoDeCategoriasProceso($result_cpp){
+
+    if($result_cpp == []){return ;};
+
+    foreach ($result_cpp as $rp){
+      if($rp == []){$rp=0;}
+      else{$log++;}
+      $suma=$suma+$rp;
+    }
+    if($log==0){return;}
+    $cppt=$suma/$log;
+
+    return $cppt;
 
   }
 
@@ -282,9 +266,10 @@ class EntityController extends ControllerBase
 
 
 
-  public function adopcionCreateIndicadores($p,$name, $form){
+  public function adopcionCreateIndicadores($p,$rcp,$name, $form){
     $values = [
       'title' => "Analisis de" . $form . "por " . $name,
+      'type' => 'analisis_de_respuesta',
       'field_proceso_1'=> $p[0],
       'field_proceso_2'=> $p[1],
       'field_proceso_3'=> $p[2],
@@ -301,13 +286,15 @@ class EntityController extends ControllerBase
       'field_proceso_14'=> $p[13],
       'field_proceso_15'=> $p[14],
       'field_proceso_16'=> $p[15],
-      'type' => 'analisis_de_respuesta'
-
+      'field_ppc1'=> $rcp[0],
+      'field_ppc2'=> $rcp[1],
+      'field_ppc3'=> $rcp[2],
+      'field_ppc4'=> $rcp[3],
+      'field_ppc5'=> $rcp[4]
     ];
 
     $node = $this->entityTypeManager->getStorage('node')->create($values);
     $node->save();
-    dpm($node, 'node');
 
     $values = [
       'type' => 'group_content_type_0b89a4774c92a',
