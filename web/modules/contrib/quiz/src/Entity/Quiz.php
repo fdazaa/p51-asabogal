@@ -750,6 +750,7 @@ class Quiz extends EditorialContentEntityBase implements EntityChangedInterface,
                                   'vid'=>$quiz_question->getRevisionId()
                                 ];
                               }
+
                             }
                           }
                         }

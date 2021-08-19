@@ -141,6 +141,7 @@ class EntityController extends ControllerBase
 
 
                 }elseif($clase == 'TC'){
+
                   $categoria_txt = $question->get('field_categoria_proceso')->referencedEntities()[0];
                   $categoria = $categoria_txt ? $categoria_txt->get('field_id_categoria')[0]->getString(): NULL;
                   $score = $answers->getPoints();
@@ -180,6 +181,8 @@ class EntityController extends ControllerBase
     }
 
     $nombre_user = \Drupal::currentUser()->getAccountName();
+
+    //---------- CALCULOS DE ADOPCION ------------------------------------------------
     foreach ($array_adopcion as $proceso){
       $result[$i]=$this->CalculoDeProcesos($proceso); //resultados pro proceso
       $i++;
@@ -202,13 +205,30 @@ class EntityController extends ControllerBase
 
     $result_tmp=$this->CalculoDeProcesos($tmp);
 
+
     $result_total = $this->CalculoFinal($result_cpp,$result_ctc,$result_tmp);
 
-    $this->adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$nombre_user,$form);
+    $total = $this->CalculoTotal($result_total);
+
+    //----------- CALCULOS APROPIACION --------------------------------------------------------------------------
+
+
+
+
+    $this->adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$form);
 
 
     return ['#markup' => 'Ruta que crear entidades'];
   }
+
+  public function CalculoTotal($result){
+    for($i=0; $i<=4;$i++){
+      $total = $total+$result[$i];
+    }
+    $rt = $total/5;
+    return $rt;
+  }
+
 
 
   public function CalculoFinal($cpp,$ctc,$tmp){
@@ -256,7 +276,7 @@ class EntityController extends ControllerBase
   }
 
 
-  public function adopcionCreateIndicadores($p,$rcp,$ctc,$tmp,$tad,$name,$form){
+  public function adopcionCreateIndicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
     $values = [
       'title' => "Analisis de" . $form . "por " . $name,
       'type' => 'analisis_de_respuesta',
@@ -291,7 +311,8 @@ class EntityController extends ControllerBase
       'field_c2ad'=>$tad[1],
       'field_c3ad'=>$tad[2],
       'field_c4ad'=>$tad[3],
-      'field_c5ad'=>$tad[4]
+      'field_c5ad'=>$tad[4],
+      'field_total' => $rt
     ];
 
 
