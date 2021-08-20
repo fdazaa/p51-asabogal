@@ -1,5 +1,35 @@
 <?php
 
+use \Drupal\quiz\Entity\QuizQuestionAnsweringForm;
+
+
+/**
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ *
+ */
+
+
+function analisis_respuestas_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  if($form_id == 'quiz_jumper_form'){
+    if($form['#attributes']['data-confirm-message']){
+      generadorindicadores();
+    }
+  }
+  $storage=\Drupal::entityTypeManager()->getStorage('quiz');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  dpm($ids);
+  dpm($form_state,'id');
+}
+
+
+
+
+
+
 /**
  * Implements hook_help().
  */
@@ -281,5 +311,7 @@ function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
   $entity->save();
 
 }
+
+
 
 
