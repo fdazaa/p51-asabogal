@@ -4,6 +4,7 @@ module:
   admin_toolbar_links_access_filter: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
+  analisis_respuestas: 0
   automated_cron: 0
   backup_migrate: 0
   big_pipe: 0
@@ -34,7 +35,6 @@ module:
   contextual: 0
   cshs: 0
   csv_serialization: 0
-  curso_module: 0
   datetime: 0
   datetime_range: 0
   dblog: 0
@@ -45,7 +45,6 @@ module:
   entity: 0
   entity_reference_revisions: 0
   epayco: 0
-  evaluation_tie: 0
   field: 0
   field_group: 0
   field_ui: 0
