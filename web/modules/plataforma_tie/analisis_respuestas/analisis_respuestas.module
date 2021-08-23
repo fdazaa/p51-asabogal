@@ -12,22 +12,26 @@ use \Drupal\quiz\Entity\QuizQuestionAnsweringForm;
 
 
 function analisis_respuestas_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $storage=\Drupal::entityTypeManager()->getStorage('quiz');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+
+  foreach ($form_state->getBuildInfo() as $item) {
+    $f = reset($item);
+    if ($f instanceof Drupal\quiz\Entity\QuizResult) {
+      $id = $f->get('qid')[0]->getValue()['target_id'];
+      dpm($id);
+    }
+  }
 
   if($form_id == 'quiz_jumper_form'){
     if($form['#attributes']['data-confirm-message']){
       generadorindicadores();
     }
   }
-  $storage=\Drupal::entityTypeManager()->getStorage('quiz');
-  $query = $storage->getQuery();
-  $ids = $query->execute();
-  dpm($ids);
-  dpm($form_state,'id');
+
+
 }
-
-
-
-
 
 
 /**
