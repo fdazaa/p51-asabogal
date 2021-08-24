@@ -251,13 +251,14 @@ function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
     'field_total' => $rt
   ];
 
+  $gid = bucargrupo();
 
   $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
   $node->save();
 
   $values = [
     'type' => 'group_content_type_0b89a4774c92a',
-    'gid' => 4,
+    'gid' => $gid,
     'entity_id' => ['target_id' => $node->id()],
   ];
 
@@ -266,6 +267,24 @@ function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
 
 }
 
+function bucargrupo(){
+  $storage=\Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  $groups =!empty($ids) ? $storage->loadMultiple($ids):[];
+  foreach($groups as $group){
+    $members = $group->getMembers();
 
+    foreach($members as $member){
+      $id_members = $member->getUser();
+      if ($id_members) {  $id_member=$id_members->id();}
+      $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
+      if($id_general == $id_member){
+        $gid = $group->id();
+      }
+    }
+  }
+  return $gid;
+}
 
 

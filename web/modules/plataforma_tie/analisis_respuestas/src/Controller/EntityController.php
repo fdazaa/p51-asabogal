@@ -53,7 +53,26 @@ class EntityController extends ControllerBase
   }
 
   public function entityCreate() {
-    GeneradorIndicadores();
+
+    $storage=\Drupal::entityTypeManager()->getStorage('group');
+    $query = $storage->getQuery();
+    $ids = $query->execute();
+    $groups =!empty($ids) ? $storage->loadMultiple($ids):[];
+    foreach($groups as $group){
+      $members = $group->getMembers();
+
+      foreach($members as $member){
+        $id_members = $member->getUser();
+        if ($id_members) {  $id_member=$id_members->id();}
+        $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
+        if($id_general == $id_member){
+          $gid = $group->id();
+          dpm($gid);
+        }
+      }
+
+    }
+
 
     return ['#markup' => 'Ruta que crear entidades'];
   }
