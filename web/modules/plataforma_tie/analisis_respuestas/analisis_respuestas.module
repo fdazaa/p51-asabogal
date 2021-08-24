@@ -65,9 +65,12 @@ function generadorindicadores($id) {
         $id_qs = $question->id();
         if($id_qs == $id_question){
           $tipo_qs = $question->get('field_tipo')->entity;
-          $tipo = $tipo_qs ? $tipo_qs->get('field_tipo_form')[0]->getString() : NULL;
-          //dpm($tipo);
-          //if($tipo == $id_rf){
+          $tipo_1 = $tipo_qs ? $tipo_qs->get('field_tipo_form')[0]->getString() : NULL;
+          if($tipo_1 == 'adopcion'){
+            $tipo = 'Adopción';
+          }elseif ($tipo_1 == 'apropiacion'){
+            $tipo = 'Apropiación';
+          }
             $clase_qs = $question->get('field_clasificacion')->entity;
             $clase = $clase_qs ? $clase_qs->get('field_id_estatico_terms')[0]->getString() :NULL;
             if($clase == 'P') {
