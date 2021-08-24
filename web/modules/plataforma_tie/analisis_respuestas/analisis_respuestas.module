@@ -15,27 +15,29 @@ function analisis_respuestas_form_alter(&$form, \Drupal\Core\Form\FormStateInter
   if($form_id == 'quiz_question_answering_form') {
     $form['#submit'][]= 'analisis_respuestas_form_submit';
   }
+
 }
+
 function analisis_respuestas_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
   // Aquí el código al hacer submit.
   $last = $form['navigation']['#last'];
   if($last == 1){
-    foreach ($form_state->getBuildInfo() as $item) {
-      $f = reset($item);
-      if ($f instanceof Drupal\quiz\Entity\QuizResult) {
-        $id = $f->id();
+    foreach ($form_state->getBuildInfo() as $item){
+      foreach ($item as $items){
+        if($items instanceof  Drupal\quiz\Entity\QuizResult){
+          $id = $items->id();
+        }
       }
     }
     generadorindicadores($id);
   }
-
 }
 
 
 
 
 
-function generadorindicadores() {
+function generadorindicadores($id) {
   $i=0;
   $result=[];
 
@@ -47,91 +49,86 @@ function generadorindicadores() {
 
   $tmp =[];
 
-  $storage = \Drupal::entityTypeManager()->getStorage('quiz_result');
-  $query = $storage->getQuery();
-  $ids_result = $query->execute();
-  $quiz_results = !empty($ids_result) ? $storage->loadMultiple($ids_result):[];
-  foreach ($quiz_results as $quiz_result){
-    if($quiz_result->getAccount()->id() == \Drupal::currentUser()->id()){
-      $ids_answer = \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->getQuery()->execute();
-      $quiz_answer = !empty($ids_answer) ? \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->loadMultiple($ids_answer):[];
-      foreach ($quiz_answer as $answers){
-        if($answers->referencedEntities()[0]->id() == $quiz_result->id()){
-          //dpm($quiz_result->id());
-          $id_question = $answers->referencedEntities()[1]->id(); // Extrae ID de las preguntas
-          $storage = \Drupal::entityTypeManager()->getStorage('quiz_question');
-          $query = $storage->getQuery();
-          $ids_questions = $query->execute();
-          $questions = !empty($ids_questions) ? $storage->loadMultiple($ids_questions):[];
-          foreach ($questions as $question){
-            $id_qs = $question->id();
-            if($id_qs == $id_question){
-              $tipo_qs = $question->get('field_tipo')->entity;
-              $tipo = $tipo_qs ? $tipo_qs->get('field_tipo_form')[0]->getString() : NULL;
-              //dpm($tipo);
-              //if($tipo == $id_rf){
-                $clase_qs = $question->get('field_clasificacion')->entity;
-                $clase = $clase_qs ? $clase_qs->get('field_id_estatico_terms')[0]->getString() :NULL;
-                if($clase == 'P') {
-                  $proceso_txt = $question->get('field_categoria_proceso')->referencedEntities()[1];
-                  $process = $proceso_txt ? $proceso_txt->get('field_id_proceso')[0]->getString(): NULL;
-                  $cat = $proceso_txt ? $proceso_txt->get('field_id_categoria')[0]->getString(): NULL;
-                  $score = $answers->getPoints();
-                  //-----------------------------------------------------------------------------------------
-                  //if($tipo == 'adopcion'){
-
-                  if($process == 'proceso1'){$log = sizeof($proceso1); $proceso1[$log] = $score;}
-                  elseif($process == 'proceso2'){$log = sizeof($proceso2);$proceso2[$log] = $score;}
-                  elseif($process == 'proceso3'){$log = sizeof($proceso3);$proceso3[$log] = $score;}
-                  elseif($process == 'proceso4'){$log = sizeof($proceso4);$proceso4[$log] = $score;}
-                  elseif($process == 'proceso5'){$log = sizeof($proceso5);$proceso5[$log] = $score;}
-                  elseif($process == 'proceso6'){$log = sizeof($proceso6);$proceso6[$log] = $score;}
-                  elseif($process == 'proceso7'){ $log = sizeof($proceso7);$proceso7[$log] = $score;}
-                  elseif($process == 'proceso8'){ $log = sizeof($proceso8);$proceso8[$log] = $score;}
-                  elseif($process == 'proceso9'){ $log = sizeof($proceso9);$proceso9[$log] = $score;}
-                  elseif($process == 'proceso10'){$log = sizeof($proceso10);$proceso10[$log] = $score;}
-                  elseif($process == 'proceso11'){$log = sizeof($proceso11);$proceso11[$log] = $score;}
-                  elseif($process == 'proceso12'){$log = sizeof($proceso12);$proceso12[$log] = $score;}
-                  elseif($process == 'proceso13'){$log = sizeof($proceso13);$proceso13[$log] = $score;}
-                  elseif($process == 'proceso14'){$log = sizeof($proceso14);$proceso14[$log] = $score;}
-                  elseif($process == 'proceso15'){$log = sizeof($proceso15);$proceso15[$log] = $score;}
-                  else{$log = sizeof($proceso16);$proceso16[$log] = $score;}
-
-                  //}
-                  //-----------------------------------------------------------------------------------------
 
 
-                }elseif($clase == 'TC'){
 
-                  $categoria_txt = $question->get('field_categoria_proceso')->referencedEntities()[0];
-                  $categoria = $categoria_txt ? $categoria_txt->get('field_id_categoria')[0]->getString(): NULL;
-                  $score = $answers->getPoints();
-                  if($categoria == 'categoria1'){$log = sizeof($categoria1); $categoria1[$log] = $score;}
-                  elseif($categoria == 'categoria2'){$log = sizeof($categoria2);$categoria2[$log] = $score;}
-                  elseif($categoria == 'categoria3'){$log = sizeof($categoria3);$categoria3[$log] = $score;}
-                  elseif($categoria == 'categoria4'){$log = sizeof($categoria4);$categoria4[$log] = $score;}
-                  elseif($categoria == 'categoria5'){$log = sizeof($categoria5);$categoria5[$log] = $score;}
+  $ids_answer = \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->getQuery()->execute();
+  $quiz_answer = !empty($ids_answer) ? \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->loadMultiple($ids_answer):[];
+  foreach ($quiz_answer as $answers){
+    if($answers->referencedEntities()[0]->id() == $id){
+      $id_question = $answers->referencedEntities()[1]->id(); // Extrae ID de las preguntas
+      $storage = \Drupal::entityTypeManager()->getStorage('quiz_question');
+      $query = $storage->getQuery();
+      $ids_questions = $query->execute();
+      $questions = !empty($ids_questions) ? $storage->loadMultiple($ids_questions):[];
+      foreach ($questions as $question){
+        $id_qs = $question->id();
+        if($id_qs == $id_question){
+          $tipo_qs = $question->get('field_tipo')->entity;
+          $tipo = $tipo_qs ? $tipo_qs->get('field_tipo_form')[0]->getString() : NULL;
+          //dpm($tipo);
+          //if($tipo == $id_rf){
+            $clase_qs = $question->get('field_clasificacion')->entity;
+            $clase = $clase_qs ? $clase_qs->get('field_id_estatico_terms')[0]->getString() :NULL;
+            if($clase == 'P') {
+              $proceso_txt = $question->get('field_categoria_proceso')->referencedEntities()[1];
+              $process = $proceso_txt ? $proceso_txt->get('field_id_proceso')[0]->getString(): NULL;
+              $cat = $proceso_txt ? $proceso_txt->get('field_id_categoria')[0]->getString(): NULL;
+              $score = $answers->getPoints();
+              //-----------------------------------------------------------------------------------------
+              //if($tipo == 'adopcion'){
 
-                }else{
-                  $score = $answers->getPoints();
-                  $log=sizeof($tmp);
-                  $tmp[$log]=$score;
-                }
-                $cc[0]=$categoria1;     $cc[1]=$categoria2;     $cc[2]=$categoria3;      $cc[3]=$categoria4;     $cc[4]=$categoria5;
+              if($process == 'proceso1'){$log = sizeof($proceso1); $proceso1[$log] = $score;}
+              elseif($process == 'proceso2'){$log = sizeof($proceso2);$proceso2[$log] = $score;}
+              elseif($process == 'proceso3'){$log = sizeof($proceso3);$proceso3[$log] = $score;}
+              elseif($process == 'proceso4'){$log = sizeof($proceso4);$proceso4[$log] = $score;}
+              elseif($process == 'proceso5'){$log = sizeof($proceso5);$proceso5[$log] = $score;}
+              elseif($process == 'proceso6'){$log = sizeof($proceso6);$proceso6[$log] = $score;}
+              elseif($process == 'proceso7'){ $log = sizeof($proceso7);$proceso7[$log] = $score;}
+              elseif($process == 'proceso8'){ $log = sizeof($proceso8);$proceso8[$log] = $score;}
+              elseif($process == 'proceso9'){ $log = sizeof($proceso9);$proceso9[$log] = $score;}
+              elseif($process == 'proceso10'){$log = sizeof($proceso10);$proceso10[$log] = $score;}
+              elseif($process == 'proceso11'){$log = sizeof($proceso11);$proceso11[$log] = $score;}
+              elseif($process == 'proceso12'){$log = sizeof($proceso12);$proceso12[$log] = $score;}
+              elseif($process == 'proceso13'){$log = sizeof($proceso13);$proceso13[$log] = $score;}
+              elseif($process == 'proceso14'){$log = sizeof($proceso14);$proceso14[$log] = $score;}
+              elseif($process == 'proceso15'){$log = sizeof($proceso15);$proceso15[$log] = $score;}
+              else{$log = sizeof($proceso16);$proceso16[$log] = $score;}
+
+              //}
+              //-----------------------------------------------------------------------------------------
 
 
-                //ARRAY DE ADOPCION
-                $array_adopcion[0]=$proceso1; $array_adopcion[1]=$proceso2; $array_adopcion[2]=$proceso3; $array_adopcion[3]=$proceso4;
-                $array_adopcion[4]=$proceso5; $array_adopcion[5]=$proceso6; $array_adopcion[6]=$proceso7; $array_adopcion[7]=$proceso8;
-                $array_adopcion[8]=$proceso9; $array_adopcion[9]=$proceso10; $array_adopcion[10]=$proceso11; $array_adopcion[11]=$proceso12;
-                $array_adopcion[12]=$proceso13; $array_adopcion[13]=$proceso14; $array_adopcion[14]=$proceso15; $array_adopcion[15]=$proceso16;
-             //}
+            }elseif($clase == 'TC'){
+
+              $categoria_txt = $question->get('field_categoria_proceso')->referencedEntities()[0];
+              $categoria = $categoria_txt ? $categoria_txt->get('field_id_categoria')[0]->getString(): NULL;
+              $score = $answers->getPoints();
+              if($categoria == 'categoria1'){$log = sizeof($categoria1); $categoria1[$log] = $score;}
+              elseif($categoria == 'categoria2'){$log = sizeof($categoria2);$categoria2[$log] = $score;}
+              elseif($categoria == 'categoria3'){$log = sizeof($categoria3);$categoria3[$log] = $score;}
+              elseif($categoria == 'categoria4'){$log = sizeof($categoria4);$categoria4[$log] = $score;}
+              elseif($categoria == 'categoria5'){$log = sizeof($categoria5);$categoria5[$log] = $score;}
+
+            }else{
+              $score = $answers->getPoints();
+              $log=sizeof($tmp);
+              $tmp[$log]=$score;
             }
-          }
+            $cc[0]=$categoria1;     $cc[1]=$categoria2;     $cc[2]=$categoria3;      $cc[3]=$categoria4;     $cc[4]=$categoria5;
+
+
+            //ARRAY DE ADOPCION
+            $array_adopcion[0]=$proceso1; $array_adopcion[1]=$proceso2; $array_adopcion[2]=$proceso3; $array_adopcion[3]=$proceso4;
+            $array_adopcion[4]=$proceso5; $array_adopcion[5]=$proceso6; $array_adopcion[6]=$proceso7; $array_adopcion[7]=$proceso8;
+            $array_adopcion[8]=$proceso9; $array_adopcion[9]=$proceso10; $array_adopcion[10]=$proceso11; $array_adopcion[11]=$proceso12;
+            $array_adopcion[12]=$proceso13; $array_adopcion[13]=$proceso14; $array_adopcion[14]=$proceso15; $array_adopcion[15]=$proceso16;
+         //}
         }
       }
     }
   }
+
 
   $nombre_user = \Drupal::currentUser()->getAccountName();
 
@@ -223,8 +220,10 @@ function  calculodecategoriasproceso($result_cpp){
 }
 
 function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
+
+
   $values = [
-    'title' => "Analisis de " . $form . " tecnológica por " . $name,
+    'title' => $name,
     'type' => 'analisis_de_respuesta',
     'field_origen' => $form,
     'field_proceso_1'=> $p[0],
