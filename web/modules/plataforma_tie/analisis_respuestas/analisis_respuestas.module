@@ -33,10 +33,6 @@ function analisis_respuestas_form_submit(&$form, \Drupal\Core\Form\FormStateInte
   }
 }
 
-
-
-
-
 function generadorindicadores($id) {
   $i=0;
   $result=[];
@@ -48,10 +44,6 @@ function generadorindicadores($id) {
   $categoria1 =[];    $categoria2 =[];    $categoria3 =[];    $categoria4 =[];    $categoria5 =[];
 
   $tmp =[];
-
-
-
-
   $ids_answer = \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->getQuery()->execute();
   $quiz_answer = !empty($ids_answer) ? \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->loadMultiple($ids_answer):[];
   foreach ($quiz_answer as $answers){
@@ -132,10 +124,7 @@ function generadorindicadores($id) {
     }
   }
 
-
   $nombre_user = \Drupal::currentUser()->getAccountName();
-
-  //---------- CALCULOS DE ADOPCION ------------------------------------------------
   foreach ($array_adopcion as $proceso){
     $result[$i]=calculodeprocesos($proceso); //resultados pro proceso
     $i++;
@@ -161,8 +150,6 @@ function generadorindicadores($id) {
   $result_total = calculofinal($result_cpp,$result_ctc,$result_tmp);
 
   $total = calculototal($result_total);
-
-  //----------- CALCULOS APROPIACION --------------------------------------------------------------------------
 
  adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$tipo);
 
