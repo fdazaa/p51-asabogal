@@ -53,7 +53,69 @@ class EntityController extends ControllerBase
   }
 
   public function entityCreate() {
+    $i = 0;
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $query = $storage->getQuery()
+      -> condition('type','analisis_de_respuesta')
+      -> condition('status',1);
+    $ids = $query->execute();
+    $nodes = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+    foreach ($nodes as $node){
+      $id_author = $node->uid->target_id;
+      $id = \Drupal::currentUser()->id();
+      if($id_author == $id){
+        $origen=$node->get('field_origen')->getString();
+        if($origen == 'Adopción'){
+          $adopcion = $node->get('field_total')->value;
+          $i++;
+        }elseif ($origen == 'Apropiación'){
+          $apropiacion = $node -> get('field_total')->value;
+          $i++;
+        }
+      }
+    }
+    if($i>=2) {
+      $resultado = ($adopcion + $apropiacion)/2;
+    }
+    $name = \Drupal::currentUser()->getAccountName();
+    $this->generadorresultados($name,$adopcion, $apropiacion, $resultado);
 
+    return ['#markup' => 'Ruta que crear entidades'];
+  }
+
+
+
+
+
+  public function generadorresultados($name,$adopcion, $apropiacion, $resultado){
+    $values = [
+      'title' => $name,
+      'type' => 'resultados',
+      'field_total_adopcion' => $adopcion,
+      'field_total_apropiacion' => $apropiacion,
+      'field_total_ipd' => $resultado
+
+    ];
+
+    $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+    $node->save();
+
+    $gid = $this->buscargrupo();
+
+    $values = [
+      'type' => 'empresas-group_node-resultados',
+      'gid' => $gid,
+      'entity_id' => ['target_id'=>$node->id()],
+    ];
+
+    $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
+    $entity ->save();
+  }
+
+
+
+
+  public function buscargrupo(){
     $storage=\Drupal::entityTypeManager()->getStorage('group');
     $query = $storage->getQuery();
     $ids = $query->execute();
@@ -67,14 +129,11 @@ class EntityController extends ControllerBase
         $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
         if($id_general == $id_member){
           $gid = $group->id();
-          dpm($gid);
         }
       }
 
     }
-
-
-    return ['#markup' => 'Ruta que crear entidades'];
+    return $gid;
   }
 
 
