@@ -9,7 +9,7 @@ id: node.analisis_de_respuesta.field_c1ad
 field_name: field_c1ad
 entity_type: node
 bundle: analisis_de_respuesta
-label: 'Categoria 1 AD'
+label: 'Producto/Servicio (P/S) inteligente'
 description: ''
 required: false
 translatable: false

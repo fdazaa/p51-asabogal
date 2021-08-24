@@ -4,15 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.node.analisis_de_respuesta.field_c1ad
-    - field.field.node.analisis_de_respuesta.field_c1ap
     - field.field.node.analisis_de_respuesta.field_c2ad
-    - field.field.node.analisis_de_respuesta.field_c2ap
     - field.field.node.analisis_de_respuesta.field_c3ad
-    - field.field.node.analisis_de_respuesta.field_c3ap
     - field.field.node.analisis_de_respuesta.field_c4ad
-    - field.field.node.analisis_de_respuesta.field_c4ap
     - field.field.node.analisis_de_respuesta.field_c5ad
-    - field.field.node.analisis_de_respuesta.field_c5ap
     - field.field.node.analisis_de_respuesta.field_origen
     - field.field.node.analisis_de_respuesta.field_ppc1
     - field.field.node.analisis_de_respuesta.field_ppc2
@@ -64,22 +59,8 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  field_c1ap:
-    weight: 41
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   field_c2ad:
     weight: 37
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
-  field_c2ap:
-    weight: 42
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -92,13 +73,6 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  field_c3ap:
-    weight: 43
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   field_c4ad:
     weight: 39
     settings:
@@ -106,22 +80,8 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  field_c4ap:
-    weight: 44
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   field_c5ad:
     weight: 40
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
-  field_c5ap:
-    weight: 45
     settings:
       placeholder: ''
     third_party_settings: {  }

@@ -9,7 +9,7 @@ id: node.analisis_de_respuesta.field_c3ad
 field_name: field_c3ad
 entity_type: node
 bundle: analisis_de_respuesta
-label: 'Categoria 3 AD'
+label: 'Operaciones y producción'
 description: ''
 required: false
 translatable: false

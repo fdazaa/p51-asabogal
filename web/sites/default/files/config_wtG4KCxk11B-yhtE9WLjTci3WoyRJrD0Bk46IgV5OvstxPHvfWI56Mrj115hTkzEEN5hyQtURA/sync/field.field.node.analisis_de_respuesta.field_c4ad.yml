@@ -9,7 +9,7 @@ id: node.analisis_de_respuesta.field_c4ad
 field_name: field_c4ad
 entity_type: node
 bundle: analisis_de_respuesta
-label: 'Categoria 4 AD'
+label: 'Cadena de suministros colaborativa'
 description: ''
 required: false
 translatable: false

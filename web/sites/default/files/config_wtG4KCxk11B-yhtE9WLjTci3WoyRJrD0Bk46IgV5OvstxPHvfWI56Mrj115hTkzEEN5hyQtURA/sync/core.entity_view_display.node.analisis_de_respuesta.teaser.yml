@@ -5,15 +5,10 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.analisis_de_respuesta.field_c1ad
-    - field.field.node.analisis_de_respuesta.field_c1ap
     - field.field.node.analisis_de_respuesta.field_c2ad
-    - field.field.node.analisis_de_respuesta.field_c2ap
     - field.field.node.analisis_de_respuesta.field_c3ad
-    - field.field.node.analisis_de_respuesta.field_c3ap
     - field.field.node.analisis_de_respuesta.field_c4ad
-    - field.field.node.analisis_de_respuesta.field_c4ap
     - field.field.node.analisis_de_respuesta.field_c5ad
-    - field.field.node.analisis_de_respuesta.field_c5ap
     - field.field.node.analisis_de_respuesta.field_origen
     - field.field.node.analisis_de_respuesta.field_ppc1
     - field.field.node.analisis_de_respuesta.field_ppc2
@@ -58,15 +53,10 @@ content:
     region: content
 hidden:
   field_c1ad: true
-  field_c1ap: true
   field_c2ad: true
-  field_c2ap: true
   field_c3ad: true
-  field_c3ap: true
   field_c4ad: true
-  field_c4ap: true
   field_c5ad: true
-  field_c5ap: true
   field_origen: true
   field_ppc1: true
   field_ppc2: true

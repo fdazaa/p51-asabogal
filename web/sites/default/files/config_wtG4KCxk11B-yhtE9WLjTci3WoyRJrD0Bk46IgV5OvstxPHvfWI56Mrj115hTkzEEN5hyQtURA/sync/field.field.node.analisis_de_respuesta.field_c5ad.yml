@@ -9,7 +9,7 @@ id: node.analisis_de_respuesta.field_c5ad
 field_name: field_c5ad
 entity_type: node
 bundle: analisis_de_respuesta
-label: 'Categoria 5 AD'
+label: 'Gestión de inteligencia'
 description: ''
 required: false
 translatable: false

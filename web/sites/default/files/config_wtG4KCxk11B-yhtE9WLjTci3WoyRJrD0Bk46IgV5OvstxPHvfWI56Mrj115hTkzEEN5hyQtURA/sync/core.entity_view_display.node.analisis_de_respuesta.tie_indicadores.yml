@@ -5,15 +5,10 @@ dependencies:
   config:
     - core.entity_view_mode.node.tie_indicadores
     - field.field.node.analisis_de_respuesta.field_c1ad
-    - field.field.node.analisis_de_respuesta.field_c1ap
     - field.field.node.analisis_de_respuesta.field_c2ad
-    - field.field.node.analisis_de_respuesta.field_c2ap
     - field.field.node.analisis_de_respuesta.field_c3ad
-    - field.field.node.analisis_de_respuesta.field_c3ap
     - field.field.node.analisis_de_respuesta.field_c4ad
-    - field.field.node.analisis_de_respuesta.field_c4ap
     - field.field.node.analisis_de_respuesta.field_c5ad
-    - field.field.node.analisis_de_respuesta.field_c5ap
     - field.field.node.analisis_de_respuesta.field_origen
     - field.field.node.analisis_de_respuesta.field_ppc1
     - field.field.node.analisis_de_respuesta.field_ppc2
@@ -62,30 +57,8 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_c1ap:
-    weight: 33
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_decimal
-    region: content
   field_c2ad:
     weight: 30
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_decimal
-    region: content
-  field_c2ap:
-    weight: 34
     label: above
     settings:
       thousand_separator: ''
@@ -106,17 +79,6 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_c3ap:
-    weight: 35
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_decimal
-    region: content
   field_c4ad:
     weight: 31
     label: above
@@ -128,30 +90,8 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_c4ap:
-    weight: 36
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_decimal
-    region: content
   field_c5ad:
     weight: 32
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_decimal
-    region: content
-  field_c5ap:
-    weight: 37
     label: above
     settings:
       thousand_separator: ''

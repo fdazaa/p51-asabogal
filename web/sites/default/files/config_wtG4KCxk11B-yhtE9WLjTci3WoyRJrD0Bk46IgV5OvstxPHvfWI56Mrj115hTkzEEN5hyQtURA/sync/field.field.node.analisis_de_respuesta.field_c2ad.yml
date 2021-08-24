@@ -9,7 +9,7 @@ id: node.analisis_de_respuesta.field_c2ad
 field_name: field_c2ad
 entity_type: node
 bundle: analisis_de_respuesta
-label: 'Categoria 2 AD'
+label: 'Relación con el cliente'
 description: ''
 required: false
 translatable: false
