@@ -33,10 +33,6 @@ function analisis_respuestas_form_submit(&$form, \Drupal\Core\Form\FormStateInte
   }
 }
 
-
-
-
-
 function generadorindicadores($id) {
   $i=0;
   $result=[];
@@ -48,10 +44,6 @@ function generadorindicadores($id) {
   $categoria1 =[];    $categoria2 =[];    $categoria3 =[];    $categoria4 =[];    $categoria5 =[];
 
   $tmp =[];
-
-
-
-
   $ids_answer = \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->getQuery()->execute();
   $quiz_answer = !empty($ids_answer) ? \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->loadMultiple($ids_answer):[];
   foreach ($quiz_answer as $answers){
@@ -65,9 +57,12 @@ function generadorindicadores($id) {
         $id_qs = $question->id();
         if($id_qs == $id_question){
           $tipo_qs = $question->get('field_tipo')->entity;
-          $tipo = $tipo_qs ? $tipo_qs->get('field_tipo_form')[0]->getString() : NULL;
-          //dpm($tipo);
-          //if($tipo == $id_rf){
+          $tipo_1 = $tipo_qs ? $tipo_qs->get('field_tipo_form')[0]->getString() : NULL;
+          if($tipo_1 == 'adopcion'){
+            $tipo = 'Adopción';
+          }elseif ($tipo_1 == 'apropiacion'){
+            $tipo = 'Apropiación';
+          }
             $clase_qs = $question->get('field_clasificacion')->entity;
             $clase = $clase_qs ? $clase_qs->get('field_id_estatico_terms')[0]->getString() :NULL;
             if($clase == 'P') {
@@ -129,10 +124,7 @@ function generadorindicadores($id) {
     }
   }
 
-
   $nombre_user = \Drupal::currentUser()->getAccountName();
-
-  //---------- CALCULOS DE ADOPCION ------------------------------------------------
   foreach ($array_adopcion as $proceso){
     $result[$i]=calculodeprocesos($proceso); //resultados pro proceso
     $i++;
@@ -158,8 +150,6 @@ function generadorindicadores($id) {
   $result_total = calculofinal($result_cpp,$result_ctc,$result_tmp);
 
   $total = calculototal($result_total);
-
-  //----------- CALCULOS APROPIACION --------------------------------------------------------------------------
 
  adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$tipo);
 
