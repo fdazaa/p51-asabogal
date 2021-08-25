@@ -37,7 +37,8 @@ function analisis_respuestas_form_submit(&$form, \Drupal\Core\Form\FormStateInte
 function analisis_respuestas_page_attachments_alter(array &$attachments) {
   $url = \Drupal::service('path.current')->getPath();
   if($url == "/node/119"){
-    dpm($url);
+
+    crearresultadosempresa();
   }
 }
 
@@ -51,14 +52,145 @@ function analisis_respuestas_page_attachments_alter(array &$attachments) {
 
 function crearresultadosempresa(){
 
+  $adopcion = []; $apropiacion = []; $datos =[]; $ipd = []; $existe = [];
+
+  $rol_user = \Drupal::currentUser()->getRoles()[1];
+  //if($rol_user == 'direccion_estrategico'){
+
+    $storage = \Drupal::entityTypeManager()->getStorage('group');
+    $query = $storage->getQuery();
+    $ids =$query->execute();
+    $groups = !empty($ids) ? $storage->loadMultiple($ids): NULL;
+    foreach ($groups as $group){
+      $members = $group->getMembers();
+      foreach ($members as $member){
+        $id_member = $member->getUser();
+        if ($id_member) {  $id_member=$id_member->id();}
+        $id_user = \Drupal::currentUser()->id();
+        if($id_member == $id_user){
+          $empresa =$group->label();
+          foreach ($members as $member){
+            $id_member = $member->getUser();
+            if ($id_member) {  $id_member=$id_member->id();}
+            $p_adop = sizeof($adopcion);
+            $p_apro = sizeof($apropiacion);
+            $p_ipd = sizeof($ipd);
+            $datos = buscaresultnode($id_member);
+            if($datos[0]!=[]){ $adopcion[$p_adop]=$datos[0]; }
+            if($datos[1]!=[]){$apropiacion[$p_apro]=$datos[1];}
+            if($datos[2]!=[]){$ipd[$p_ipd]=$datos[2];}
+          }
+          break 2;
+        }
+      }
+    }
+    $result_adop = calculoresultempresa($adopcion);
+    $result_apro = calculoresultempresa($apropiacion);
+    $result_ipd = calculoresultempresa($ipd);
+
+    $existe= existe($id_user);
+    if($existe[1] == 1){
+      editempresa($existe[0],$result_adop,$result_apro,$result_ipd);
+      dpm('editar');
+    }elseif($existe[1]==0){
+      createresultempresa($empresa,$result_adop,$result_apro,$result_ipd);
+      dpm('crear');
+    }
+
+  //}
+
 }
 
+function buscaresultnode($id_user){
+  $datos =[];
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type','resultados')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($resultados as $resultado){
+    $id_autor = $resultado->uid->target_id;
+    if ($id_user == $id_autor){
+      $adopcion = $resultado->get('field_total_adopcion')->value;
+      $apropiacion = $resultado->get('field_total_apropiacion')->value;
+      $ipd = $resultado->get('field_total_ipd')->value;
+      $datos[0] = $adopcion;
+      $datos[1] = $apropiacion;
+      $datos[2] = $ipd;
+      return $datos;
+    }
+  }
+
+
+}
+
+function calculoresultempresa($datos){
+  $suma = 0;
+  $log = sizeof($datos);
+  foreach ($datos as $dato){
+    $suma = $suma +$dato;
+  }
+  $result = $suma/$log;
+  return $result;
+}
+
+function createresultempresa($empresa,$adop,$apro,$ipd){
+  $values = [
+    'title'=>$empresa,
+    'type'=> 'resultados_empresa',
+    'field_result_adopcion'=>$adop,
+    'field_result_apropiacion'=>$apro,
+    'field_result_ipd'=>$ipd,
+  ];
+
+  $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+  $node->save();
+
+  $gid = buscargrupo();
+
+  $values = [
+    'type' => 'group_content_type_0da85507a3985',
+    'gid' => $gid,
+    'entity_id' => ['target_id'=>$node->id()],
+  ];
+
+  $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
+  $entity ->save();
+}
+
+function existe($id_user){
+  $datos = [];
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type','resultados_empresa')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $empresas = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($empresas as $empresa){
+    $id_autor =$empresa->uid->target_id;
+    $id_empresa = $empresa->id();
+    $datos[0]=$id_empresa;
+    if($id_autor == $id_user){ $datos[1]=1;}
+    else{ $datos[1]=0;}
+    return $datos;
+  }
+}
+
+function editempresa($id_empresa,$adop,$apro,$ipd){
+
+  $node = \Drupal::entityTypeManager()->getStorage('node')->load($id_empresa);
+  $node->set('field_result_adopcion', $adop);
+  $node->set('field_result_apropiacion', $apro);
+  $node->set('field_result_ipd', $ipd);
+  $node->save();
+
+}
 
 // Genera Reultados
 
 function crearesultados(){
   $i = 0;
-  $k = 0;
   $storage = \Drupal::entityTypeManager()->getStorage('node');
   $query = $storage->getQuery()
     -> condition('type','analisis_de_respuesta')
@@ -75,12 +207,11 @@ function crearesultados(){
         $i++;
       }elseif ($origen == 'Apropiación'){
         $apropiacion = $node -> get('field_total')->value;
-        $k++;
+        $i++;
       }
     }
   }
-  $j = $i + $k;
-  if($j==2) {
+  if($i==2) {
     $resultado = ($adopcion + $apropiacion)/2;
     $name = \Drupal::currentUser()->getAccountName();
     generadorresultados($name,$adopcion, $apropiacion, $resultado);
