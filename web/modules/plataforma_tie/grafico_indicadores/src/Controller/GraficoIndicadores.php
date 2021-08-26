@@ -103,8 +103,8 @@ class GraficoIndicadores extends ControllerBase {
       '#type' => 'chart_yaxis',
       '#title' => $this->chartSettings['yaxis']['title'] ? $this->chartSettings['yaxis']['title'] : '',
       '#labels_rotation' => $this->chartSettings['yaxis']['labels_rotation'],
-      '#max' => $this->chartSettings['yaxis']['max'],
-      '#min' => $this->chartSettings['yaxis']['min'],
+      //'#max' => $this->chartSettings['yaxis']['max'],
+      //'#min' => $this->chartSettings['yaxis']['min'],
     ];
 
     $i = 0;
@@ -128,12 +128,6 @@ class GraficoIndicadores extends ControllerBase {
           'color' => '#8bbc21',
           'type' => 'line',
           'data' => [150, 450, 500, 300],
-        ];
-        $seriesData[] = [
-          'name' => 'Datos 3',
-          'color' => '#ff0000',
-          'type' => 'area',
-          'data' => [[0, 50], [50, 50], [50, 0], [0, 0], [0, 50]],
         ];
       case 'pie':
       case 'donut':
@@ -193,36 +187,48 @@ class GraficoIndicadores extends ControllerBase {
       '#max' => '100',
       //'#labels' => [$this->t('Jan'), $this->t('Feb'), $this->t('Mar')],
     ];
-
+    //  POLIGONO
+    $chart['ejemplo_2']['cuadrante7'] = [
+      '#type' => 'chart_data',
+      '#chart_type' => 'area',
+      '#title' => 'En transicion',
+      '#color' => '#262626',
+      '#raw_options' => $options,
+      '#data' => [[0, 60], [60, 60], [60, 0], [40, 0], [40, 40], [0, 40], [0, 60]]
+    ];
+    //ROJO
     $chart['ejemplo_2']['cuadrante1'] = [
       '#type' => 'chart_data',
       '#chart_type' => 'area',
       '#title' => 'Empresa Analoga',
-      '#color' => '#FCEDED',
+      '#color' => '#F3B9B9',
       '#raw_options' => $options,
       '#data' => [[0, 50], [50, 50], [50, 0], [0, 0], [0, 50]]
     ];
+    //VERDE
     $chart['ejemplo_2']['cuadrante2'] = [
       '#type' => 'chart_data',
       '#chart_type' => 'area',
       '#title' => 'Empresa con Adopción Tecnológica',
-      '#color' => '#D0F5DA',
+      '#color' => '#80EB7E',
       '#raw_options' => $options,
       '#data' => [[50, 0], [50,50], [100, 50], [100, 0], [50, 0]]
     ];
+    //AZUL
     $chart['ejemplo_2']['cuadrante3'] = [
       '#type' => 'chart_data',
       '#chart_type' => 'area',
       '#title' => 'Empresa Digital',
-      '#color' => '#D6EAFF',
+      '#color' => '#92C8FB',
       '#raw_options' => $options,
       '#data' => [[50, 50], [50, 100], [100, 100], [100, 50], [50, 50]]
     ];
+    //AMARILLO
     $chart['ejemplo_2']['cuadrante4'] = [
       '#type' => 'chart_data',
       '#chart_type' => 'area',
       '#title' => 'Empresa con Apropiación Tecnológica',
-      '#color' => '#FFFDD6',
+      '#color' => '#EBE97E',
       '#raw_options' => $options,
       '#data' => [[0, 100], [50, 100], [50, 50], [0, 50], [0, 100]]
     ];
@@ -231,7 +237,7 @@ class GraficoIndicadores extends ControllerBase {
       '#type' => 'chart_data',
       '#chart_type' => 'area',
       '#title' => 'En proceso',
-      '#color' => '#7FC1FF',
+      '#color' => '#0087DB',
       '#raw_options' => $options,
       '#data' => [[50, 50], [50, 60], [60, 60], [60, 50], [50, 50]]
     ];
@@ -244,22 +250,17 @@ class GraficoIndicadores extends ControllerBase {
       '#raw_options' => $options,
       '#data' => [[90, 100], [100, 100], [100, 90], [90, 90], [90, 100]]
     ];
-    //  POLIGONOE
-    $chart['ejemplo_2']['cuadrante7'] = [
-      '#type' => 'chart_data',
-      '#chart_type' => 'area',
-      '#title' => 'En transicion',
-      '#color' => '#F2F2F2',
-      '#raw_options' => $options,
-      '#data' => [[0, 60], [60, 60], [60, 0], [40, 0], [40, 40], [0, 40], [0, 60]]
-    ];
+
+    $datos = $this->coordenadastie();
+    $x = floatval($datos[0]);
+    $y = floatval($datos[1]);
 
     // PUNTOS
     $chart['ejemplo_2']['puntos'] = [
       '#type' => 'chart_data',
       '#title' => 'Yolima Gordillo',
       '#color' => '#313131',
-      '#data' => [[40, 30]]
+      '#data' =>[[$x,$y]]
     ];
 
     return $chart;
@@ -275,5 +276,34 @@ class GraficoIndicadores extends ControllerBase {
       $container->get('uuid')
     );
   }
+
+  public function coordenadastie(){
+    $datos =[];
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $query = $storage->getQuery()
+      ->condition('type','resultados')
+      ->condition('status',1);
+    $ids = $query->execute();
+    $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+    foreach ($resultados as $resultado){
+      $id_user = \Drupal::currentUser()->id();
+      $id_autor = $resultado->uid->target_id;
+      if ($id_user == $id_autor){
+        $adopcion = $resultado->get('field_total_adopcion')->value;
+        $apropiacion = $resultado->get('field_total_apropiacion')->value;
+        $datos[0] = $adopcion;
+        $datos[1] = $apropiacion;
+        return $datos;
+      }
+    }
+
+  }
+
+
+
+
+
+
+
 
 }

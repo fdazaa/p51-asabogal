@@ -12,3 +12,11 @@ charts_api_example.ejemplo2:
     _title: 'Ejemplo 2'
   requirements:
     _permission: 'access content'
+
+grafico_indicadores.datos:
+  path: /grafico/datos
+  defaults:
+    _controller: '\Drupal\grafico_indicadores\Controller\GraficoIndicadores::coordenadastie'
+    _title: 'Datos'
+  requirements:
+    _permission: 'access content'

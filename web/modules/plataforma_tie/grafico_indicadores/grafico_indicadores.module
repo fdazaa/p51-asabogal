@@ -26,7 +26,6 @@ function grafico_indicadores_help($route_name, RouteMatchInterface $route_match)
  * Implements hook_chart_CHART_ID_alter().
  */
 function grafico_indicadores_chart_definition_foobar_alter(&$chart) {
-  $chart['chart']['backgroundColor'] = '#68F97B';
-
+  $chart['chart']['backgroundColor'] = '#0087DB';
 }
 
