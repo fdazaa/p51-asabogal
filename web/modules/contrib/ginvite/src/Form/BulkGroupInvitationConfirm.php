@@ -106,7 +106,7 @@ class BulkGroupInvitationConfirm extends ConfirmFormBase implements ContainerInj
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to send a invitation to all e-mails listed bellow?');
+    return $this->t('Are you sure you want to send an invitation to all e-mails listed below?');
   }
 
   /**

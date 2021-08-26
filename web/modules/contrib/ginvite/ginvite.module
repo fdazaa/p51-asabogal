@@ -12,6 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\ginvite\Event\UserRegisteredFromInvitationEvent;
 use Drupal\ginvite\Plugin\GroupContentEnabler\GroupInvitation;
+use Drupal\group\Access\GroupAccessResult;
 use Drupal\group\Entity\GroupContentInterface;
 use Drupal\user\UserInterface;
 
@@ -54,6 +55,12 @@ function ginvite_form_group_content_form_alter(&$form, FormStateInterface $form_
         '#value' => 0,
       ],
     ];
+
+    // Forbid users without the permission to assign roles to users they are
+    // inviting.
+    if (!GroupAccessResult::allowedIfHasGroupPermission($group_content->getGroup(), \Drupal::currentUser(), 'administer members')->isAllowed()) {
+      $form['group_roles']['#access'] = FALSE;
+    }
   }
 }
 
@@ -358,7 +365,7 @@ function ginvite_cron() {
   foreach ($group_type_storage->loadMultiple() as $group_type_id => $group_type) {
     // Foreach group type get the configuration for the invites expired time.
     $group_plugin_collection = \Drupal::service('plugin.manager.group_content_enabler')->getInstalled($group_type);
-    $days = $group_plugin_collection->getConfiguration()['group_invitation']['invitation_expire'];
+    $days = isset($group_plugin_collection->getConfiguration()['group_invitation']['invitation_expire']) ? $group_plugin_collection->getConfiguration()['group_invitation']['invitation_expire'] : NULL;
 
     // Nothing configured? Skip.
     if (!$days) {

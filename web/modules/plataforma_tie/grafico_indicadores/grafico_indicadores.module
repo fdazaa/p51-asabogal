@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Charts Api Example - Module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function grafico_indicadores_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+  switch ($route_name) {
+    // Main module help for the charts_api_example module.
+    case 'help.page.grafico_indicadores':
+      $output .= '<h3>' . t('Referencia') . '</h3>';
+      $output .= '<p>' . t('Ejemplo de grafico adaptado a plataforma tie') . '</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_chart_CHART_ID_alter().
+ */
+function grafico_indicadores_chart_definition_foobar_alter(&$chart) {
+  $chart['chart']['backgroundColor'] = '#68F97B';
+
+}
+
