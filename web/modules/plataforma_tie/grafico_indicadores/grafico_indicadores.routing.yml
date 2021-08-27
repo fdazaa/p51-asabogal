@@ -20,3 +20,12 @@ grafico_indicadores.datos:
     _title: 'Datos'
   requirements:
     _permission: 'access content'
+
+grafico_indicadores.ejemplo3:
+  path: /grafico/ejemplo3
+  defaults:
+    _controller: '\Drupal\grafico_indicadores\Controller\GraficoIndicadores::ejemplo3'
+    _title: 'EJEMPLO 3'
+  requirements:
+    _permission: 'access content'
+
