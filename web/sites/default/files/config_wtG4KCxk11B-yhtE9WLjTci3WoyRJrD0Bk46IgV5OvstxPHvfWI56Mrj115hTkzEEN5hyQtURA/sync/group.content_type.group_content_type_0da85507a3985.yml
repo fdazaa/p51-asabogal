@@ -1,0 +1,19 @@
+uuid: b21561dc-a0b5-4dc6-b29e-8529afe61c2b
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.empresas
+    - node.type.resultados_empresa
+  module:
+    - gnode
+    - node
+id: group_content_type_0da85507a3985
+label: 'Empresas: Group node (Resultados Empresa)'
+description: 'Adds <em class="placeholder">Resultados Empresa</em> content to groups both publicly and privately.'
+group_type: empresas
+content_plugin: 'group_node:resultados_empresa'
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 1
+  use_creation_wizard: false

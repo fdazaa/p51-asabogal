@@ -1,0 +1,23 @@
+uuid: 313bab93-acf2-474c-8b06-196294cc34b3
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_total_apropiacion
+    - node.type.resultados
+id: node.resultados.field_total_apropiacion
+field_name: field_total_apropiacion
+entity_type: node
+bundle: resultados
+label: 'Total Apropiación'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

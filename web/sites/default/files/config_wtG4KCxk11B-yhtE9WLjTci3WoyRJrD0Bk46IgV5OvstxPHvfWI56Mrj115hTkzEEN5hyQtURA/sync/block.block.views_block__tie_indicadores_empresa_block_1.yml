@@ -13,7 +13,7 @@ dependencies:
 id: views_block__tie_indicadores_empresa_block_1
 theme: bartik
 region: content
-weight: 0
+weight: 1
 provider: null
 plugin: 'views_block:tie_indicadores_empresa-block_1'
 settings:

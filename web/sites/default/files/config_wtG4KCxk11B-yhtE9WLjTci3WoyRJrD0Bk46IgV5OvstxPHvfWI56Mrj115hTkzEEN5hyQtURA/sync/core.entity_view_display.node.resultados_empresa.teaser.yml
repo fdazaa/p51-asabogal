@@ -1,0 +1,27 @@
+uuid: b4d89be0-cf5f-4e74-92a5-23fc93581d3e
+langcode: es
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.resultados_empresa.field_result_adopcion
+    - field.field.node.resultados_empresa.field_result_apropiacion
+    - field.field.node.resultados_empresa.field_result_ipd
+    - node.type.resultados_empresa
+  module:
+    - user
+id: node.resultados_empresa.teaser
+targetEntityType: node
+bundle: resultados_empresa
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_result_adopcion: true
+  field_result_apropiacion: true
+  field_result_ipd: true
+  langcode: true

@@ -16,6 +16,7 @@ permissions:
   - 'access quiz'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'create resultados content'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'

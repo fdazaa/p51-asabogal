@@ -13,6 +13,8 @@ module:
   br_group: 0
   breakpoint: 0
   business_rules: 0
+  charts: 0
+  charts_highcharts: 0
   ckeditor: 0
   color: 0
   comment: 0
@@ -56,6 +58,7 @@ module:
   forms_steps: 0
   ginvite: 0
   gnode: 0
+  grafico_indicadores: 0
   group: 0
   help: 0
   history: 0
