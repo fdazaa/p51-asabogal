@@ -1,0 +1,37 @@
+uuid: e5def166-8a04-4766-8470-5434e4819827
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.tie_resultados_empresa
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - bartik
+id: views_block__tie_resultados_empresa_block_1
+theme: bartik
+region: content
+weight: 2
+provider: null
+plugin: 'views_block:tie_resultados_empresa-block_1'
+settings:
+  id: 'views_block:tie_resultados_empresa-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /indicadores
+    negate: false
+  user_role:
+    id: user_role
+    roles:
+      direccion_estrategico: direccion_estrategico
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

@@ -63,6 +63,7 @@ permissions:
   - 'create quiz_result'
   - 'create quiz_result_answer'
   - 'create registro_tie content'
+  - 'create resultados content'
   - 'create short_answer quiz_question'
   - 'create terms in categorias_procesos'
   - 'create terms in clasificacion'

@@ -1,0 +1,9 @@
+name: 'Gráfico Indicadores'
+type: module
+description: 'Modulo de generación de grafico personalizado de indicadores.'
+core_version_requirement: ^8 || ^9
+package: 'Plataforma TIE'
+version: 1.0.0
+dependencies:
+  - 'charts:charts'
+

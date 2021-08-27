@@ -1,0 +1,4 @@
+services:
+  grafico_indicadores:
+    class: Drupal\grafico_indicadores\Controller\GraficoIndicadores
+    arguments: ['@charts.settings', '@messenger', '@uuid']

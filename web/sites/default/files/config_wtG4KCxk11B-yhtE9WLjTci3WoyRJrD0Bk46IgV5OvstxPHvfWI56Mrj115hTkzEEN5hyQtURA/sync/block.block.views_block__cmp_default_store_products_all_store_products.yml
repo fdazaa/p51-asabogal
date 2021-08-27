@@ -12,7 +12,7 @@ dependencies:
 id: views_block__cmp_default_store_products_all_store_products
 theme: bartik
 region: content
-weight: -2
+weight: -7
 provider: null
 plugin: 'views_block:cmp_default_store_products-all_store_products'
 settings:

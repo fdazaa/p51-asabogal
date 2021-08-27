@@ -1,0 +1,31 @@
+grafico_indicadores.ejemplo1:
+  path: /grafico/ejemplo1
+  defaults:
+    _controller: '\Drupal\grafico_indicadores\Controller\GraficoIndicadores::ejemplo1'
+    _title: 'Ejemplo 1'
+  requirements:
+    _permission: 'access content'
+charts_api_example.ejemplo2:
+  path: /grafico/ejemplo2
+  defaults:
+    _controller: '\Drupal\grafico_indicadores\Controller\GraficoIndicadores::ejemplo2'
+    _title: 'Ejemplo 2'
+  requirements:
+    _permission: 'access content'
+
+grafico_indicadores.datos:
+  path: /grafico/datos
+  defaults:
+    _controller: '\Drupal\grafico_indicadores\Controller\GraficoIndicadores::coordenadastie'
+    _title: 'Datos'
+  requirements:
+    _permission: 'access content'
+
+grafico_indicadores.ejemplo3:
+  path: /grafico/ejemplo3
+  defaults:
+    _controller: '\Drupal\grafico_indicadores\Controller\GraficoIndicadores::ejemplo3'
+    _title: 'EJEMPLO 3'
+  requirements:
+    _permission: 'access content'
+

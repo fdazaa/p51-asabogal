@@ -221,40 +221,37 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.11.0",
-            "version_normalized": "1.11.0.0",
+            "version": "v2.0.0",
+            "version_normalized": "2.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b"
+                "reference": "5a546a8cc4607f38cfbd8e20b3de234e45b2110f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/ae03311f45dfe194412081526be2e003960df74b",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/5a546a8cc4607f38cfbd8e20b3de234e45b2110f",
+                "reference": "5a546a8cc4607f38cfbd8e20b3de234e45b2110f",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0 || ^2.0"
-            },
-            "replace": {
-                "roundcube/plugin-installer": "*",
-                "shama/baton": "*"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
                 "composer/composer": "1.6.* || ^2.0",
                 "composer/semver": "^1 || ^3",
                 "phpstan/phpstan": "^0.12.55",
                 "phpstan/phpstan-phpunit": "^0.12.16",
-                "symfony/phpunit-bridge": "^4.2 || ^5",
-                "symfony/process": "^2.3"
+                "symfony/phpunit-bridge": "^5.3",
+                "symfony/process": "^5"
             },
-            "time": "2021-04-28T06:42:17+00:00",
+            "time": "2021-08-04T13:56:36+00:00",
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
-                    "dev-main": "1.x-dev"
+                    "dev-main": "2.x-dev"
                 }
             },
             "installation-source": "dist",
@@ -277,7 +274,6 @@
             "description": "A multi-framework Composer library installer",
             "homepage": "https://composer.github.io/installers/",
             "keywords": [
-                "Craft",
                 "Dolibarr",
                 "Eliasis",
                 "Hurad",
@@ -298,7 +294,6 @@
                 "Whmcs",
                 "WolfCMS",
                 "agl",
-                "aimeos",
                 "annotatecms",
                 "attogram",
                 "bitrix",
@@ -317,7 +312,6 @@
                 "grav",
                 "installer",
                 "itop",
-                "joomla",
                 "known",
                 "kohana",
                 "laravel",
@@ -332,6 +326,7 @@
                 "modx",
                 "moodle",
                 "osclass",
+                "pantheon",
                 "phpbb",
                 "piwik",
                 "ppi",
@@ -344,14 +339,16 @@
                 "silverstripe",
                 "sydes",
                 "sylius",
-                "symfony",
                 "tastyigniter",
-                "typo3",
                 "wordpress",
                 "yawik",
                 "zend",
                 "zikula"
             ],
+            "support": {
+                "issues": "https://github.com/composer/installers/issues",
+                "source": "https://github.com/composer/installers/tree/v2.0.0"
+            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -2330,6 +2327,73 @@
             "install-path": "../../web/modules/contrib/business_rules"
         },
         {
+            "name": "drupal/charts",
+            "version": "5.0.0-alpha2",
+            "version_normalized": "5.0.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/charts.git",
+                "reference": "5.0.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/charts-5.0.0-alpha2.zip",
+                "reference": "5.0.0-alpha2",
+                "shasum": "c11beef473f5ae2c35e7714475e079968074a01f"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "5.0.0-alpha2",
+                    "datestamp": "1607571398",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Pierre.Vriens",
+                    "homepage": "https://www.drupal.org/user/1689304"
+                },
+                {
+                    "name": "andileco",
+                    "homepage": "https://www.drupal.org/user/2054544"
+                },
+                {
+                    "name": "brmassa",
+                    "homepage": "https://www.drupal.org/user/67164"
+                },
+                {
+                    "name": "kenorb",
+                    "homepage": "https://www.drupal.org/user/191974"
+                },
+                {
+                    "name": "quicksketch",
+                    "homepage": "https://www.drupal.org/user/35821"
+                },
+                {
+                    "name": "rashad612",
+                    "homepage": "https://www.drupal.org/user/319686"
+                }
+            ],
+            "description": "A charting API for Drupal that provides chart elements and integration with Views.",
+            "homepage": "https://www.drupal.org/project/charts",
+            "support": {
+                "source": "https://git.drupalcode.org/project/charts"
+            },
+            "install-path": "../../web/modules/contrib/charts"
+        },
+        {
             "name": "drupal/commerce",
             "version": "2.26.0",
             "version_normalized": "2.26.0.0",
@@ -3694,18 +3758,18 @@
         },
         {
             "name": "drupal/ginvite",
-            "version": "2.0.0",
-            "version_normalized": "2.0.0.0",
+            "version": "2.0.1",
+            "version_normalized": "2.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ginvite.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ginvite-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "71ac655e5dc0ff8a570f6b2a025a79042c1566bd"
+                "url": "https://ftp.drupal.org/files/projects/ginvite-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "01f235ae54a7404a3765daac5df087cfd7acc199"
             },
             "require": {
                 "drupal/core": "^8.9 || ^9",
@@ -3714,8 +3778,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1618584010",
+                    "version": "2.0.1",
+                    "datestamp": "1629113655",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4897,17 +4961,17 @@
         },
         {
             "name": "drush/drush",
-            "version": "10.5.1",
-            "version_normalized": "10.5.1.0",
+            "version": "10.6.0",
+            "version_normalized": "10.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "a57390579f178d553decd3e9f92cdb37cbd27a07"
+                "reference": "c86d327359baddb0a2f51bb458703826469a0445"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/a57390579f178d553decd3e9f92cdb37cbd27a07",
-                "reference": "a57390579f178d553decd3e9f92cdb37cbd27a07",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/c86d327359baddb0a2f51bb458703826469a0445",
+                "reference": "c86d327359baddb0a2f51bb458703826469a0445",
                 "shasum": ""
             },
             "require": {
@@ -4948,7 +5012,7 @@
                 "vlucas/phpdotenv": "^2.4",
                 "yoast/phpunit-polyfills": "^0.2.0"
             },
-            "time": "2021-08-13T02:55:27+00:00",
+            "time": "2021-08-13T10:40:40+00:00",
             "bin": [
                 "drush"
             ],
@@ -5033,7 +5097,7 @@
                 "irc": "irc://irc.freenode.org/drush",
                 "issues": "https://github.com/drush-ops/drush/issues",
                 "slack": "https://drupal.slack.com/messages/C62H9CWQM",
-                "source": "https://github.com/drush-ops/drush/tree/10.5.1"
+                "source": "https://github.com/drush-ops/drush/tree/10.6.0"
             },
             "funding": [
                 {
@@ -5533,6 +5597,114 @@
                 "url"
             ],
             "install-path": "../guzzlehttp/psr7"
+        },
+        {
+            "name": "highcharts/3d",
+            "version": "9.2.2",
+            "version_normalized": "9.2.2.0",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/9.2.2/highcharts-3d.js"
+            },
+            "require": {
+                "composer/installers": "~2.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_3d"
+            },
+            "installation-source": "dist",
+            "install-path": "../../web/libraries/highcharts_3d"
+        },
+        {
+            "name": "highcharts/accessibility",
+            "version": "9.2.2",
+            "version_normalized": "9.2.2.0",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/9.2.2/modules/accessibility.js"
+            },
+            "require": {
+                "composer/installers": "~2.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_accessibility"
+            },
+            "installation-source": "dist",
+            "install-path": "../../web/libraries/highcharts_accessibility"
+        },
+        {
+            "name": "highcharts/export-data",
+            "version": "9.2.2",
+            "version_normalized": "9.2.2.0",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/9.2.2/modules/export-data.js"
+            },
+            "require": {
+                "composer/installers": "~2.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_export-data"
+            },
+            "installation-source": "dist",
+            "install-path": "../../web/libraries/highcharts_export-data"
+        },
+        {
+            "name": "highcharts/exporting",
+            "version": "9.2.2",
+            "version_normalized": "9.2.2.0",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/9.2.2/modules/exporting.js"
+            },
+            "require": {
+                "composer/installers": "~2.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_exporting"
+            },
+            "installation-source": "dist",
+            "install-path": "../../web/libraries/highcharts_exporting"
+        },
+        {
+            "name": "highcharts/highcharts",
+            "version": "9.2.2",
+            "version_normalized": "9.2.2.0",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/9.2.2/highcharts.js"
+            },
+            "require": {
+                "composer/installers": "~2.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts"
+            },
+            "installation-source": "dist",
+            "install-path": "../../web/libraries/highcharts"
+        },
+        {
+            "name": "highcharts/more",
+            "version": "9.2.2",
+            "version_normalized": "9.2.2.0",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/9.2.2/highcharts-more.js"
+            },
+            "require": {
+                "composer/installers": "~2.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_more"
+            },
+            "installation-source": "dist",
+            "install-path": "../../web/libraries/highcharts_more"
         },
         {
             "name": "laminas/laminas-diactoros",
