@@ -1,8 +1,0 @@
-name: 'Score Answer'
-type: module
-core_version_requirement: ^9
-description: 'Modulo de tools para score de opciones de respuestas en quiz'
-version: 1.0.0
-package: 'Plataforma TIE'
-dependencies:
-  -quiz:quiz
