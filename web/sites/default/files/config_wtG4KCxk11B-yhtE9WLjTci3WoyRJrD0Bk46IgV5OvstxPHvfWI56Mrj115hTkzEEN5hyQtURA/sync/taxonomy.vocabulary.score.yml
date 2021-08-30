@@ -4,5 +4,5 @@ status: true
 dependencies: {  }
 name: Score
 vid: score
-description: ''
+description: 'Genera términos para valores numéricos de quiz question multichoice'
 weight: 0

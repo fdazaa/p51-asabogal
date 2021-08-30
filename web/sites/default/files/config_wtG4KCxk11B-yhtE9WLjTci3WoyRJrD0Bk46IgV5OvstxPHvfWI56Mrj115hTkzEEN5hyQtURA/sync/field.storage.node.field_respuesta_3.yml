@@ -1,0 +1,20 @@
+uuid: 2204671d-6db4-4973-8475-3c27c86a7c6c
+langcode: es
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_respuesta_3
+field_name: field_respuesta_3
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

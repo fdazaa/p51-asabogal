@@ -3,6 +3,7 @@ langcode: es
 status: true
 dependencies:
   config:
+    - field.field.paragraph.multichoice.field_score_answer
     - field.field.paragraph.multichoice.multichoice_answer
     - field.field.paragraph.multichoice.multichoice_correct
     - field.field.paragraph.multichoice.multichoice_feedback_chosen
@@ -21,7 +22,7 @@ third_party_settings:
     group_feedback:
       children: {  }
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         required_fields: true
@@ -37,6 +38,12 @@ targetEntityType: paragraph
 bundle: multichoice
 mode: default
 content:
+  field_score_answer:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   multichoice_answer:
     weight: 1
     settings:
@@ -52,16 +59,10 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  multichoice_score_chosen:
-    weight: 9
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
 hidden:
   created: true
   multichoice_feedback_chosen: true
   multichoice_feedback_not_chosen: true
+  multichoice_score_chosen: true
   multichoice_score_not_chosen: true
   status: true

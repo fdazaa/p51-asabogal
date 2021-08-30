@@ -1,0 +1,29 @@
+uuid: ff3f9381-4933-43ad-8671-dd563930990e
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_score_answer
+    - paragraphs.paragraphs_type.multichoice
+    - taxonomy.vocabulary.score
+id: paragraph.multichoice.field_score_answer
+field_name: field_score_answer
+entity_type: paragraph
+bundle: multichoice
+label: 'Score Answer'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      score: score
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

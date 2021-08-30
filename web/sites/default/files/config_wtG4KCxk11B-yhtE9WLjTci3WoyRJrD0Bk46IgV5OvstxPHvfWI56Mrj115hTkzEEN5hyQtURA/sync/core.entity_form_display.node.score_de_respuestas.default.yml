@@ -1,0 +1,75 @@
+uuid: e7ca85c0-6e6b-40f7-95d4-37eae9fa9090
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.field.node.score_de_respuestas.field_respuesta_1
+    - field.field.node.score_de_respuestas.field_respuesta_2
+    - field.field.node.score_de_respuestas.field_respuesta_3
+    - field.field.node.score_de_respuestas.field_respuesta_4
+    - field.field.node.score_de_respuestas.field_respuesta_5
+    - field.field.node.score_de_respuestas.field_tipo
+    - node.type.score_de_respuestas
+id: node.score_de_respuestas.default
+targetEntityType: node
+bundle: score_de_respuestas
+mode: default
+content:
+  field_respuesta_1:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_respuesta_2:
+    weight: 3
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_respuesta_3:
+    weight: 4
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_respuesta_4:
+    weight: 5
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_respuesta_5:
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_tipo:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  path: true
+  promote: true
+  revision_log: true
+  status: true
+  sticky: true
+  uid: true

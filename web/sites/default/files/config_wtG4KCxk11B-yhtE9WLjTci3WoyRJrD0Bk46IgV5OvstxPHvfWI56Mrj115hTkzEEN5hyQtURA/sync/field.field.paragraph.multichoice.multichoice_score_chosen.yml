@@ -11,13 +11,15 @@ entity_type: paragraph
 bundle: multichoice
 label: 'Valor seleccionado'
 description: ''
-required: true
+required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: 10
 default_value_callback: ''
 settings:
-  min: 10
-  max: 60
+  min: null
+  max: null
   prefix: ''
   suffix: ''
 field_type: integer

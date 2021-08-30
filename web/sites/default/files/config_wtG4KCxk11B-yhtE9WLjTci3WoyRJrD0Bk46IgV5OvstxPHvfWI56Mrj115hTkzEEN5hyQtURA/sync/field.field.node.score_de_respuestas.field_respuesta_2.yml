@@ -1,0 +1,23 @@
+uuid: 6ca69fd1-3a91-4617-863d-85daf70ef355
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_respuesta_2
+    - node.type.score_de_respuestas
+id: node.score_de_respuestas.field_respuesta_2
+field_name: field_respuesta_2
+entity_type: node
+bundle: score_de_respuestas
+label: 'Respuesta 2'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
