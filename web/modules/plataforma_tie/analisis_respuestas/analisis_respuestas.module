@@ -39,6 +39,10 @@ function analisis_respuestas_page_attachments_alter(array &$attachments) {
   if($url == "/node/119"){
     crearresultadosempresa();
   }
+  if($url == "/analisis_respuestas/controller/entity/delete"){
+    generadorindicadores(54);
+    //buscarscore(104);
+  }
 }
 
 
@@ -243,6 +247,7 @@ function generadorresultados($name,$adopcion, $apropiacion, $resultado){
 //Genera Indicadores
 
 function generadorindicadores($id) {
+
   $i=0;
   $result=[];
 
@@ -274,11 +279,16 @@ function generadorindicadores($id) {
           }
             $clase_qs = $question->get('field_clasificacion')->entity;
             $clase = $clase_qs ? $clase_qs->get('field_id_estatico_terms')[0]->getString() :NULL;
+            $valor = buscarscore($answers,$question,$tipo_1);
+            $score = $valor[0];
+            $max_value = $valor[1];
+
             if($clase == 'P') {
               $proceso_txt = $question->get('field_categoria_proceso')->referencedEntities()[1];
               $process = $proceso_txt ? $proceso_txt->get('field_id_proceso')[0]->getString(): NULL;
               $cat = $proceso_txt ? $proceso_txt->get('field_id_categoria')[0]->getString(): NULL;
-              $score = $answers->getPoints();
+              //$score = $answers->getPoints();
+
               //-----------------------------------------------------------------------------------------
               //if($tipo == 'adopcion'){
 
@@ -307,7 +317,7 @@ function generadorindicadores($id) {
 
               $categoria_txt = $question->get('field_categoria_proceso')->referencedEntities()[0];
               $categoria = $categoria_txt ? $categoria_txt->get('field_id_categoria')[0]->getString(): NULL;
-              $score = $answers->getPoints();
+              //$score = $answers->getPoints();
               if($categoria == 'categoria1'){$log = sizeof($categoria1); $categoria1[$log] = $score;}
               elseif($categoria == 'categoria2'){$log = sizeof($categoria2);$categoria2[$log] = $score;}
               elseif($categoria == 'categoria3'){$log = sizeof($categoria3);$categoria3[$log] = $score;}
@@ -315,7 +325,7 @@ function generadorindicadores($id) {
               elseif($categoria == 'categoria5'){$log = sizeof($categoria5);$categoria5[$log] = $score;}
 
             }else{
-              $score = $answers->getPoints();
+              //$score = $answers->getPoints();
               $log=sizeof($tmp);
               $tmp[$log]=$score;
             }
@@ -335,7 +345,7 @@ function generadorindicadores($id) {
 
   $nombre_user = \Drupal::currentUser()->getAccountName();
   foreach ($array_adopcion as $proceso){
-    $result[$i]=calculodeprocesos($proceso); //resultados pro proceso
+    $result[$i]=calculodeprocesos($proceso,$max_value); //resultados pro proceso
     $i++;
   }
   $cpp = [];
@@ -350,17 +360,17 @@ function generadorindicadores($id) {
   }
 
   for($i=0; $i<= sizeof($cc)-1; $i++) {
-    $result_ctc[$i] = calculodeprocesos($cc[$i]); //resultados de promedios por categoria
+    $result_ctc[$i] = calculodeprocesos($cc[$i],$max_value); //resultados de promedios por categoria
   }
 
-  $result_tmp=calculodeprocesos($tmp);
+  $result_tmp=calculodeprocesos($tmp,$max_value);
 
 
   $result_total = calculofinal($result_cpp,$result_ctc,$result_tmp);
 
   $total = calculototal($result_total);
 
- adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$tipo);
+  adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$tipo);
 
 
   return ['#markup' => 'Ruta que crear entidades'];
@@ -386,7 +396,7 @@ function calculofinal($cpp,$ctc,$tmp){
   return $result_total;
 }
 
-function  calculodeprocesos($proceso){
+function  calculodeprocesos($proceso,$max_value){
   $suma =0;
   if($proceso == []){
     return;
@@ -395,7 +405,7 @@ function  calculodeprocesos($proceso){
     $suma = $suma +$result;
   }
   $longitud = sizeof($proceso);
-  $valor_maximo = $longitud * 60; //cambiar 60, por valor de maximo score
+  $valor_maximo = $longitud *$max_value; //cambiar 60, por valor de maximo score
   $porcentaje = ($suma*100)/$valor_maximo;
 
   return $porcentaje;
@@ -496,4 +506,32 @@ function buscargrupo(){
   return $gid;
 }
 
+function buscarscore($answers,$question,$tipo){
+  $id_answer =$answers->get('multichoice_answer')->value;
+  $alternatives =$question->get('alternatives')->getValue();
+  $log = sizeof($alternatives);
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type', 'score_de_respuestas')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $scores = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($scores as $score){
+    $tipo_score = $score->get('field_tipo')->entity->get('field_tipo_form')[0]->getString();
+    if($tipo_score == $tipo){
+      for($i=0;$i<$log;$i++){
+        $points[$i]=$score->get('field_respuesta_'.($i+1))->value;
+        $id_question = $alternatives[$i]['target_revision_id'];
+        if($id_answer == $id_question){
+          $opcion = $i;
+        }
+      }
+
+    }
+  }
+  $valor[0] = $points[$opcion];
+  $valor[1] = $points[$log-1];
+  return $valor;
+}
 

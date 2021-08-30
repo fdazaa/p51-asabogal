@@ -171,8 +171,9 @@ class EntityController extends ControllerBase
   }
 
   public function entityDelete() {
-    $node = $this->entityTypeManager->getStorage('node')->load(9);
-    $node->delete();
+    /*$node = $this->entityTypeManager->getStorage('node')->load(9);
+    $node->delete();*/
+    //eneradorindicadores(1);
     return ['#markup' => 'Ruta que elimina entidades'];
   }
 
