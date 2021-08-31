@@ -9,7 +9,7 @@ _core:
 id: tietheme_local_tasks
 theme: tietheme
 region: content
-weight: -6
+weight: -15
 provider: null
 plugin: local_tasks_block
 settings:

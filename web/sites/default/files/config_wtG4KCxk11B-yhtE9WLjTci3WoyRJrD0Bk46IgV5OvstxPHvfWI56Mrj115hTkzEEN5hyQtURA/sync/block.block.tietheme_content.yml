@@ -11,7 +11,7 @@ _core:
 id: tietheme_content
 theme: tietheme
 region: content
-weight: -3
+weight: -12
 provider: null
 plugin: system_main_block
 settings:

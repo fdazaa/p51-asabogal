@@ -1,27 +1,28 @@
-uuid: d9a6f4d1-48b9-475a-b0c6-6146aeaf5d4d
+uuid: 911ebdb1-f44c-4907-b707-26004b2a805e
 langcode: es
 status: true
 dependencies:
   config:
-    - views.view.indicadores
+    - views.view.tie_grafico_nivel_de_la_empresa
   module:
     - system
     - views
   theme:
-    - tietheme
-id: views_block__indicadores_block_1_2
-theme: tietheme
+    - bartik
+id: views_block__tie_grafico_nivel_de_la_empresa_block_1_2
+theme: bartik
 region: content
 weight: 0
 provider: null
-plugin: 'views_block:indicadores-block_1'
+plugin: 'views_block:tie_grafico_nivel_de_la_empresa-block_1'
 settings:
-  id: 'views_block:indicadores-block_1'
+  id: 'views_block:tie_grafico_nivel_de_la_empresa-block_1'
   label: ''
   provider: views
   label_display: visible
   views_label: ''
   items_per_page: none
+  context_mapping: {  }
 visibility:
   request_path:
     id: request_path

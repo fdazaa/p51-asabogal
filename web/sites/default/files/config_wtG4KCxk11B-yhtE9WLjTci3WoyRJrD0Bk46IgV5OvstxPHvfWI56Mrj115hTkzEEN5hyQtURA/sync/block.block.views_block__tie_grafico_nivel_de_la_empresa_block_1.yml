@@ -1,0 +1,30 @@
+uuid: 4714a5d1-ff04-4160-840b-3bcc8078713b
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.tie_grafico_nivel_de_la_empresa
+  module:
+    - system
+    - views
+  theme:
+    - tietheme
+id: views_block__tie_grafico_nivel_de_la_empresa_block_1
+theme: tietheme
+region: content_indicadores_f1_c2
+weight: -15
+provider: null
+plugin: 'views_block:tie_grafico_nivel_de_la_empresa-block_1'
+settings:
+  id: 'views_block:tie_grafico_nivel_de_la_empresa-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /indicadores
+    negate: false

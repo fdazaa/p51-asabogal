@@ -3,7 +3,6 @@ langcode: es
 status: true
 dependencies:
   config:
-    - field.field.paragraph.multichoice.field_score_answer
     - field.field.paragraph.multichoice.multichoice_answer
     - field.field.paragraph.multichoice.multichoice_correct
     - field.field.paragraph.multichoice.multichoice_feedback_chosen
@@ -23,14 +22,6 @@ targetEntityType: paragraph
 bundle: multichoice
 mode: default
 content:
-  field_score_answer:
-    weight: 5
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   multichoice_answer:
     weight: 1
     label: above

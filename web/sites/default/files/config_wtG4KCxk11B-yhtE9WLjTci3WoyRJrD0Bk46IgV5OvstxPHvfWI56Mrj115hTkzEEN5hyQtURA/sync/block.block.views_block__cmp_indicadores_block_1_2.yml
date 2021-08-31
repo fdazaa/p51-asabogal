@@ -1,29 +1,30 @@
-uuid: 3f8c4e73-1e0a-4a39-a499-e8c45e1f910c
+uuid: cefdc466-26d5-4e3b-917c-b7a6d430b2f6
 langcode: es
 status: true
 dependencies:
   config:
-    - views.view.cmp_empresa_autenticado
+    - views.view.cmp_indicadores
   module:
     - system
     - views
   theme:
     - tietheme
-id: views_block__cmp_empresa_autenticado_block_1_2
+id: views_block__cmp_indicadores_block_1_2
 theme: tietheme
-region: content
-weight: -10
+region: content_indicadores_f1_c1
+weight: 0
 provider: null
-plugin: 'views_block:cmp_empresa_autenticado-block_1'
+plugin: 'views_block:cmp_indicadores-block_1'
 settings:
-  id: 'views_block:cmp_empresa_autenticado-block_1'
+  id: 'views_block:cmp_indicadores-block_1'
   label: ''
   provider: views
   label_display: visible
   views_label: ''
   items_per_page: none
+  context_mapping: {  }
 visibility:
   request_path:
     id: request_path
-    pages: /empresa
+    pages: /indicadores
     negate: false
