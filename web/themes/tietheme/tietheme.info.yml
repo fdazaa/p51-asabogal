@@ -17,6 +17,19 @@ regions:
   sidebar_left: 'Sidebar Izquierdo Usuario registrado'
   highlighted: 'Avisos'
   content: Content
+  content_indicadores: 'Indicadores'
+  content_indicadores_f1: 'Indicadores f1'
+  content_indicadores_f1_c1: 'Indicadores f1c1'
+  content_indicadores_f1_c2: 'Indicadores f1c2'
+  content_indicadores_f2: 'Indicadores f2'
+  content_indicadores_f2_c1: 'Indicadores f2c1'
+  content_indicadores_f3: 'Indicadores f3'
+  content_indicadores_f3_c1: 'Indicadores f3_c1'
+  content_indicadores_f4: 'Indicadores f4'
+  content_indicadores_f4_c1: 'Indicadores f4c1'
+  content_indicadores_f5: 'Indicadores f5'
+  content_indicadores_f5_c1: 'Indicadores f5c1'
+  content_indicadores_f5_c2: 'Indicadores f5c2'
   footer: Footer
 
 

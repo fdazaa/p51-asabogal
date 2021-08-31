@@ -82,12 +82,12 @@ function tietheme_preprocess_page(&$variables)
 /**
  * Implements hook_theme_suggestions_HOOK_alter().views general
  */
-//function tietheme_theme_suggestions_views_view_alter(array &$suggestions, array $variables)//
+function tietheme_theme_suggestions_views_view_alter(array &$suggestions, array $variables)//
   // If you want you can add a template suggestion for all views
-  // based on their ID:
-//{//
-  //$suggestions[] =sprintf('views_view__%s', $variables['view']->id());//
-//}//
+   //based on their ID:
+{
+  $suggestions[] =sprintf('views_view__%s', $variables['view']->id());
+}
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().views campos
@@ -121,4 +121,13 @@ function tietheme_theme_suggestions_table_alter(array &$suggestions, array &$var
 {
   $route = \Drupal::routeMatch();
   $suggestions[] = 'table__'.str_replace('.','_', $route->getRouteName());
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().tablas de views
+ */
+function tietheme_theme_suggestions_views_view_table_alter(array &$suggestions, array $variables)
+{
+  $route = \Drupal::routeMatch();
+  $suggestions[] = 'views_view_table__'.str_replace('.','_', $route->getRouteName());
 }

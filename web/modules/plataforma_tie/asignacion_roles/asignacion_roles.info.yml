@@ -1,0 +1,10 @@
+name: 'Asignacion de Roles'
+type: module
+core_version_requirement: ^9
+
+description: 'Modulo de asignacion de roles automatica'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+#dependencies:
+  #-drupal:node
