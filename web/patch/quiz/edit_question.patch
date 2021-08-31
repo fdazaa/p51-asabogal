@@ -1,0 +1,17 @@
+Index: web/modules/contrib/quiz/src/Form/QuizQuestionEntityForm.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web/modules/contrib/quiz/src/Form/QuizQuestionEntityForm.php b/web/modules/contrib/quiz/src/Form/QuizQuestionEntityForm.php
+--- a/web/modules/contrib/quiz/src/Form/QuizQuestionEntityForm.php	(revision 80fe9ab3835eb230acac3a5c941bc8b007f2456d)
++++ b/web/modules/contrib/quiz/src/Form/QuizQuestionEntityForm.php	(revision 52cb29cf587526a28e1bf328d1e5e9ea37d606a7)
+@@ -56,7 +56,7 @@
+           '#value' => $message,
+         ];
+         \Drupal::messenger()->addWarning($message);
+-        $form['actions']['#disabled'] = TRUE;
++        //$form['actions']['#disabled'] = TRUE;
+       }
+       $form['revision']['#description'] = '<strong>Warning:</strong> This question has attempts.<br/>In order to update this question you must create a new revision.<br/>This will affect reporting.<br/>You must update the quizzes with the new revision of this question.';
+     }
