@@ -25,15 +25,14 @@
  * @see template_preprocess_block()
  */
 #}
-<div {{ attributes }}>
+<div class="tw-mt-4 tw-mb-2 lg:tw-mb-12 tw-p-2 " {{ attributes }}>
   {{ title_prefix }}
   {% if label %}
-    <h2{{ title_attributes }}>{{ label }}</h2>
+    <h2 class="tw-text-lg tw-font-bold tw-text-green-600 tw-uppercase"
+      {{ title_attributes }}>{{ label }}</h2>
   {% endif %}
   {{ title_suffix }}
   {% block content %}
-  <div class= "tw-text-gray-700 tw-text-left tw-mb-2 lg:tw-mb-6 tw-text-xl lg:tw-text-3xl tw-font-bold">
-    <small>{{ content }}</small>
-    </div>
+    {{ content }}
   {% endblock %}
 </div>

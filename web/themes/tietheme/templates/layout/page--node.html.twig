@@ -134,18 +134,53 @@
                   </aside>
                 </div>
               {% endif %}
+
               {{ tietheme }}
 
-              {#<div class="tw-border-2">div de pruebas
-                {{ user.id }}
-                {{ user.account.name }}
-                <h1>hola</h1>
-              </div>#}
 							{{ page.content }}
-						</div>
+
+
+              <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2">
+                {% if page.content_indicadores_f1_c1 %}
+                    <div class="tw-col-span-1">{{ page.content_indicadores_f1_c1 }}</div>
+                {% endif %}
+                {% if page.content_indicadores_f1_c2 %}
+                    <div class="tw-col-span-1">{{ page.content_indicadores_f1_c2 }}</div>
+                {% endif %}
+              </div>
+
+              <div>
+                {% if page.content_indicadores_f2_c1 %}
+                  <div>{{ page.content_indicadores_f2_c1 }}</div>
+                {% endif %}
+              </div>
+
+              <div>
+                {% if page.content_indicadores_f3_c1 %}
+                  <div>{{ page.content_indicadores_f3_c1 }}</div>
+                {% endif %}
+              </div>
+
+              <div>
+                {% if page.content_indicadores_f4_c1 %}
+                  <div>{{ page.content_indicadores_f4_c1 }}</div>
+                {% endif %}
+              </div>
+
+              <div>
+                {% if page.content_indicadores_f5_c1 %}
+                  <div>{{ page.content_indicadores_f5_c1 }}</div>
+                {% endif %}
+                {% if page.content_indicadores_f5_c2 %}
+                  <div>{{ page.content_indicadores_f5_c2 }}</div>
+                {% endif %}
+              </div>
+
+            </div>
 					</div>
 				</main>
 			{% endif %}
+
 		{% else %}
 
 			{% if page.content %}
