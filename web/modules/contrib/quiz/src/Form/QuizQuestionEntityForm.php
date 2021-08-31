@@ -56,7 +56,7 @@ class QuizQuestionEntityForm extends ContentEntityForm {
           '#value' => $message,
         ];
         \Drupal::messenger()->addWarning($message);
-        $form['actions']['#disabled'] = TRUE;
+        //$form['actions']['#disabled'] = TRUE;
       }
       $form['revision']['#description'] = '<strong>Warning:</strong> This question has attempts.<br/>In order to update this question you must create a new revision.<br/>This will affect reporting.<br/>You must update the quizzes with the new revision of this question.';
     }
