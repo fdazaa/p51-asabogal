@@ -1,0 +1,133 @@
+<?php
+
+use \Drupal\user;
+use \Drupal\commerce_license;
+
+
+function asignacion_roles_page_attachments_alter(array &$attachments) {
+  $url = \Drupal::service('path.current')->getPath();
+  $id = \Drupal::currentUser()->id();
+  if($url == '/user/'.$id){
+    activacionroles();
+  }
+}
+
+
+function activacionroles(){
+  $gid = buscargrupo();
+  $id_autor=buscarautorgrupo($gid);
+  $state = licencia($id_autor);
+  $rol_grupo=buscarolgrupo();
+  $rol=extraerstring($rol_grupo);
+  if($state=='active'){
+    rolactualgeneral($rol);
+  }elseif($state =='expired'){
+    $link = \Drupal\Core\Link::fromTextAndUrl(' Aquí ',\Drupal\Core\Url::fromUri("internal:/licencia"))->toString();
+    if($rol == 'direccion_estrategico'){
+      \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta la vigencia de tu licencia. Debes adquirir una nueva  @link',array('@link'=>$link)));
+    }else{
+      \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta con el Lider de tu empresa'));
+    }
+    quitarrol();
+  }
+}
+
+
+
+
+function quitarrol(){
+  $rol = \Drupal::currentUser()->getRoles()[1];
+  $id = \Drupal::currentUser()->id();
+  $user = user\Entity\User::load($id);
+  $user->removeRole($rol);
+  $user->save();
+}
+
+
+
+
+function extraerstring($rol_grupo){
+
+  for ($i=9;$i<40;$i++){
+    if($rol_grupo[$i]!=' ' && $rol_grupo[$i]!='-'){
+      $rol=$rol.$rol_grupo[$i];
+    }
+  }
+  return $rol;
+}
+
+
+
+
+function rolactualgeneral($rol_st){
+  $id = \Drupal::currentUser()->id();
+  $user = user\Entity\User::load($id);
+  $user->addRole($rol_st);
+  $user->save();
+}
+
+
+
+
+function buscarolgrupo(){
+  $storage=\Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  $groups =!empty($ids) ? $storage->loadMultiple($ids):[];
+  foreach($groups as $group){
+    $members = $group->getMembers();
+
+    foreach($members as $member){
+      $id_members = $member->getUser();
+      if ($id_members) {  $id_member=$id_members->id();}
+      $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
+      if($id_general == $id_member){
+        if ($member instanceof Drupal\group\GroupMembership){
+          $getRoles = $member->getRoles();
+          foreach ($getRoles as $class){
+            if($class instanceof Drupal\group\Entity\GroupRole){
+              $rol = $class->id();
+              if($rol != 'Member'){
+                return $rol;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+function licencia($id_autor){
+  $storage = \Drupal::entityTypeManager()->getStorage('commerce_license');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  $licenses = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($licenses as $license){
+    $id_license = $license->uid[0]->target_id;
+    if($id_license==$id_autor){
+      $state = $license->state[0]->value;
+      return $state;
+    }
+  }
+}
+
+
+
+
+function buscarautorgrupo($gid){
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids): NULL;
+  foreach ($groups as $group){
+    if($group->id()==$gid){
+      $id_autor = $group->uid->target_id;
+      return $id_autor;
+    }
+  }
+
+}
