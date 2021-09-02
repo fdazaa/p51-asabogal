@@ -1,0 +1,93 @@
+uuid: 4d7e704a-f296-4d8c-8a8b-381b57925cf2
+langcode: es
+status: true
+dependencies:
+  module:
+    - commerce
+    - commerce_price
+    - commerce_recurring
+id: commerce_subscription.license.default
+targetEntityType: commerce_subscription
+bundle: license
+mode: default
+content:
+  billing_schedule:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  ends:
+    type: commerce_recurring_end_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  payment_method:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  purchased_entity:
+    type: options_select
+    weight: -1
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  quantity:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  starts:
+    type: datetime_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  store_id:
+    type: commerce_entity_select
+    weight: 2
+    region: content
+    settings:
+      hide_single_entity: true
+      autocomplete_threshold: 7
+      autocomplete_size: 60
+      autocomplete_placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  trial_ends:
+    type: commerce_recurring_end_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  trial_starts:
+    type: datetime_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  unit_price:
+    type: commerce_price_default
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

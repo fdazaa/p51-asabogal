@@ -1,0 +1,11 @@
+uuid: 09c200d3-6d9c-4de3-aafc-9ce492845c53
+langcode: es
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.tipo_producto_suscripcion
+id: commerce_product.tipo_producto_suscripcion
+target_entity_type_id: commerce_product
+target_bundle: tipo_producto_suscripcion
+default_langcode: site_default
+language_alterable: false

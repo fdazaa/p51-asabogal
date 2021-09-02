@@ -1,0 +1,21 @@
+uuid: 9eeede6f-c7ef-481c-93da-f000d963d125
+langcode: es
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.variacion_suscrpcion
+    - field.storage.commerce_product_variation.billing_schedule
+id: commerce_product_variation.variacion_suscrpcion.billing_schedule
+field_name: billing_schedule
+entity_type: commerce_product_variation
+bundle: variacion_suscrpcion
+label: 'Billing schedule'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: null
+settings:
+  handler: 'default:commerce_billing_schedule'
+  handler_settings: {  }
+field_type: entity_reference
