@@ -6,4 +6,8 @@ id: compras_tactico
 label: 'Compras - Táctico'
 weight: 19
 is_admin: null
-permissions: {  }
+permissions:
+  - 'view field_tamano_de_empresa'
+  - 'view field_tipo'
+  - 'view own field_tamano_de_empresa'
+  - 'view own field_tipo'

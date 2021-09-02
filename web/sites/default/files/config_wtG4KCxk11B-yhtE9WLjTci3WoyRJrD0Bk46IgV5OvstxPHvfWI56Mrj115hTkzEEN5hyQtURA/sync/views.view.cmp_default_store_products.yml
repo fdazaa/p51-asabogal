@@ -7,7 +7,7 @@ dependencies:
   module:
     - commerce_product
 id: cmp_default_store_products
-label: 'CMP - Default products per store'
+label: 'TIE - Productos Tienda'
 module: views
 description: ''
 tag: ''

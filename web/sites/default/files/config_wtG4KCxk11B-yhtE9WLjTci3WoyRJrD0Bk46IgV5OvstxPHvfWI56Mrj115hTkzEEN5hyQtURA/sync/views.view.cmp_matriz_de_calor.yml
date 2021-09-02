@@ -13,7 +13,7 @@ dependencies:
     - reference_table_formatter
     - user
 id: cmp_matriz_de_calor
-label: 'CMP - Matriz de Calor'
+label: 'TIE - Matriz de Calor'
 module: views
 description: ''
 tag: ''
@@ -657,7 +657,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: cmp-matriz-de-calor
+      path: matriz-de-calor
     cache_metadata:
       max-age: -1
       contexts:

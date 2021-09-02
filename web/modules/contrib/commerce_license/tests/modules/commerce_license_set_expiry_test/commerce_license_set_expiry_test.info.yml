@@ -1,0 +1,12 @@
+name: 'Commerce License Set Expiry Test'
+type: module
+description: 'Test module for Commerce License'
+package: Testing
+core_version_requirement: ^8.8 || ^9
+dependencies:
+  - recurring_period:recurring_period
+
+# Information added by Drupal.org packaging script on 2021-03-09
+version: '8.x-2.0-alpha21'
+project: 'commerce_license'
+datestamp: 1615289660

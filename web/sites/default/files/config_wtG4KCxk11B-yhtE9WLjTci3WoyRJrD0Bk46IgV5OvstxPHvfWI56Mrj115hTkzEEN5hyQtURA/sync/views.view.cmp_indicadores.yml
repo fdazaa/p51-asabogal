@@ -14,7 +14,7 @@ dependencies:
     - node
     - user
 id: cmp_indicadores
-label: 'CMP -  INDICADORES'
+label: 'TIE - Indicadores Individuales'
 module: views
 description: ''
 tag: ''

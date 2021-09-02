@@ -17,7 +17,5 @@ permissions:
   - 'edit own analisis_de_respuesta content'
   - 'revert analisis_de_respuesta revisions'
   - 'view analisis_de_respuesta revisions'
-  - 'view own field_tamano_de_empresa'
-  - 'view own field_tipo'
   - 'view own quiz'
   - 'view results for own quiz'

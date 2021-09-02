@@ -9,7 +9,7 @@ dependencies:
   module:
     - quiz
 id: tie_banco_de_preguntas
-label: 'TIE - banco de preguntas'
+label: 'TIE - Banco de preguntas'
 module: views
 description: ''
 tag: ''

@@ -30,11 +30,48 @@ dependencies:
     - group.type.empresas
   module:
     - datetime
+    - telephone
 id: group.empresas.default
 targetEntityType: group
 bundle: empresas
 mode: default
 content:
+  field_apellidos_persona_encarga_:
+    type: string_textfield
+    weight: 19
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_apellidos_rep_legal:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_cargo_user_encargado_pr:
+    type: options_select
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_city_municipio:
+    type: string_textfield
+    weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_departamento:
+    type: options_select
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_digito_de_verificacion:
     weight: 5
     settings:
@@ -42,11 +79,64 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_direccion:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_email_empresa:
+    type: email_default
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_email_persona_encargada:
+    type: email_default
+    weight: 20
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_fecha_const_empresa:
     type: datetime_default
     weight: 6
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_genero_repre_legal:
+    type: options_select
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_name_repre_legal:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_name_user_encargado:
+    type: string_textfield
+    weight: 18
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_num_identif_rep_legal:
+    type: number
+    weight: 16
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   field_num_identificacion:
     weight: 4
@@ -55,18 +145,61 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_red_social:
+    type: string_textfield
+    weight: 23
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_sitio_web:
+    type: string_textfield
+    weight: 24
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_tamano_de_empresa:
     weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
+  field_tel_repre_legal:
+    type: telephone_default
+    weight: 17
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_tel_user_encargado_proceso:
+    type: telephone_default
+    weight: 22
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_telefono:
+    type: telephone_default
+    weight: 10
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_tipo:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
+  field_tipo_de_identifiacion_repr:
+    type: options_select
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_tipo_identificacion_user:
     weight: 3
     settings: {  }
@@ -82,24 +215,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  field_apellidos_persona_encarga_: true
-  field_apellidos_rep_legal: true
-  field_cargo_user_encargado_pr: true
-  field_city_municipio: true
-  field_departamento: true
-  field_direccion: true
-  field_email_empresa: true
-  field_email_persona_encargada: true
-  field_genero_repre_legal: true
-  field_name_repre_legal: true
-  field_name_user_encargado: true
-  field_num_identif_rep_legal: true
-  field_red_social: true
-  field_sitio_web: true
-  field_tel_repre_legal: true
-  field_tel_user_encargado_proceso: true
-  field_telefono: true
-  field_tipo_de_identifiacion_repr: true
   langcode: true
   path: true
   revision_log_message: true

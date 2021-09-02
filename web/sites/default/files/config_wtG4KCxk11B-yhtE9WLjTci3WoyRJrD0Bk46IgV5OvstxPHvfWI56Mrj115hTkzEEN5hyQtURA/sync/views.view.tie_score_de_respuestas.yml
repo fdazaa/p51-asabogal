@@ -11,7 +11,6 @@ dependencies:
     - node.type.score_de_respuestas
   module:
     - node
-    - user
 id: tie_score_de_respuestas
 label: 'TIE - Score de Respuestas'
 module: views
@@ -27,9 +26,8 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
-        options:
-          perm: 'access content'
+        type: none
+        options: {  }
       cache:
         type: tag
         options: {  }
@@ -554,7 +552,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.permissions
       tags:
         - 'config:field.storage.node.field_respuesta_1'
         - 'config:field.storage.node.field_respuesta_2'
@@ -574,7 +571,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.permissions
       tags:
         - 'config:field.storage.node.field_respuesta_1'
         - 'config:field.storage.node.field_respuesta_2'

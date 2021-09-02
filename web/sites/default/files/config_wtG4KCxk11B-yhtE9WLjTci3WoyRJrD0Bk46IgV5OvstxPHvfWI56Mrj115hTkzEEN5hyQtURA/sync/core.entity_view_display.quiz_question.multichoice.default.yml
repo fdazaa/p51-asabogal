@@ -31,14 +31,6 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-  field_pilar_segen_group:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
 hidden:
   alternatives: true
   choice_boolean: true
@@ -47,4 +39,5 @@ hidden:
   field_categoria_proceso: true
   field_choices: true
   field_clasificacion: true
+  field_pilar_segen_group: true
   field_tipo: true

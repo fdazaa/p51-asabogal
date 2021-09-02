@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Commerce License.
+ */
+
+/**
+ * Update entity keys for licenses.
+ */
+function commerce_license_update_8201() {
+  $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  $uid_storage_definition = $definition_update_manager->getFieldStorageDefinition('uid', 'commerce_license');
+  $entity_type = $definition_update_manager->getEntityType('commerce_license');
+  $keys = $entity_type->getKeys();
+  $keys['owner'] = 'uid';
+  $entity_type->set('entity_keys', $keys);
+  $definition_update_manager->updateEntityType($entity_type);
+  $definition_update_manager->updateFieldStorageDefinition($uid_storage_definition);
+}

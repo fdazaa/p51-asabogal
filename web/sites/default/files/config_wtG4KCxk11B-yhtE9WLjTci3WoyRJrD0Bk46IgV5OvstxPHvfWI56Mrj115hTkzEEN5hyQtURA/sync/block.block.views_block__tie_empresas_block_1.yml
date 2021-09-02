@@ -1,0 +1,38 @@
+uuid: 8a00013c-32aa-40a8-9f6f-e4f368935bf5
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.tie_empresas
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - tietheme
+id: views_block__tie_empresas_block_1
+theme: tietheme
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:tie_empresas-block_1'
+settings:
+  id: 'views_block:tie_empresas-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /empresas
+    negate: false
+  user_role:
+    id: user_role
+    roles:
+      administrator: administrator
+      admin_sitio: admin_sitio
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
