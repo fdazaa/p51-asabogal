@@ -102,17 +102,21 @@ function buscarolgrupo(){
 
 
 function licencia($id_autor){
+  $i=0;
+  $licencias=[];
   $storage = \Drupal::entityTypeManager()->getStorage('commerce_license');
   $query = $storage->getQuery();
   $ids = $query->execute();
   $licenses = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($licenses as $license){
-    $id_license = $license->uid[0]->target_id;
-    if($id_license==$id_autor){
-      $state = $license->state[0]->value;
-      return $state;
+    $id_al = $license->uid[0]->target_id;
+    if($id_al==$id_autor){
+      $licencias[$i]=$license;
+      $i++;
     }
   }
+  $state = $licencias[$i-1]->state[0]->value;
+  return $state;
 }
 
 

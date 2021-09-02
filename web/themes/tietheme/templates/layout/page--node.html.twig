@@ -142,80 +142,85 @@
 							  {{ page.content }}
               {% endif %}
 
-
               {#contenido Indicadores#}
-              {% if page.content_indicadores %}
-                {{ page.content_indicadores }}
-              {% endif %}
-                {#contenido Indicadores Fila 1#}
-                {% if page.content_indicadores_f1 %}
-                  {{ page.content_indicadores_f1 }}
+              <div>
+                {% if page.content_indicadores %}
+                  <div>{{ page.content_indicadores }}</div>
                 {% endif %}
 
-                <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2">
-                  {#contenido Indicadores Fila 1 Columna 1#}
-                  {% if page.content_indicadores_f1_c1 %}
-                      <div class="tw-col-span-1">{{ page.content_indicadores_f1_c1 }}</div>
-                  {% endif %}
-                  {#contenido Indicadores Fila 1 Columna 2#}
-                  {% if page.content_indicadores_f1_c2 %}
-                      <div class="tw-col-span-1">{{ page.content_indicadores_f1_c2 }}</div>
-                  {% endif %}
+                {#contenido Indicadores Fila 1#}
+                <div>
+                    {% if page.content_indicadores_f1 %}
+                      <div class="tw-mt-4 tw-mb-2 lg:tw-mb-2 tw-p-2">{{ page.content_indicadores_f1 }}</div>
+                    {% endif %}
+                    <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2">
+                      {#contenido Indicadores Fila 1 Columna 1#}
+                      {% if page.content_indicadores_f1_c1 %}
+                        <div class="tw-col-span-1">{{ page.content_indicadores_f1_c1 }}</div>
+                      {% endif %}
+                      {#contenido Indicadores Fila 1 Columna 2#}
+                      {% if page.content_indicadores_f1_c2 %}
+                        <div class="tw-col-span-1">{{ page.content_indicadores_f1_c2 }}</div>
+                      {% endif %}
+                    </div>
                 </div>
 
                 {#contenido Indicadores Fila 2#}
-                {% if page.content_indicadores_f2 %}
-                  {{ page.content_indicadores_f2 }}
-                {% endif %}
-
                 <div>
-                  {#contenido Indicadores Fila 2 Columna 1#}
-                  {% if page.content_indicadores_f2_c1 %}
-                    <div>{{ page.content_indicadores_f2_c1 }}</div>
+                  {% if page.content_indicadores_f2 %}
+                    <div class="tw-mt-4 tw-mb-2 lg:tw-mb-2 tw-p-2">{{ page.content_indicadores_f2 }}</div>
                   {% endif %}
+                  <div>
+                    {#contenido Indicadores Fila 2 Columna 1#}
+                    {% if page.content_indicadores_f2_c1 %}
+                      <div>{{ page.content_indicadores_f2_c1 }}</div>
+                    {% endif %}
+                  </div>
                 </div>
 
                 {#contenido Indicadores Fila 3#}
-                {% if page.content_indicadores_f3 %}
-                  <div>{{ page.content_indicadores_f3 }}</div>
-                {% endif %}
-
                 <div>
-                  {#contenido Indicadores Fila 3 Columna 1#}
-                  {% if page.content_indicadores_f3_c1 %}
-                    <div>{{ page.content_indicadores_f3_c1 }}</div>
+                  {% if page.content_indicadores_f3 %}
+                    <div class="tw-mt-4 tw-mb-2 lg:tw-mb-2 tw-p-2">{{ page.content_indicadores_f3 }}</div>
                   {% endif %}
+                  <div>
+                    {#contenido Indicadores Fila 3 Columna 1#}
+                    {% if page.content_indicadores_f3_c1 %}
+                      <div>{{ page.content_indicadores_f3_c1 }}</div>
+                    {% endif %}
+                  </div>
                 </div>
 
                 {#contenido Indicadores Fila 4#}
-                {% if page.content_indicadores_f4 %}
-                  {{ page.content_indicadores_f4 }}
-                {% endif %}
-
                 <div>
-                  {#contenido Indicadores Fila 4 Columna 1#}
-                  {% if page.content_indicadores_f4_c1 %}
-                    <div>{{ page.content_indicadores_f4_c1 }}</div>
+                  {% if page.content_indicadores_f4 %}
+                    <div class="tw-mt-4 tw-mb-2 lg:tw-mb-2 tw-p-2">{{ page.content_indicadores_f4 }}</div>
                   {% endif %}
+                  <div>
+                    {#contenido Indicadores Fila 4 Columna 1#}
+                    {% if page.content_indicadores_f4_c1 %}
+                      <div>{{ page.content_indicadores_f4_c1 }}</div>
+                    {% endif %}
+                  </div>
                 </div>
 
                 {#contenido Indicadores Fila 5#}
-                {% if page.content_indicadores_f5 %}
-                  {{ page.content_indicadores_f5 }}
-                {% endif %}
-
                 <div>
-                  {#contenido Indicadores Fila 5 Columna 1#}
-                  {% if page.content_indicadores_f5_c1 %}
-                    <div>{{ page.content_indicadores_f5_c1 }}</div>
+                  {% if page.content_indicadores_f5 %}
+                    <div class="tw-mt-4 tw-mb-2 lg:tw-mb-2 tw-p-2">{{ page.content_indicadores_f5 }}</div>
                   {% endif %}
-                  {#contenido Indicadores Fila 5 Columna 2#}
-                  {% if page.content_indicadores_f5_c2 %}
-                    <div>{{ page.content_indicadores_f5_c2 }}</div>
-                  {% endif %}
+                  <div>
+                    {#contenido Indicadores Fila 5 Columna 1#}
+                    {% if page.content_indicadores_f5_c1 %}
+                      <div>{{ page.content_indicadores_f5_c1 }}</div>
+                    {% endif %}
+                    {#contenido Indicadores Fila 5 Columna 2#}
+                    {% if page.content_indicadores_f5_c2 %}
+                      <div>{{ page.content_indicadores_f5_c2 }}</div>
+                    {% endif %}
+                  </div>
                 </div>
-
-
+              </div>
             </div>
 					</div>
 				</main>

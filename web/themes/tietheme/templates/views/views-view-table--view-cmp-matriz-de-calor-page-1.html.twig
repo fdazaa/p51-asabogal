@@ -38,7 +38,7 @@
     sticky ? 'sticky-enabled',
   ]
 %}
-<table class="tw-w-full tw-border-collapse tw-border tw-border-dashed tw-border-gray-200 tw-whitespace-nowrap" {{ attributes.addClass(classes) }}>
+<table class="tw-w-full tw-whitespace-nowrap" {{ attributes.addClass(classes) }}>
   {% if caption_needed %}
     <caption>
     {% if caption %}
@@ -86,7 +86,7 @@
   {% endif %}
   <tbody>
     {% for row in rows %}
-      <tr{{ row.attributes }}>
+      <tr class="tw-border tw-border-dashed tw-border-gray-200"{{ row.attributes }}>
         {% for key, column in row.columns %}
           {% if column.default_classes %}
             {%
