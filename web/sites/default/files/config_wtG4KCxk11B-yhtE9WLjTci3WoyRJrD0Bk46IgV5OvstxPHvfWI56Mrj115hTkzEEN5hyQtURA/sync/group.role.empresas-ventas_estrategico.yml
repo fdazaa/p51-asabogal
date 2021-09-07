@@ -5,7 +5,7 @@ dependencies:
   config:
     - group.type.empresas
 id: empresas-ventas_estrategico
-label: 'Ventas - Estratégico'
+label: 'ventas - estratégico'
 weight: 12
 internal: false
 audience: member

@@ -9,9 +9,10 @@ dependencies:
     - node.type.resultados_empresa
   module:
     - node
+    - options
     - user
 id: tie_resultados_empresa
-label: 'TIE- Resultados Empresa'
+label: 'TIE - Resultados Empresa'
 module: views
 description: ''
 tag: ''
@@ -348,6 +349,47 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        field_origen_re_value:
+          id: field_origen_re_value
+          table: node__field_origen_re
+          field: field_origen_re_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            Adopción: Adopción
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          plugin_id: list_field
       sorts:
         created:
           id: created
@@ -390,7 +432,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: '<a href="[site:url]/indicadores">Actualizar resultados</a'
+            value: '<a href="[site:url]indicadores">Actualizar resultados</a'
             format: basic_html
           plugin_id: text
       empty:

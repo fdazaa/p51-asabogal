@@ -9,7 +9,7 @@ dependencies:
 id: graficoindicadores
 theme: bartik
 region: content
-weight: 0
+weight: -3
 provider: null
 plugin: 'Gráfico Indicadores'
 settings:

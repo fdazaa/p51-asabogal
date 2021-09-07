@@ -1,22 +1,22 @@
-uuid: 911ebdb1-f44c-4907-b707-26004b2a805e
+uuid: 225e934e-5a7d-4df3-bd4a-2d800c39998f
 langcode: es
 status: true
 dependencies:
   config:
-    - views.view.tie_grafico_nivel_de_la_empresa
+    - views.view.tie_marco_de_procesos_adopcion
   module:
     - system
     - views
   theme:
     - bartik
-id: views_block__tie_grafico_nivel_de_la_empresa_block_1_2
+id: views_block__tie_marco_de_procesos_adopcion_block_1
 theme: bartik
 region: content
-weight: -1
+weight: 3
 provider: null
-plugin: 'views_block:tie_grafico_nivel_de_la_empresa-block_1'
+plugin: 'views_block:tie_marco_de_procesos_adopcion-block_1'
 settings:
-  id: 'views_block:tie_grafico_nivel_de_la_empresa-block_1'
+  id: 'views_block:tie_marco_de_procesos_adopcion-block_1'
   label: ''
   provider: views
   label_display: visible

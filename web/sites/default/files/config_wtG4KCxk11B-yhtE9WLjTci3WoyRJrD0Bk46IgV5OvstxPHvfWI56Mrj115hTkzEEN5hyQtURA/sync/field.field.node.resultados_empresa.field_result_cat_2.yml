@@ -1,0 +1,23 @@
+uuid: f262d609-ce18-446a-9962-cbed3618bf18
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_result_cat_2
+    - node.type.resultados_empresa
+id: node.resultados_empresa.field_result_cat_2
+field_name: field_result_cat_2
+entity_type: node
+bundle: resultados_empresa
+label: 'Result cat 2'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

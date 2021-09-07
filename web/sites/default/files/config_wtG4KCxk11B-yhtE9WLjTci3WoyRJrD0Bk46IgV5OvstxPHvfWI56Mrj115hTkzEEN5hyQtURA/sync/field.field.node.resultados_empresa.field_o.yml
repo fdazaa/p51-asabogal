@@ -1,0 +1,21 @@
+uuid: ef1c862f-bbe7-446c-b83a-d102649a8a22
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_o
+    - node.type.resultados_empresa
+  module:
+    - options
+id: node.resultados_empresa.field_o
+field_name: field_o
+entity_type: node
+bundle: resultados_empresa
+label: O
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
