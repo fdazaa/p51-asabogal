@@ -39,17 +39,11 @@ function analisis_respuestas_page_attachments_alter(array &$attachments) {
   if($url == "/node/119"){
     crearresultadosempresa();
   }
-  if($url == "/analisis_respuestas/controller/entity/delete"){
-    generadorindicadores(54);
+  /*if($url == "/analisis_respuestas/controller/entity/delete"){
+    //generadorindicadores(54);
     //buscarscore(104);
-  }
+  }*/
 }
-
-
-
-
-
-
 
 //Genera resultado de empresa
 
@@ -87,14 +81,17 @@ function crearresultadosempresa(){
         }
       }
     }
-    $result_adop = calculoresultempresa($adopcion);
-    $result_apro = calculoresultempresa($apropiacion);
-    $result_ipd = calculoresultempresa($ipd);
+    if($adopcion!= [] && $apropiacion!=[] && $ipd!=[]){
+      $result_adop = calculoresultempresa($adopcion);
+      $result_apro = calculoresultempresa($apropiacion);
+      $result_ipd = calculoresultempresa($ipd);
+    }else{$result_apro=[];$result_adop=[];$result_ipd=[];}
+
 
     $existe= existe($id_user);
     if($existe[1] == 1){
       editempresa($existe[0],$result_adop,$result_apro,$result_ipd);
-    }elseif($existe[1]==0){
+    }elseif($existe[1]==0 && $result_adop!=[] && $result_ipd !=[] && $result_apro!=[]){
       createresultempresa($empresa,$result_adop,$result_apro,$result_ipd);
     }
 
@@ -122,8 +119,6 @@ function buscaresultnode($id_user){
       return $datos;
     }
   }
-
-
 }
 
 function calculoresultempresa($datos){
@@ -344,36 +339,37 @@ function generadorindicadores($id) {
   }
 
   $nombre_user = \Drupal::currentUser()->getAccountName();
-  foreach ($array_adopcion as $proceso){
-    $result[$i]=calculodeprocesos($proceso,$max_value); //resultados pro proceso
-    $i++;
+  if($array_adopcion!=[]) {
+    foreach ($array_adopcion as $proceso) {
+      $result[$i] = calculodeprocesos($proceso, $max_value); //resultados pro proceso
+      $i++;
+    }
+
+
+    $cpp = [];
+    $cpp[0] = [$result[0], $result[1]];
+    $cpp[1] = [$result[2], $result[3], $result[4]];
+    $cpp[2] = [$result[5], $result[6], $result[7], $result[8], $result[9]];
+    $cpp[3] = [$result[10], $result[11], $result[12]];
+    $cpp[4] = [$result[13], $result[14], $result[15]];
+
+    for ($i = 0; $i <= sizeof($cpp) - 1; $i++) {
+      $result_cpp[$i] = calculodecategoriasproceso($cpp[$i]); //resultados de promedios por categoria
+    }
+
+    for ($i = 0; $i <= sizeof($cc) - 1; $i++) {
+      $result_ctc[$i] = calculodeprocesos($cc[$i], $max_value); //resultados de promedios por categoria
+    }
+
+    $result_tmp = calculodeprocesos($tmp, $max_value);
+
+
+    $result_total = calculofinal($result_cpp, $result_ctc, $result_tmp);
+
+    $total = calculototal($result_total);
+
+    adopcionCreateIndicadores($result, $result_cpp, $result_ctc, $result_tmp, $result_total, $total, $nombre_user, $tipo);
   }
-  $cpp = [];
-  $cpp[0]= [$result[0], $result[1]];
-  $cpp[1]= [$result[2], $result[3],    $result[4]];
-  $cpp[2]= [$result[5], $result[6],    $result[7],    $result[8],    $result[9]];
-  $cpp[3]= [$result[10], $result[11],  $result[12]];
-  $cpp[4]= [$result[13], $result[14],  $result[15]];
-
-  for($i=0; $i<= sizeof($cpp)-1; $i++) {
-    $result_cpp[$i] = calculodecategoriasproceso($cpp[$i]); //resultados de promedios por categoria
-  }
-
-  for($i=0; $i<= sizeof($cc)-1; $i++) {
-    $result_ctc[$i] = calculodeprocesos($cc[$i],$max_value); //resultados de promedios por categoria
-  }
-
-  $result_tmp=calculodeprocesos($tmp,$max_value);
-
-
-  $result_total = calculofinal($result_cpp,$result_ctc,$result_tmp);
-
-  $total = calculototal($result_total);
-
-  adopcionCreateIndicadores($result,$result_cpp,$result_ctc, $result_tmp,$result_total,$total,$nombre_user,$tipo);
-
-
-  return ['#markup' => 'Ruta que crear entidades'];
 }
 
 function calculototal($result){
