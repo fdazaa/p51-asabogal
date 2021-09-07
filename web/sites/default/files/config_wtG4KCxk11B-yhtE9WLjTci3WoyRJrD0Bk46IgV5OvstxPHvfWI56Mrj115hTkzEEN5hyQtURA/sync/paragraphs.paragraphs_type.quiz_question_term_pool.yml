@@ -8,7 +8,7 @@ dependencies:
 _core:
   default_config_hash: h20Bf7dlQS94vsDufq92rf6f0m8lqySDErfEpwR9vEI
 id: quiz_question_term_pool
-label: 'Form question term pool'
+label: 'Grupo de preguntas'
 icon_uuid: null
 icon_default: null
 description: 'Holds a pool configuration for Quizzes with questions from random categories.'

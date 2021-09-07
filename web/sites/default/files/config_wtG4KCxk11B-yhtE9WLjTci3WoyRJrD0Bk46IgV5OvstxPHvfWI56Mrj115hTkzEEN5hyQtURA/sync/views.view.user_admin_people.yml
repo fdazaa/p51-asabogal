@@ -198,7 +198,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Username
+          label: 'Nombre de usuario ó Email'
           exclude: false
           alter:
             alter_text: false
@@ -306,7 +306,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Roles
+          label: Rol
           exclude: false
           alter:
             alter_text: false
@@ -469,7 +469,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Operations
+          label: Opciones
           exclude: false
           alter:
             alter_text: false

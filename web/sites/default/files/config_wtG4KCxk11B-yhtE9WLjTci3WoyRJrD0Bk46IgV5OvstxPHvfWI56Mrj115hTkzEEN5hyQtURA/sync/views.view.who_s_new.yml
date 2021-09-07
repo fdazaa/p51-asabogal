@@ -38,7 +38,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Aplicar
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -185,7 +185,7 @@ display:
     display_options:
       display_description: 'Un listado de nuevos usuarios'
       block_description: 'Quién es nuevo'
-      block_category: User
+      block_category: Usuario
       display_extenders: {  }
     cache_metadata:
       contexts:

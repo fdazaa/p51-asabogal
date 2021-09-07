@@ -7,11 +7,13 @@ label: 'Dirección - Estratégico'
 weight: 24
 is_admin: null
 permissions:
+  - 'access group overview'
   - 'administer commerce_subscription'
   - 'cancel any commerce_subscription'
   - 'cancel own commerce_subscription'
   - 'create commerce_billing_schedule'
   - 'create commerce_subscription'
+  - 'create empresas group'
   - 'create field_tamano_de_empresa'
   - 'create field_tipo'
   - 'delete any commerce_subscription'

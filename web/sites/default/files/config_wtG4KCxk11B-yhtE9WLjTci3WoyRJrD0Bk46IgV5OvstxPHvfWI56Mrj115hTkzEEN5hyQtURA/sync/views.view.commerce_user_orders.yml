@@ -11,7 +11,7 @@ dependencies:
 _core:
   default_config_hash: ixfojlMdSpKQCFLyPcNv8yfWcracf58Oxi0O5Kzu_EE
 id: commerce_user_orders
-label: 'User orders'
+label: 'Ordenes de usuarios'
 module: views
 description: 'Display a list of placed orders for a user.'
 tag: Commerce
@@ -42,7 +42,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Aplicar
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -570,7 +570,7 @@ display:
   order_page:
     display_plugin: page
     id: order_page
-    display_title: 'User orders'
+    display_title: 'Ordenes de usuarios'
     position: 1
     display_options:
       display_extenders: {  }

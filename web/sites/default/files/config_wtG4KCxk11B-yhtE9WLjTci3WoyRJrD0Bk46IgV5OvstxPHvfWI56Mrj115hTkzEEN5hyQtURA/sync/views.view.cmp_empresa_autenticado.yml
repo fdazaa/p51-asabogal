@@ -33,7 +33,7 @@ dependencies:
     - group
     - options
 id: cmp_empresa_autenticado
-label: 'TIE - Empresa autenticado'
+label: 'TIE - Mi empresa (Solo ver)'
 module: views
 description: ''
 tag: ''
@@ -1916,8 +1916,8 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'Aun no tienes una Empresa creada, adquiere uno de nuestros <a href="[site:url]/planes-y-servicios-tie">productos</a> para iniciar el proceso.'
-            format: basic_html
+            value: 'Aun no ha registrado su empresa. Adquiera uno de nuestro planes empresariales <a class="tw-text-blue-600" href="[site:url]/licencia">Aquí.</a> '
+            format: full_html
           plugin_id: text
       relationships: {  }
       arguments: {  }

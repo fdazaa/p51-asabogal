@@ -3,7 +3,7 @@ langcode: es
 status: true
 dependencies: {  }
 id: empresas
-label: Empresas
+label: Empresa
 description: 'A continuación debe crear la empresa con los datos más importante. Debe ser lo más preciso con la información suministrada. '
 new_revision: true
 creator_membership: true
