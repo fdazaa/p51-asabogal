@@ -6,7 +6,7 @@ dependencies:
     - quiz
     - user
 id: tie_result_prueba
-label: 'TIE - Respuestas formulario individual'
+label: 'TIE - Mis respuestas individual'
 module: views
 description: ''
 tag: ''
@@ -340,7 +340,20 @@ display:
       title: 'TIE- Prueba result question'
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'Aún no tiene respuestas registradas. Debe completar los formular de Adopción y Apropiación de arriba.'
+            format: full_html
+          plugin_id: text
       relationships:
         uid:
           id: uid

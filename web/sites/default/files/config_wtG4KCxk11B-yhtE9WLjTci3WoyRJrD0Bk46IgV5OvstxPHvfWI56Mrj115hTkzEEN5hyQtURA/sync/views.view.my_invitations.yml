@@ -42,7 +42,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Aplicar
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -227,7 +227,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Roles
+          label: Rol
           exclude: false
           alter:
             alter_text: false
@@ -290,7 +290,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Invited by'
+          label: 'Invitado por'
           exclude: false
           alter:
             alter_text: false
@@ -355,7 +355,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Invited on'
+          label: 'Invitador en'
           exclude: false
           alter:
             alter_text: false
@@ -584,7 +584,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Operations
+          label: Opciones
           exclude: false
           alter:
             alter_text: false
@@ -770,7 +770,7 @@ display:
       menu:
         type: none
         title: 'My Invitations'
-        description: 'User invitations to Groups'
+        description: 'Invitaciones de usuario a Empresas'
         expanded: false
         parent: ''
         weight: 10

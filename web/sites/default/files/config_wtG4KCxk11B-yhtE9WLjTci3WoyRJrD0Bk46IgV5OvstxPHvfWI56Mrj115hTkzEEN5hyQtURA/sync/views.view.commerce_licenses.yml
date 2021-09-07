@@ -11,7 +11,7 @@ dependencies:
 _core:
   default_config_hash: qDJpXJ_8FkzPY58X9u7E69YkFZTYVb-pIw1qMrHC6yk
 id: commerce_licenses
-label: Licenses
+label: Licencias
 module: views
 description: ''
 tag: ''
@@ -274,7 +274,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'License type'
+          label: 'Tipo de licencia'
           exclude: false
           alter:
             alter_text: false
@@ -469,7 +469,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Updated
+          label: Actualizado
           exclude: false
           alter:
             alter_text: false
@@ -603,7 +603,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Operations links'
+          label: 'Links de operaciones'
           exclude: false
           alter:
             alter_text: false
@@ -708,7 +708,7 @@ display:
           entity_type: commerce_license
           entity_field: granted
           plugin_id: date
-      title: Licenses
+      title: Licencias
       header: {  }
       footer: {  }
       empty: {  }

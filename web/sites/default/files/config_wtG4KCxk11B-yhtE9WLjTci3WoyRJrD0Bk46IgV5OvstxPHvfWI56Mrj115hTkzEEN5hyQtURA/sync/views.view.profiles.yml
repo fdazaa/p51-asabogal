@@ -37,7 +37,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Aplicar
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -343,7 +343,7 @@ display:
   user_page:
     display_plugin: embed
     id: user_page
-    display_title: 'User page'
+    display_title: 'Página de usuario'
     position: 1
     display_options:
       display_extenders: {  }

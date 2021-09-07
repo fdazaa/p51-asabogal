@@ -13,7 +13,7 @@ dependencies:
 id: views_block__cmp_empresa_autenticado_block_1_2
 theme: tietheme
 region: content
-weight: -10
+weight: -14
 provider: null
 plugin: 'views_block:cmp_empresa_autenticado-block_1'
 settings:

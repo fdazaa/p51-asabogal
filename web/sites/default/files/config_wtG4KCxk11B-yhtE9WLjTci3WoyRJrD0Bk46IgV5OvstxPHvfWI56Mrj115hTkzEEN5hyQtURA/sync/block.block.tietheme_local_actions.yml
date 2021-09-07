@@ -9,7 +9,7 @@ _core:
 id: tietheme_local_actions
 theme: tietheme
 region: content
-weight: -13
+weight: -16
 provider: null
 plugin: local_actions_block
 settings:

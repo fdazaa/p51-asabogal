@@ -41,7 +41,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Aplicar
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -188,7 +188,7 @@ display:
           relationship: uid
           group_type: group
           admin_label: ''
-          label: User
+          label: Usuario
           exclude: false
           alter:
             alter_text: false
@@ -468,7 +468,7 @@ display:
           entity_type: user
           plugin_id: user_current
       sorts: {  }
-      title: 'Attempts awaiting score'
+      title: 'No hay formularios diligenciados'
       header: {  }
       footer: {  }
       empty:
@@ -481,7 +481,7 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: 'There are no attempts that need to be scored.'
+          content: 'Por favor diligencie un formulario.'
           plugin_id: text_custom
       relationships:
         qid:

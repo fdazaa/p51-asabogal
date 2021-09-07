@@ -452,7 +452,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Updated
+          label: Actualizado
           exclude: false
           alter:
             alter_text: false
@@ -519,7 +519,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Operations
+          label: Opciones
           exclude: false
           alter:
             alter_text: false
@@ -1405,7 +1405,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Updated
+          label: Actualizado
           exclude: false
           alter:
             alter_text: false
@@ -1472,7 +1472,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Operations
+          label: Opciones
           exclude: false
           alter:
             alter_text: false

@@ -39,7 +39,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Aplicar
           reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -251,7 +251,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Updated
+          label: Actualizado
           exclude: false
           alter:
             alter_text: false
@@ -307,7 +307,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Operations
+          label: Opciones
           exclude: false
           alter:
             alter_text: false

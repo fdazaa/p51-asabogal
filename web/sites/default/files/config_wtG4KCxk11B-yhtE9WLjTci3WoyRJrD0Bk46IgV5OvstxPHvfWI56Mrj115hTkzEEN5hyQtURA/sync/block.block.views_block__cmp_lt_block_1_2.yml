@@ -13,7 +13,7 @@ dependencies:
 id: views_block__cmp_lt_block_1_2
 theme: tietheme
 region: content
-weight: -7
+weight: -10
 provider: null
 plugin: 'views_block:cmp_lt-block_1'
 settings:

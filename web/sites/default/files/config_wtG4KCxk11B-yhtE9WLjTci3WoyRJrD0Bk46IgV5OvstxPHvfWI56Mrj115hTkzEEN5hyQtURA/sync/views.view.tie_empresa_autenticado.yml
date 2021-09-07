@@ -37,7 +37,7 @@ dependencies:
     - options
     - user
 id: tie_empresa_autenticado
-label: 'TIE - Empresa lider'
+label: 'TIE - Mi empresa (Ver, Editar ó Crear)'
 module: views
 description: ''
 tag: ''
@@ -690,14 +690,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_direccion:
-          id: field_direccion
-          table: group__field_direccion
-          field: field_direccion
+        field_fecha_const_empresa:
+          id: field_fecha_const_empresa
+          table: group__field_fecha_const_empresa
+          field: field_fecha_const_empresa
           relationship: none
           group_type: group
           admin_label: ''
-          label: Dirección
+          label: 'Fecha de Constitucion de la Empresa'
           exclude: false
           alter:
             alter_text: false
@@ -739,9 +739,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
+          type: datetime_default
           settings:
-            link_to_entity: false
+            timezone_override: ''
+            format_type: medium
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -823,6 +824,69 @@ display:
           group_type: group
           admin_label: ''
           label: 'Ciudad / Municipio'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_direccion:
+          id: field_direccion
+          table: group__field_direccion
+          field: field_direccion
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Dirección
           exclude: false
           alter:
             alter_text: false
@@ -1129,14 +1193,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_tipo_de_identifiacion_repr:
-          id: field_tipo_de_identifiacion_repr
-          table: group__field_tipo_de_identifiacion_repr
-          field: field_tipo_de_identifiacion_repr
+        field_genero_repre_legal:
+          id: field_genero_repre_legal
+          table: group__field_genero_repre_legal
+          field: field_genero_repre_legal
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Tipo de Identificación Representante Legal'
+          label: 'Género Representante Legal'
           exclude: false
           alter:
             alter_text: false
@@ -1191,14 +1255,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_genero_repre_legal:
-          id: field_genero_repre_legal
-          table: group__field_genero_repre_legal
-          field: field_genero_repre_legal
+        field_tipo_de_identifiacion_repr:
+          id: field_tipo_de_identifiacion_repr
+          table: group__field_tipo_de_identifiacion_repr
+          field: field_tipo_de_identifiacion_repr
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Género Representante Legal'
+          label: 'Tipo de Identificación Representante Legal'
           exclude: false
           alter:
             alter_text: false
@@ -1819,70 +1883,6 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_fecha_const_empresa:
-          id: field_fecha_const_empresa
-          table: group__field_fecha_const_empresa
-          field: field_fecha_const_empresa
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Fecha de Constitucion de la Empresa'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_default
-          settings:
-            timezone_override: ''
-            format_type: medium
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         edit_group:
           id: edit_group
           table: groups
@@ -1977,7 +1977,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'Aun no tienes una Empresa creada, adquiere uno de nuestros <a href="[site:url]/planes-y-servicios-tie">productos</a> para iniciar el proceso.'
+            value: 'Aun no ha registrado su empresa. <a class="tw-text-blue-600" href="[site:url]/group/add/empresas">Crear nueva empresa aquí.</a> '
             format: basic_html
           plugin_id: text
       relationships: {  }

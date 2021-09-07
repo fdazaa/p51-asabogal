@@ -28,7 +28,7 @@ configuration:
       weight: 3
     completion_message:
       message:
-        value: "Your order number is [commerce_order:order_number].\r\nYou can view your order on your account page when logged in."
+        value: "Su número de orden es [commerce_order:order_number].\r\nPodrá ver sus ordenes de compra en su página de perfil."
         format: plain_text
       step: complete
       weight: 5
