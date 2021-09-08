@@ -23,30 +23,30 @@ configuration:
       double_entry: true
       step: order_information
       weight: 1
+    payment_information:
+      step: order_information
+      weight: 2
     review:
       step: review
       weight: 3
+    payment_process:
+      capture: true
+      step: payment
+      weight: 4
     completion_message:
       message:
-        value: "Su número de orden es [commerce_order:order_number].\r\nPodrá ver sus ordenes de compra en su página de perfil."
+        value: "Your order number is [commerce_order:order_number].\r\nYou can view your order on your account page when logged in."
         format: plain_text
-      step: complete
-      weight: 5
+      step: _disabled
+      weight: 7
     order_summary:
       view: null
+      step: _sidebar
+      weight: 5
+    coupon_redemption:
+      allow_multiple: false
       step: _sidebar
       weight: 6
     completion_register:
       step: _disabled
       weight: 8
-    payment_process:
-      capture: true
-      step: payment
-      weight: 4
-    payment_information:
-      step: order_information
-      weight: 2
-    coupon_redemption:
-      allow_multiple: false
-      step: _sidebar
-      weight: 7

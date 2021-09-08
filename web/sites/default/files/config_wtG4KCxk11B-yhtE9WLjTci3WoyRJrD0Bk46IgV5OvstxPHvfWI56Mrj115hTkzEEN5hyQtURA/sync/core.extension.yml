@@ -65,6 +65,7 @@ module:
   gnode: 0
   grafico_indicadores: 0
   group: 0
+  group_tools: 0
   help: 0
   history: 0
   image: 0
