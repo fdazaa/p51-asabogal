@@ -1,0 +1,46 @@
+<?php
+
+
+
+function group_tools_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  if($form_id=='group_empresas_add_form'){
+    deletemember();
+  }
+}
+
+function create_empresa_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
+  //AQUI VA LO QUE VA A HACER SUBMIT
+  deletemember();
+}
+
+function deletemember(){
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids): NULL;
+  foreach ($groups as $group){
+    $members = $group->getMembers();
+    foreach ($members as $member){
+      $id_member = $member->getUser();
+      if($id_member){
+        $id_member=$id_member->id();
+      }
+      if($id_member ==  \Drupal::currentUser()->id()){
+        $type = $group->bundle();
+        $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+        $gid = $group->id();
+        $group = \Drupal\group\Entity\Group::load($gid);
+        $group->removeMember($account);
+        crearmember($gid,$type);
+      }
+    }
+  }
+}
+
+function crearmember($gid,$type){
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $group = \Drupal\group\Entity\Group::load($gid);
+  $values =['group_roles'=>$type.'-'.'direccion_estrategico'];
+  $group->addMember($account,$values);
+}

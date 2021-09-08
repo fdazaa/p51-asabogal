@@ -1,0 +1,11 @@
+name: 'Group Tools'
+type: module
+core_version_requirement: ^9
+
+description: 'Modulo para confgiruaciones adicionales de group'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+dependencies:
+  -group:group
+
