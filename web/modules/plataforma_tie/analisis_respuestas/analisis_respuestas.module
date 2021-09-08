@@ -37,19 +37,19 @@ function analisis_respuestas_form_submit(&$form, \Drupal\Core\Form\FormStateInte
 function analisis_respuestas_page_attachments_alter(array &$attachments) {
   $url = \Drupal::service('path.current')->getPath();
   if($url == "/node/119"){
-    crearresultadosempresa();
+    crearresultadosempresa('Adopción');
+
+    crearresultadosempresa('Apropiación');
   }
-  /*if($url == "/analisis_respuestas/controller/entity/delete"){
-    //generadorindicadores(54);
-    //buscarscore(104);
-  }*/
 }
 
 //Genera resultado de empresa
 
 function crearresultadosempresa(){
 
-  $adopcion = []; $apropiacion = []; $datos =[]; $ipd = []; $existe = [];
+  $adopcion = []; $apropiacion = []; $datos = []; $ipd = []; $existe = [];
+  $proceso =[];
+  $result_g = [];
 
   $rol_user = \Drupal::currentUser()->getRoles()[1];
   if($rol_user == 'direccion_estrategico'){
@@ -73,12 +73,26 @@ function crearresultadosempresa(){
             $p_apro = sizeof($apropiacion);
             $p_ipd = sizeof($ipd);
             $datos = buscaresultnode($id_member);
-            if($datos[0]!=[]){ $adopcion[$p_adop]=$datos[0]; }
-            if($datos[1]!=[]){$apropiacion[$p_apro]=$datos[1];}
-            if($datos[2]!=[]){$ipd[$p_ipd]=$datos[2];}
+            if($datos[0]!=[] && $datos[1]!=[] && $datos[2]!=[]){
+              $adopcion[$p_adop]=$datos[0];
+              $apropiacion[$p_apro]=$datos[1];
+              $ipd[$p_ipd]=$datos[2];
+              $datos_ar = buscaranalisisresult($id_member,$origen);
+              $log_s = sizeof($datos_ar);
+              for ($i=0;$i<$log_s;$i++){
+                $log = sizeof($proceso[$i]);
+                $proceso[$i][$log]=$datos_ar[$i];
+              }
+            }
           }
           break 2;
         }
+      }
+    }
+    for ($i=0;$i<$log_s;$i++){
+      $result_g[$i]=calculoresultempresa($proceso[$i]);
+      if ($result_g[$i]==0){
+        $result_g[$i]=[];
       }
     }
     if($adopcion!= [] && $apropiacion!=[] && $ipd!=[]){
@@ -88,16 +102,44 @@ function crearresultadosempresa(){
     }else{$result_apro=[];$result_adop=[];$result_ipd=[];}
 
 
-    $existe= existe($id_user);
+    $existe= existe($id_user,$origen);
     if($existe[1] == 1){
-      editempresa($existe[0],$result_adop,$result_apro,$result_ipd);
+      editempresa($existe[0],$result_adop,$result_apro,$result_ipd, $result_g,$origen);
     }elseif($existe[1]==0 && $result_adop!=[] && $result_ipd !=[] && $result_apro!=[]){
-      createresultempresa($empresa,$result_adop,$result_apro,$result_ipd);
+      createresultempresa($empresa,$result_adop,$result_apro,$result_ipd, $result_g,$origen);
     }
 
   }
 
 }
+
+
+function buscaranalisisresult($id_user,$origen){
+  $datos = [];
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type','analisis_de_respuesta')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($resultados as $resultado){
+    $id_autor = $resultado->uid->target_id;
+    $origen_ar = $resultado->get('field_origen')->value;
+    if($origen_ar == $origen){
+      if ($id_user == $id_autor){
+        for($i=0;$i<16;$i++){
+          $datos[$i]=$resultado->get('field_proceso_'.($i+1))->value;
+        }
+        for($i=0;$i<5;$i++){
+          $log = sizeof($datos);
+          $datos[$log]=$resultado->get('field_c'.($i+1).'ad')->value;
+        }
+        return $datos;
+      }
+    }
+  }
+}
+
 
 function buscaresultnode($id_user){
   $datos =[];
@@ -125,7 +167,7 @@ function calculoresultempresa($datos){
   $suma = 0;
   $log = sizeof($datos);
   foreach ($datos as $dato){
-    $suma = $suma +$dato;
+    $suma = $suma + $dato;
   }
   $result = $suma/$log;
   return $result;
@@ -138,9 +180,31 @@ function createresultempresa($empresa,$adop,$apro,$ipd){
     'field_result_adopcion'=>$adop,
     'field_result_apropiacion'=>$apro,
     'field_result_ipd'=>$ipd,
+    'field_result_proceso_1'=>$result_g[0],
+    'field_result_proceso_2'=>$result_g[1],
+    'field_result_proceso_3'=>$result_g[2],
+    'field_result_proceso_4'=>$result_g[3],
+    'field_result_proceso_5'=>$result_g[4],
+    'field_result_proceso_6'=>$result_g[5],
+    'field_result_proceso_7'=>$result_g[6],
+    'field_result_proceso_8'=>$result_g[7],
+    'field_result_proceso_9'=>$result_g[8],
+    'field_result_proceso_10'=>$result_g[9],
+    'field_result_proceso_11'=>$result_g[10],
+    'field_result_proceso_12'=>$result_g[11],
+    'field_result_proceso_13'=>$result_g[12],
+    'field_result_proceso_14'=>$result_g[13],
+    'field_result_proceso_15'=>$result_g[14],
+    'field_result_proceso_16'=>$result_g[15],
+    'field_result_cat_1'=>$result_g[16],
+    'field_result_cat_2'=>$result_g[17],
+    'field_result_cat_3'=>$result_g[18],
+    'field_result_cat_4'=>$result_g[19],
+    'field_result_cat_5'=>$result_g[20]
   ];
 
   $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+  $node->field_origen_re->value=$origen;
   $node->save();
 
   $gid = buscargrupo();
@@ -155,7 +219,7 @@ function createresultempresa($empresa,$adop,$apro,$ipd){
   $entity ->save();
 }
 
-function existe($id_user){
+function existe($id_user,$origen){
   $datos = [];
   $storage = \Drupal::entityTypeManager()->getStorage('node');
   $query = $storage->getQuery()
@@ -164,23 +228,46 @@ function existe($id_user){
   $ids = $query->execute();
   $empresas = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($empresas as $empresa){
-    $id_autor =$empresa->uid->target_id;
+    $origen_e = $empresa->get('field_origen_re')->value;
+
+    $id_autor =$empresa->getOwner()->id();
     $id_empresa = $empresa->id();
     $datos[0]=$id_empresa;
-    if($id_autor == $id_user){ $datos[1]=1;}
+    if($id_autor == $id_user && $origen==$origen_e){ $datos[1]=1;}
     else{ $datos[1]=0;}
     return $datos;
   }
 }
 
-function editempresa($id_empresa,$adop,$apro,$ipd){
+function editempresa($id_empresa,$adop,$apro,$ipd,$result_g,$origen){
 
   $node = \Drupal::entityTypeManager()->getStorage('node')->load($id_empresa);
   $node->set('field_result_adopcion', $adop);
   $node->set('field_result_apropiacion', $apro);
   $node->set('field_result_ipd', $ipd);
+  $node->set('field_result_proceso_1',$result_g[0]);
+  $node->set('field_result_proceso_2',$result_g[1]);
+  $node->set('field_result_proceso_3',$result_g[2]);
+  $node->set('field_result_proceso_4',$result_g[3]);
+  $node->set('field_result_proceso_5',$result_g[4]);
+  $node->set('field_result_proceso_6',$result_g[5]);
+  $node->set('field_result_proceso_7',$result_g[6]);
+  $node->set('field_result_proceso_8',$result_g[7]);
+  $node->set('field_result_proceso_9',$result_g[8]);
+  $node->set('field_result_proceso_10',$result_g[9]);
+  $node->set('field_result_proceso_11',$result_g[10]);
+  $node->set('field_result_proceso_12',$result_g[11]);
+  $node->set('field_result_proceso_13',$result_g[12]);
+  $node->set('field_result_proceso_14',$result_g[13]);
+  $node->set('field_result_proceso_15',$result_g[14]);
+  $node->set('field_result_proceso_16',$result_g[15]);
+  $node->set('field_result_cat_1',$result_g[16]);
+  $node->set('field_result_cat_2',$result_g[17]);
+  $node->set('field_result_cat_3',$result_g[18]);
+  $node->set('field_result_cat_4',$result_g[19]);
+  $node->set('field_result_cat_5',$result_g[20]);
+  $node->set('field_origen_re',$origen);
   $node->save();
-
 }
 
 // Genera Reultados
