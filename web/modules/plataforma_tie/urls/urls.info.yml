@@ -1,0 +1,10 @@
+name: 'Urls'
+type: module
+core_version_requirement: ^9
+
+description: 'Modulo de generacion de Urls dinamicas'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+  #dependencies:
+  #-drupal:node
