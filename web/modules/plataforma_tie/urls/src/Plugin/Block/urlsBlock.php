@@ -24,14 +24,18 @@ class urlsBlock extends BlockBase {
    */
   public function build() {
     $gid = buscargrupo();
-    $gid_str = strval($gid);
-    $uri = 'internal:/group/'.$gid_str.'/content/add/group_invitation?destination=/group/'.$gid_str.'/members';
-    $url = Url::fromUri($uri);
-    return [
-      '#type' => 'link',
-      '#url' => $url,
-      '#title' => $this->t('Invitar Colaborador'),
-    ];
+    if($gid == []){
+      return ;
+    }else{
+      $gid_str = strval($gid);
+      $uri_gm = 'internal:/group/'.$gid_str.'/content/add/group_invitation?destination=/group/'.$gid_str.'/members';
+      $url = Url::fromUri($uri_gm);
+      return [
+        '#type' => 'link',
+        '#url' => $url,
+        '#title' => $this->t('Invitar Colaborador'),
+      ];
+    }
   }
 
   /**
