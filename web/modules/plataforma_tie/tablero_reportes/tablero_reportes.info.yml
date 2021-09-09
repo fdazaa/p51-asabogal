@@ -1,0 +1,11 @@
+name: 'Tableros Reportes Categorias'
+type: module
+core_version_requirement: ^9
+
+description: 'Modulo para la generacion de los tableros de resultados por categorias y procesos'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+dependencies:
+  -group:group
+

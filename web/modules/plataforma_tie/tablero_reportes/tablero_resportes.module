@@ -1,0 +1,6 @@
+<?php
+
+function tablero_reportes_page_attachments_alter(array &$attachments) {
+  $url = \Drupal::service('path.current')->getPath();
+  dpm($url);
+}
