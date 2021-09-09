@@ -23,8 +23,10 @@ class urlsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    //$url = Url::fromRoute('entity.group.canonical', ['group' => 5]);
-    $url = Url::fromUri('internal:/group/5');
+    $gid = buscargrupo();
+    $gid_str = strval($gid);
+    $uri = '/group/'.$gid_str.'/content/add/group_invitation?destination=/group/'.$gid_str.'/members';
+    $url = Url::fromUri($uri);
     return [
       '#type' => 'link',
       '#url' => $url,
