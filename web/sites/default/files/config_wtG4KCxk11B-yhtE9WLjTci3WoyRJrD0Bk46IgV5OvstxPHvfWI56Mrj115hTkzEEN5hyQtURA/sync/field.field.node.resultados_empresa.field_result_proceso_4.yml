@@ -1,0 +1,23 @@
+uuid: af1535ad-9c84-4618-9498-2ba4ddeb4b84
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_result_proceso_4
+    - node.type.resultados_empresa
+id: node.resultados_empresa.field_result_proceso_4
+field_name: field_result_proceso_4
+entity_type: node
+bundle: resultados_empresa
+label: 'Result proceso 4'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

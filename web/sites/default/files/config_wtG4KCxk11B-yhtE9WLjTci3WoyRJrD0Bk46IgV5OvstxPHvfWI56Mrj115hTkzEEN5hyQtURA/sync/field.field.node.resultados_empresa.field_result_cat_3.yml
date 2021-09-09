@@ -1,0 +1,23 @@
+uuid: 12a6d3ef-6903-41c7-a183-3415e7b784ba
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_result_cat_3
+    - node.type.resultados_empresa
+id: node.resultados_empresa.field_result_cat_3
+field_name: field_result_cat_3
+entity_type: node
+bundle: resultados_empresa
+label: 'Result cat 3'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

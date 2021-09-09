@@ -1,0 +1,11 @@
+uuid: af15b8cc-4b0d-4acc-b2f8-0767177764dc
+langcode: es
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.p_v_licencia
+id: commerce_product_variation.p_v_licencia
+target_entity_type_id: commerce_product_variation
+target_bundle: p_v_licencia
+default_langcode: site_default
+language_alterable: false

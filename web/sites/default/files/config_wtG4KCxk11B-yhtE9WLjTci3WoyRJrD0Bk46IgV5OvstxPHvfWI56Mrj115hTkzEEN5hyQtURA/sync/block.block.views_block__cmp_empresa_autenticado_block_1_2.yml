@@ -1,0 +1,55 @@
+uuid: 3f8c4e73-1e0a-4a39-a499-e8c45e1f910c
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.cmp_empresa_autenticado
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - tietheme
+id: views_block__cmp_empresa_autenticado_block_1_2
+theme: tietheme
+region: content
+weight: -14
+provider: null
+plugin: 'views_block:cmp_empresa_autenticado-block_1'
+settings:
+  id: 'views_block:cmp_empresa_autenticado-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /empresa
+    negate: false
+  user_role:
+    id: user_role
+    roles:
+      administrator: administrator
+      admin_sitio: admin_sitio
+      ventas_estrategico: ventas_estrategico
+      ventas_tactico: ventas_tactico
+      ventas_operativo: ventas_operativo
+      compras_estrategico: compras_estrategico
+      compras_tactico: compras_tactico
+      compras_operativo: compras_operativo
+      finanzas_estrategico: finanzas_estrategico
+      finanzas_tactico: finanzas_tactico
+      finanzas_operativo: finanzas_operativo
+      direccion_tactico: direccion_tactico
+      direccion_operativo: direccion_operativo
+      operaciones_estrategico: operaciones_estrategico
+      operaciones_tactico: operaciones_tactico
+      operaciones_operativo: operaciones_operativo
+      rh_estrategico: rh_estrategico
+      rh_tactico: rh_tactico
+      rh_operativo: rh_operativo
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

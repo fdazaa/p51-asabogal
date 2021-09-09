@@ -1,0 +1,22 @@
+uuid: 65d6ac69-3e4f-4304-9a67-383d82488177
+langcode: es
+status: true
+dependencies:
+  enforced:
+    module:
+      - commerce_product
+      - commerce_recurring
+  module:
+    - commerce_tax
+third_party_settings:
+  commerce_tax:
+    taxable_type: physical_goods
+_core:
+  default_config_hash: Q21JtNYYWL-eIfxaX1rm-NvSqPqdDymrDrN08f_QC7M
+label: 'Recurrente (variación de producto)'
+id: recurring_product_variation
+purchasableEntityType: commerce_product_variation
+orderType: recurring
+traits:
+  - commerce_license_order_item_type
+locked: true

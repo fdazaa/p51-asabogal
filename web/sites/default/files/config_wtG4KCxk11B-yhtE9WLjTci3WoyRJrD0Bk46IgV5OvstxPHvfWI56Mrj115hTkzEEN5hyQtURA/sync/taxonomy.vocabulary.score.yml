@@ -1,0 +1,8 @@
+uuid: d002d302-dbf1-4f2f-a652-dd88a23948cb
+langcode: es
+status: true
+dependencies: {  }
+name: Score
+vid: score
+description: 'Genera términos para valores numéricos de quiz question multichoice'
+weight: 0

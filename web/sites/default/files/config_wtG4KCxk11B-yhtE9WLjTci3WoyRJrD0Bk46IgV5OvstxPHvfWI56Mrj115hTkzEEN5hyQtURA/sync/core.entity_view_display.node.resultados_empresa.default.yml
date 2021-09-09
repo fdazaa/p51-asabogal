@@ -1,0 +1,325 @@
+uuid: 2c810454-4063-4f91-b5f0-98481b14113d
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.field.node.resultados_empresa.field_o
+    - field.field.node.resultados_empresa.field_origen_re
+    - field.field.node.resultados_empresa.field_result_adopcion
+    - field.field.node.resultados_empresa.field_result_apropiacion
+    - field.field.node.resultados_empresa.field_result_cat_1
+    - field.field.node.resultados_empresa.field_result_cat_2
+    - field.field.node.resultados_empresa.field_result_cat_3
+    - field.field.node.resultados_empresa.field_result_cat_4
+    - field.field.node.resultados_empresa.field_result_cat_5
+    - field.field.node.resultados_empresa.field_result_ipd
+    - field.field.node.resultados_empresa.field_result_proceso_1
+    - field.field.node.resultados_empresa.field_result_proceso_10
+    - field.field.node.resultados_empresa.field_result_proceso_11
+    - field.field.node.resultados_empresa.field_result_proceso_12
+    - field.field.node.resultados_empresa.field_result_proceso_13
+    - field.field.node.resultados_empresa.field_result_proceso_14
+    - field.field.node.resultados_empresa.field_result_proceso_15
+    - field.field.node.resultados_empresa.field_result_proceso_16
+    - field.field.node.resultados_empresa.field_result_proceso_2
+    - field.field.node.resultados_empresa.field_result_proceso_3
+    - field.field.node.resultados_empresa.field_result_proceso_4
+    - field.field.node.resultados_empresa.field_result_proceso_5
+    - field.field.node.resultados_empresa.field_result_proceso_6
+    - field.field.node.resultados_empresa.field_result_proceso_7
+    - field.field.node.resultados_empresa.field_result_proceso_8
+    - field.field.node.resultados_empresa.field_result_proceso_9
+    - node.type.resultados_empresa
+  module:
+    - options
+    - user
+id: node.resultados_empresa.default
+targetEntityType: node
+bundle: resultados_empresa
+mode: default
+content:
+  field_o:
+    weight: 125
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_origen_re:
+    weight: 126
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_result_adopcion:
+    weight: 101
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_apropiacion:
+    weight: 102
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_cat_1:
+    weight: 120
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_cat_2:
+    weight: 121
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_cat_3:
+    weight: 122
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_cat_4:
+    weight: 123
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_cat_5:
+    weight: 124
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_ipd:
+    weight: 103
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_1:
+    weight: 104
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_10:
+    weight: 113
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_11:
+    weight: 114
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_12:
+    weight: 115
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_13:
+    weight: 116
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_14:
+    weight: 117
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_15:
+    weight: 118
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_16:
+    weight: 119
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_2:
+    weight: 105
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_3:
+    weight: 106
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_4:
+    weight: 107
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_5:
+    weight: 108
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_6:
+    weight: 109
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_7:
+    weight: 110
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_8:
+    weight: 111
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_result_proceso_9:
+    weight: 112
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

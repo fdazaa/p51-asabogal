@@ -1,0 +1,12 @@
+uuid: e878999a-2029-4f10-9e8f-eaeef228bed9
+langcode: es
+status: true
+dependencies: {  }
+id: tipo_producto_suscripcion
+label: 'Tipo producto Licencia'
+description: ''
+variationType: p_v_licencia
+multipleVariations: true
+injectVariationFields: true
+traits: {  }
+locked: false

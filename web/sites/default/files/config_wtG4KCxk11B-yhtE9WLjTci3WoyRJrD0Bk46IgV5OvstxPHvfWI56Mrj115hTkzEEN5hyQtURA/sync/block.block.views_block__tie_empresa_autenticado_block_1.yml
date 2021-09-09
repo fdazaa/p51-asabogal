@@ -1,0 +1,39 @@
+uuid: 556bbb36-19ed-4d70-9b82-82e65117c397
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.tie_empresa_autenticado
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - tietheme
+id: views_block__tie_empresa_autenticado_block_1
+theme: tietheme
+region: content
+weight: -13
+provider: null
+plugin: 'views_block:tie_empresa_autenticado-block_1'
+settings:
+  id: 'views_block:tie_empresa_autenticado-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /empresa
+    negate: false
+  user_role:
+    id: user_role
+    roles:
+      administrator: administrator
+      admin_sitio: admin_sitio
+      direccion_estrategico: direccion_estrategico
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
