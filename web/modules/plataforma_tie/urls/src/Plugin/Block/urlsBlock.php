@@ -25,7 +25,7 @@ class urlsBlock extends BlockBase {
   public function build() {
     $gid = buscargrupo();
     $gid_str = strval($gid);
-    $uri = '/group/'.$gid_str.'/content/add/group_invitation?destination=/group/'.$gid_str.'/members';
+    $uri = 'internal:/group/'.$gid_str.'/content/add/group_invitation?destination=/group/'.$gid_str.'/members';
     $url = Url::fromUri($uri);
     return [
       '#type' => 'link',
