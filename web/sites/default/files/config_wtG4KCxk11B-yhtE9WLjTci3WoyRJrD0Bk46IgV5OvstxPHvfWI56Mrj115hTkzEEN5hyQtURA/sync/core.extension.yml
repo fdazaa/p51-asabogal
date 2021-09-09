@@ -107,6 +107,7 @@ module:
   tour: 0
   typed_data: 0
   update: 0
+  urls: 0
   user: 0
   variationcache: 0
   views_bulk_operations: 0

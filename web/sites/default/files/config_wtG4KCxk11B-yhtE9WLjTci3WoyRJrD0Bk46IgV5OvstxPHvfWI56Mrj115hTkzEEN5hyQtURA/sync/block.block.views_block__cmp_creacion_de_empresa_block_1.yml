@@ -1,22 +1,22 @@
-uuid: 62b9e654-8ecc-42a1-aac0-b9070554c7e5
+uuid: c162f61c-b5a8-46e3-961d-1a2863603376
 langcode: es
 status: true
 dependencies:
   config:
-    - views.view.tie_empresa_autenticado
+    - views.view.cmp_creacion_de_empresa
   module:
     - system
     - views
   theme:
     - bartik
-id: views_block__tie_empresa_autenticado_block_1_2
+id: views_block__cmp_creacion_de_empresa_block_1
 theme: bartik
 region: content
-weight: 0
+weight: -8
 provider: null
-plugin: 'views_block:tie_empresa_autenticado-block_1'
+plugin: 'views_block:cmp_creacion_de_empresa-block_1'
 settings:
-  id: 'views_block:tie_empresa_autenticado-block_1'
+  id: 'views_block:cmp_creacion_de_empresa-block_1'
   label: ''
   provider: views
   label_display: visible
@@ -25,5 +25,5 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: /empresa
+    pages: ' /user/*'
     negate: false

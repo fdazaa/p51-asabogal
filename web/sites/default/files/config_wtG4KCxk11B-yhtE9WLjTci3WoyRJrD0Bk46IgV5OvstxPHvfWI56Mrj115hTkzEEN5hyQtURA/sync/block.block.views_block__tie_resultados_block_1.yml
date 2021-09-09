@@ -22,9 +22,8 @@ settings:
   label_display: visible
   views_label: ''
   items_per_page: none
-  context_mapping: {  }
 visibility:
   request_path:
     id: request_path
-    pages: "/indicadores\r\n/checkout/*/complete"
+    pages: /indicadores
     negate: false

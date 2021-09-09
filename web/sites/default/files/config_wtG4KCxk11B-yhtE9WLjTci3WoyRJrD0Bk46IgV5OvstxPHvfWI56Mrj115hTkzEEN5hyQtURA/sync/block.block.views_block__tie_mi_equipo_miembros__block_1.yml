@@ -1,22 +1,22 @@
-uuid: f43b930e-4df9-4016-a041-2a610689f969
+uuid: e01285f4-ab9d-4de9-a142-2c7a2cce49fd
 langcode: es
 status: true
 dependencies:
   config:
-    - views.view.tie_productos
+    - views.view.tie_mi_equipo_miembros_
   module:
     - system
     - views
   theme:
     - tietheme
-id: views_block__tie_productos_block_1
+id: views_block__tie_mi_equipo_miembros__block_1
 theme: tietheme
 region: content
-weight: -7
+weight: -4
 provider: null
-plugin: 'views_block:tie_productos-block_1'
+plugin: 'views_block:tie_mi_equipo_miembros_-block_1'
 settings:
-  id: 'views_block:tie_productos-block_1'
+  id: 'views_block:tie_mi_equipo_miembros_-block_1'
   label: ''
   provider: views
   label_display: visible
@@ -25,5 +25,5 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: /planes-y-servicios-tie
+    pages: /mi-equipo
     negate: false

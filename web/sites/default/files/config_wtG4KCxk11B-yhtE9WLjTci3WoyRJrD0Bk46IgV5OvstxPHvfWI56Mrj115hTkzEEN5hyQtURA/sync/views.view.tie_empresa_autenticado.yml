@@ -1977,7 +1977,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'Aun no ha registrado su empresa. <a class="tw-text-blue-600" href="[site:url]/group/add/empresas">Crear nueva empresa aquí.</a> '
+            value: 'Aun no ha registrado su empresa. <a class="tw-text-blue-600" href="[site:url]/registro-empresa-1">Crear nueva empresa aquí.</a> '
             format: basic_html
           plugin_id: text
       relationships: {  }
