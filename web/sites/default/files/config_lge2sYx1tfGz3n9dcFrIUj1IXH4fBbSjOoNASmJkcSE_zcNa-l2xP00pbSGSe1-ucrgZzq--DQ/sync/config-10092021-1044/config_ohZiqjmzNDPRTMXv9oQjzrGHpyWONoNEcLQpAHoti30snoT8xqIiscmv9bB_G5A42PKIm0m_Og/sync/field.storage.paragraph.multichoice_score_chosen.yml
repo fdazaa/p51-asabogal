@@ -1,0 +1,20 @@
+uuid: dca26a7c-e686-443e-a68f-11d2482250e7
+langcode: es
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.multichoice_score_chosen
+field_name: multichoice_score_chosen
+entity_type: paragraph
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

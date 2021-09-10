@@ -1,0 +1,11 @@
+uuid: bbe56e36-4e31-4c9c-9600-4b233942438d
+langcode: es
+status: true
+dependencies:
+  config:
+    - node.type.resultados_empresa
+id: node.resultados_empresa
+target_entity_type_id: node
+target_bundle: resultados_empresa
+default_langcode: site_default
+language_alterable: false

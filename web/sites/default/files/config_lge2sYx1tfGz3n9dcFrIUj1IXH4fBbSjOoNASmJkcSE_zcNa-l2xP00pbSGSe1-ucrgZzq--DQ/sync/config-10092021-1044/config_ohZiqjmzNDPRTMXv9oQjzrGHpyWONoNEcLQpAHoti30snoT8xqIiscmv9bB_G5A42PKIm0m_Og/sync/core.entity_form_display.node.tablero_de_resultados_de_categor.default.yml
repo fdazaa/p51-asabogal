@@ -1,0 +1,159 @@
+uuid: 680c3bf8-881a-4de6-8867-f804831ee42d
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.field.node.tablero_de_resultados_de_categor.field_categoria
+    - field.field.node.tablero_de_resultados_de_categor.field_fecha_de_medicion_de_linea
+    - field.field.node.tablero_de_resultados_de_categor.field_linea_base
+    - field.field.node.tablero_de_resultados_de_categor.field_origen_tableros
+    - field.field.node.tablero_de_resultados_de_categor.field_proceso
+    - field.field.node.tablero_de_resultados_de_categor.field_semana_de_ultima_medicion
+    - field.field.node.tablero_de_resultados_de_categor.field_tipo_de_indicador
+    - field.field.node.tablero_de_resultados_de_categor.field_ultima_medicion
+    - field.field.node.tablero_de_resultados_de_categor.field_unidad_de_medida
+    - field.field.node.tablero_de_resultados_de_categor.field_variacion
+    - node.type.tablero_de_resultados_de_categor
+  module:
+    - datetime
+    - hide_revision_field
+    - path
+id: node.tablero_de_resultados_de_categor.default
+targetEntityType: node
+bundle: tablero_de_resultados_de_categor
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_categoria:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_fecha_de_medicion_de_linea:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_linea_base:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_origen_tableros:
+    weight: 18
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_proceso:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_semana_de_ultima_medicion:
+    weight: 16
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_tipo_de_indicador:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_ultima_medicion:
+    weight: 15
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_unidad_de_medida:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_variacion:
+    weight: 17
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 7
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,41 @@
+uuid: b59b8449-442c-4b85-979e-57a4b956e1c3
+langcode: es
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.tablero_de_resultados_de_categor.field_categoria
+    - field.field.node.tablero_de_resultados_de_categor.field_fecha_de_medicion_de_linea
+    - field.field.node.tablero_de_resultados_de_categor.field_linea_base
+    - field.field.node.tablero_de_resultados_de_categor.field_origen_tableros
+    - field.field.node.tablero_de_resultados_de_categor.field_proceso
+    - field.field.node.tablero_de_resultados_de_categor.field_semana_de_ultima_medicion
+    - field.field.node.tablero_de_resultados_de_categor.field_tipo_de_indicador
+    - field.field.node.tablero_de_resultados_de_categor.field_ultima_medicion
+    - field.field.node.tablero_de_resultados_de_categor.field_unidad_de_medida
+    - field.field.node.tablero_de_resultados_de_categor.field_variacion
+    - node.type.tablero_de_resultados_de_categor
+  module:
+    - user
+id: node.tablero_de_resultados_de_categor.teaser
+targetEntityType: node
+bundle: tablero_de_resultados_de_categor
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_categoria: true
+  field_fecha_de_medicion_de_linea: true
+  field_linea_base: true
+  field_origen_tableros: true
+  field_proceso: true
+  field_semana_de_ultima_medicion: true
+  field_tipo_de_indicador: true
+  field_ultima_medicion: true
+  field_unidad_de_medida: true
+  field_variacion: true
+  langcode: true

@@ -1,0 +1,21 @@
+uuid: f2452ccf-7c4b-42eb-94c8-22ad1834f7ad
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_categoria
+    - node.type.tablero_de_resultados_de_categor
+  module:
+    - options
+id: node.tablero_de_resultados_de_categor.field_categoria
+field_name: field_categoria
+entity_type: node
+bundle: tablero_de_resultados_de_categor
+label: Categoría
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

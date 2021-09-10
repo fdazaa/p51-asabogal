@@ -1,0 +1,11 @@
+uuid: 840836cb-387f-4dd6-b023-068c361f694d
+langcode: es
+status: true
+dependencies:
+  config:
+    - node.type.tablero_de_resultados_de_categor
+id: node.tablero_de_resultados_de_categor
+target_entity_type_id: node
+target_bundle: tablero_de_resultados_de_categor
+default_langcode: site_default
+language_alterable: false

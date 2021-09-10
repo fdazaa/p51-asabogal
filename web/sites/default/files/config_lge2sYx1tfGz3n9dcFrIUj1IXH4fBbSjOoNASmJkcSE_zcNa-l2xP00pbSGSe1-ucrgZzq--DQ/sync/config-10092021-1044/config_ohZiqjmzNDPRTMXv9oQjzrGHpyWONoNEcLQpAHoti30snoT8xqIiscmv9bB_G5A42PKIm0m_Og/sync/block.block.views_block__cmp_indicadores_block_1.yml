@@ -1,0 +1,30 @@
+uuid: deef8dab-f3cc-408c-b9a1-d024d6ba1d9a
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.cmp_indicadores
+  module:
+    - system
+    - views
+  theme:
+    - bartik
+id: views_block__cmp_indicadores_block_1
+theme: bartik
+region: content
+weight: -9
+provider: null
+plugin: 'views_block:cmp_indicadores-block_1'
+settings:
+  id: 'views_block:cmp_indicadores-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /indicadores
+    negate: false

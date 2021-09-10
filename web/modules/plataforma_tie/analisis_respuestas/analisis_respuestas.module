@@ -51,13 +51,7 @@ function crearresultadosempresa($origen){
   $result_g = [];
 
   $rol_user = \Drupal::currentUser()->getRoles()[1];
-  /*for($i=0;$i<2;$i++){
-    if($i==0){
-      $origen = 'Adopción';
-    }else{
-      $origen = 'Apropiación';
-    }*/
-    if($rol_user == 'direccion_estrategico'){
+    //if($rol_user == 'direccion_estrategico'){
 
       $storage = \Drupal::entityTypeManager()->getStorage('group');
       $query = $storage->getQuery();
@@ -90,7 +84,6 @@ function crearresultadosempresa($origen){
                 }
               }
             }
-            break 2;
           }
         }
       }
@@ -114,12 +107,7 @@ function crearresultadosempresa($origen){
         createresultempresa($empresa,$result_adop,$result_apro,$result_ipd, $result_g,$origen);
       }
 
-    }
-
-
-  //}
-
-
+    //}
 }
 
 
@@ -230,6 +218,8 @@ function createresultempresa($empresa,$adop,$apro,$ipd,$result_g,$origen){
 
 function existe($id_user,$origen){
   $datos = [];
+  $em_user =[];
+  $i=0;
   $storage = \Drupal::entityTypeManager()->getStorage('node');
   $query = $storage->getQuery()
     ->condition('type','resultados_empresa')
@@ -237,15 +227,30 @@ function existe($id_user,$origen){
   $ids = $query->execute();
   $empresas = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($empresas as $empresa){
-    $origen_e = $empresa->get('field_origen_re')->value;
-
     $id_autor =$empresa->getOwner()->id();
+    if($id_autor == \Drupal::currentUser()->id()){
+      $em_user[$i]=$empresa;
+      $i++;
+    }
     $id_empresa = $empresa->id();
     $datos[0]=$id_empresa;
-    if($id_autor == $id_user && $origen==$origen_e){ $datos[1]=1;}
+    $origen_e = $empresa->get('field_origen_re')->getString();
+
+    $id_autor =$empresa->getOwner()->id();
+
+    if($origen==$origen_e &&$id_autor == $id_user){ $datos[1]=1;}
     else{ $datos[1]=0;}
-    return $datos;
   }
+  if($em_user!=[]){
+    if(){
+
+    }
+
+  }
+
+
+  return $datos;
+
 }
 
 function editempresa($id_empresa,$adop,$apro,$ipd,$result_g,$origen){
@@ -275,7 +280,7 @@ function editempresa($id_empresa,$adop,$apro,$ipd,$result_g,$origen){
   $node->set('field_result_cat_3',$result_g[18]);
   $node->set('field_result_cat_4',$result_g[19]);
   $node->set('field_result_cat_5',$result_g[20]);
-  $node->set('field_origen_re',$origen);
+  //$node->set('field_origen_re',$origen);
   $node->save();
 }
 
