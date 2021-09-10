@@ -37,79 +37,87 @@ function analisis_respuestas_form_submit(&$form, \Drupal\Core\Form\FormStateInte
 function analisis_respuestas_page_attachments_alter(array &$attachments) {
   $url = \Drupal::service('path.current')->getPath();
   if($url == "/node/119"){
-    crearresultadosempresa('Adopción');
-
-    crearresultadosempresa('Apropiación');
+    crearresultadosempresa();
   }
 }
 
 //Genera resultado de empresa
 
-function crearresultadosempresa($origen){
+function crearresultadosempresa(){
 
   $adopcion = []; $apropiacion = []; $datos = []; $ipd = []; $existe = [];
   $proceso =[];
   $result_g = [];
 
   $rol_user = \Drupal::currentUser()->getRoles()[1];
-  if($rol_user == 'direccion_estrategico'){
+  for($i=0;$i=2;$i++){
+    if($i==1){
+      $origen = 'Adopción';
+    }else{
+      $origen = 'Apopiación';
+    }
+    if($rol_user == 'direccion_estrategico'){
 
-    $storage = \Drupal::entityTypeManager()->getStorage('group');
-    $query = $storage->getQuery();
-    $ids =$query->execute();
-    $groups = !empty($ids) ? $storage->loadMultiple($ids): NULL;
-    foreach ($groups as $group){
-      $members = $group->getMembers();
-      foreach ($members as $member){
-        $id_member = $member->getUser();
-        if ($id_member) {  $id_member=$id_member->id();}
-        $id_user = \Drupal::currentUser()->id();
-        if($id_member == $id_user){
-          $empresa =$group->label();
-          foreach ($members as $member){
-            $id_member = $member->getUser();
-            if ($id_member) {  $id_member=$id_member->id();}
-            $p_adop = sizeof($adopcion);
-            $p_apro = sizeof($apropiacion);
-            $p_ipd = sizeof($ipd);
-            $datos = buscaresultnode($id_member);
-            if($datos[0]!=[] && $datos[1]!=[] && $datos[2]!=[]){
-              $adopcion[$p_adop]=$datos[0];
-              $apropiacion[$p_apro]=$datos[1];
-              $ipd[$p_ipd]=$datos[2];
-              $datos_ar = buscaranalisisresult($id_member,$origen);
-              $log_s = sizeof($datos_ar);
-              for ($i=0;$i<$log_s;$i++){
-                $log = sizeof($proceso[$i]);
-                $proceso[$i][$log]=$datos_ar[$i];
+      $storage = \Drupal::entityTypeManager()->getStorage('group');
+      $query = $storage->getQuery();
+      $ids =$query->execute();
+      $groups = !empty($ids) ? $storage->loadMultiple($ids): NULL;
+      foreach ($groups as $group){
+        $members = $group->getMembers();
+        foreach ($members as $member){
+          $id_member = $member->getUser();
+          if ($id_member) {  $id_member=$id_member->id();}
+          $id_user = \Drupal::currentUser()->id();
+          if($id_member == $id_user){
+            $empresa =$group->label();
+            foreach ($members as $member){
+              $id_member = $member->getUser();
+              if ($id_member) {  $id_member=$id_member->id();}
+              $p_adop = sizeof($adopcion);
+              $p_apro = sizeof($apropiacion);
+              $p_ipd = sizeof($ipd);
+              $datos = buscaresultnode($id_member);
+              if($datos[0]!=[] && $datos[1]!=[] && $datos[2]!=[]){
+                $adopcion[$p_adop]=$datos[0];
+                $apropiacion[$p_apro]=$datos[1];
+                $ipd[$p_ipd]=$datos[2];
+                $datos_ar = buscaranalisisresult($id_member,$origen);
+                $log_s = sizeof($datos_ar);
+                for ($i=0;$i<$log_s;$i++){
+                  $log = sizeof($proceso[$i]);
+                  $proceso[$i][$log]=$datos_ar[$i];
+                }
               }
             }
+            break 2;
           }
-          break 2;
         }
       }
-    }
-    for ($i=0;$i<$log_s;$i++){
-      $result_g[$i]=calculoresultempresa($proceso[$i]);
-      if ($result_g[$i]==0){
-        $result_g[$i]=[];
+      for ($i=0;$i<$log_s;$i++){
+        $result_g[$i]=calculoresultempresa($proceso[$i]);
+        if ($result_g[$i]==0){
+          $result_g[$i]=[];
+        }
       }
-    }
-    if($adopcion!= [] && $apropiacion!=[] && $ipd!=[]){
-      $result_adop = calculoresultempresa($adopcion);
-      $result_apro = calculoresultempresa($apropiacion);
-      $result_ipd = calculoresultempresa($ipd);
-    }else{$result_apro=[];$result_adop=[];$result_ipd=[];}
+      if($adopcion!= [] && $apropiacion!=[] && $ipd!=[]){
+        $result_adop = calculoresultempresa($adopcion);
+        $result_apro = calculoresultempresa($apropiacion);
+        $result_ipd = calculoresultempresa($ipd);
+      }else{$result_apro=[];$result_adop=[];$result_ipd=[];}
 
 
-    $existe= existe($id_user,$origen);
-    if($existe[1] == 1){
-      editempresa($existe[0],$result_adop,$result_apro,$result_ipd, $result_g,$origen);
-    }elseif($existe[1]==0 && $result_adop!=[] && $result_ipd !=[] && $result_apro!=[]){
-      createresultempresa($empresa,$result_adop,$result_apro,$result_ipd, $result_g,$origen);
+      $existe= existe($id_user,$origen);
+      if($existe[1] == 1){
+        editempresa($existe[0],$result_adop,$result_apro,$result_ipd, $result_g,$origen);
+      }elseif($existe[1]==0 && $result_adop!=[] && $result_ipd !=[] && $result_apro!=[]){
+        createresultempresa($empresa,$result_adop,$result_apro,$result_ipd, $result_g,$origen);
+      }
+
     }
+
 
   }
+
 
 }
 
