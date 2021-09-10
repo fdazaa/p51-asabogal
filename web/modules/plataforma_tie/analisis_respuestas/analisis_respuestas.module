@@ -45,7 +45,7 @@ function analisis_respuestas_page_attachments_alter(array &$attachments) {
 
 //Genera resultado de empresa
 
-function crearresultadosempresa(){
+function crearresultadosempresa($origen){
 
   $adopcion = []; $apropiacion = []; $datos = []; $ipd = []; $existe = [];
   $proceso =[];
