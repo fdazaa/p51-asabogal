@@ -50,8 +50,8 @@ function crearresultadosempresa(){
   $result_g = [];
 
   $rol_user = \Drupal::currentUser()->getRoles()[1];
-  for($i=0;$i=2;$i++){
-    if($i==1){
+  for($i=0;$i<2;$i++){
+    if($i==0){
       $origen = 'Adopción';
     }else{
       $origen = 'Apropiación';
