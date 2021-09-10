@@ -181,7 +181,7 @@ function calculoresultempresa($datos){
   return $result;
 }
 
-function createresultempresa($empresa,$adop,$apro,$ipd){
+function createresultempresa($empresa,$adop,$apro,$ipd,$result_g,$origen){
   $values = [
     'title'=>$empresa,
     'type'=> 'resultados_empresa',
@@ -208,11 +208,11 @@ function createresultempresa($empresa,$adop,$apro,$ipd){
     'field_result_cat_2'=>$result_g[17],
     'field_result_cat_3'=>$result_g[18],
     'field_result_cat_4'=>$result_g[19],
-    'field_result_cat_5'=>$result_g[20]
+    'field_result_cat_5'=>$result_g[20],
+    'field_origen_re'=>$origen
   ];
 
   $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
-  $node->field_origen_re->value=$origen;
   $node->save();
 
   $gid = buscargrupo();
