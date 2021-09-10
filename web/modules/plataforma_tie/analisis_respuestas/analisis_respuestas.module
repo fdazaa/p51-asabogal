@@ -54,7 +54,7 @@ function crearresultadosempresa(){
     if($i==1){
       $origen = 'Adopción';
     }else{
-      $origen = 'Apopiación';
+      $origen = 'Apropiación';
     }
     if($rol_user == 'direccion_estrategico'){
 
