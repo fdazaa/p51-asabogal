@@ -232,20 +232,26 @@ function existe($id_user,$origen){
       $em_user[$i]=$empresa;
       $i++;
     }
-    $id_empresa = $empresa->id();
+    /*$id_empresa = $empresa->id();
     $datos[0]=$id_empresa;
     $origen_e = $empresa->get('field_origen_re')->getString();
 
     $id_autor =$empresa->getOwner()->id();
 
     if($origen==$origen_e &&$id_autor == $id_user){ $datos[1]=1;}
-    else{ $datos[1]=0;}
+    else{ $datos[1]=0;}*/
   }
-  if($em_user!=[]){
-    if(){
-
+  if($em_user!=[] && sizeof($em_user)!=1){
+    if($origen=='Adopción'){
+      $datos[0]=$em_user[0]->id();
+    }elseif($origen=='Apropiación'){
+      $datos[0]=$em_user[1]->id();
     }
+    $datos[1]=1;
 
+  }else{
+    $datos[0]=0;
+    $datos[1]=0;
   }
 
 
