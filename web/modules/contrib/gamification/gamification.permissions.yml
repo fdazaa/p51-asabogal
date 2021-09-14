@@ -1,0 +1,4 @@
+access gamification configuration:
+  title: 'Access Gamification configurations'
+  description: 'Allows users to access Gamification configurations.'
+  restrict access: TRUE

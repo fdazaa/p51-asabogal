@@ -1,0 +1,23 @@
+uuid: de9743d4-1423-41ae-b828-bf6086151638
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_result_proceso_10
+    - node.type.resultados_empresa
+id: node.resultados_empresa.field_result_proceso_10
+field_name: field_result_proceso_10
+entity_type: node
+bundle: resultados_empresa
+label: 'Result proceso 10'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

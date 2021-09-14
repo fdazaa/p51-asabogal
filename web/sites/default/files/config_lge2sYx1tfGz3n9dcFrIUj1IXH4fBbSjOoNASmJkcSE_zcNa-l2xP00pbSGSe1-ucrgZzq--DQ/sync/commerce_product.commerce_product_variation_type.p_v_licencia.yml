@@ -1,0 +1,17 @@
+uuid: 1ac3c8ca-9673-4671-b7ab-afc817a9efa3
+langcode: es
+status: true
+dependencies:
+  module:
+    - commerce_license
+third_party_settings:
+  commerce_license:
+    license_types: {  }
+    activate_on_place: true
+id: p_v_licencia
+label: 'Varicion producto licencia'
+orderItemType: default
+generateTitle: false
+traits:
+  - commerce_license
+locked: false

@@ -1,0 +1,71 @@
+uuid: b4d89be0-cf5f-4e74-92a5-23fc93581d3e
+langcode: es
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.resultados_empresa.field_origen_re
+    - field.field.node.resultados_empresa.field_result_adopcion
+    - field.field.node.resultados_empresa.field_result_apropiacion
+    - field.field.node.resultados_empresa.field_result_cat_1
+    - field.field.node.resultados_empresa.field_result_cat_2
+    - field.field.node.resultados_empresa.field_result_cat_3
+    - field.field.node.resultados_empresa.field_result_cat_4
+    - field.field.node.resultados_empresa.field_result_cat_5
+    - field.field.node.resultados_empresa.field_result_ipd
+    - field.field.node.resultados_empresa.field_result_proceso_1
+    - field.field.node.resultados_empresa.field_result_proceso_10
+    - field.field.node.resultados_empresa.field_result_proceso_11
+    - field.field.node.resultados_empresa.field_result_proceso_12
+    - field.field.node.resultados_empresa.field_result_proceso_13
+    - field.field.node.resultados_empresa.field_result_proceso_14
+    - field.field.node.resultados_empresa.field_result_proceso_15
+    - field.field.node.resultados_empresa.field_result_proceso_16
+    - field.field.node.resultados_empresa.field_result_proceso_2
+    - field.field.node.resultados_empresa.field_result_proceso_3
+    - field.field.node.resultados_empresa.field_result_proceso_4
+    - field.field.node.resultados_empresa.field_result_proceso_5
+    - field.field.node.resultados_empresa.field_result_proceso_6
+    - field.field.node.resultados_empresa.field_result_proceso_7
+    - field.field.node.resultados_empresa.field_result_proceso_8
+    - field.field.node.resultados_empresa.field_result_proceso_9
+    - node.type.resultados_empresa
+  module:
+    - user
+id: node.resultados_empresa.teaser
+targetEntityType: node
+bundle: resultados_empresa
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_origen_re: true
+  field_result_adopcion: true
+  field_result_apropiacion: true
+  field_result_cat_1: true
+  field_result_cat_2: true
+  field_result_cat_3: true
+  field_result_cat_4: true
+  field_result_cat_5: true
+  field_result_ipd: true
+  field_result_proceso_1: true
+  field_result_proceso_10: true
+  field_result_proceso_11: true
+  field_result_proceso_12: true
+  field_result_proceso_13: true
+  field_result_proceso_14: true
+  field_result_proceso_15: true
+  field_result_proceso_16: true
+  field_result_proceso_2: true
+  field_result_proceso_3: true
+  field_result_proceso_4: true
+  field_result_proceso_5: true
+  field_result_proceso_6: true
+  field_result_proceso_7: true
+  field_result_proceso_8: true
+  field_result_proceso_9: true
+  langcode: true

@@ -180,6 +180,7 @@
         "drupal/fontawesome_menu_icons": "^1.9",
         "drupal/formdazzle": "^2.1",
         "drupal/forms_steps": "^1.5",
+        "drupal/gamification": "1.0",
         "drupal/ginvite": "^2.0",
         "drupal/group": "^1.4",
         "drupal/hide_revision_field": "^2.2",

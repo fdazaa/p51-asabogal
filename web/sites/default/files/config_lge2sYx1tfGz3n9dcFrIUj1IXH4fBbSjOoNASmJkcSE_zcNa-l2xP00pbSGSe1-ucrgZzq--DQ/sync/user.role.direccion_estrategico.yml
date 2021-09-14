@@ -1,0 +1,28 @@
+uuid: 43918251-2519-4328-9b3d-211782e6b3f8
+langcode: es
+status: true
+dependencies: {  }
+id: direccion_estrategico
+label: 'Dirección - Estratégico'
+weight: 24
+is_admin: null
+permissions:
+  - 'access group overview'
+  - 'administer commerce_subscription'
+  - 'cancel any commerce_subscription'
+  - 'cancel own commerce_subscription'
+  - 'create commerce_billing_schedule'
+  - 'create commerce_subscription'
+  - 'create empresas group'
+  - 'create field_tamano_de_empresa'
+  - 'delete any commerce_subscription'
+  - 'delete commerce_billing_schedule'
+  - 'delete own commerce_subscription'
+  - 'update any commerce_subscription'
+  - 'update commerce_billing_schedule'
+  - 'update own commerce_subscription'
+  - 'view any commerce_subscription'
+  - 'view commerce_billing_schedule'
+  - 'view field_tamano_de_empresa'
+  - 'view own commerce_subscription'
+  - 'view own field_tamano_de_empresa'

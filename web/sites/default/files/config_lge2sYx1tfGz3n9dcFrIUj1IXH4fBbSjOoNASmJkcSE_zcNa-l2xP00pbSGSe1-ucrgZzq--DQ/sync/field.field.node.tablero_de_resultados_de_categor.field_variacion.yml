@@ -1,0 +1,23 @@
+uuid: a07cb9b6-b5c7-42c9-a997-4d50184ad73b
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_variacion
+    - node.type.tablero_de_resultados_de_categor
+id: node.tablero_de_resultados_de_categor.field_variacion
+field_name: field_variacion
+entity_type: node
+bundle: tablero_de_resultados_de_categor
+label: Variación
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

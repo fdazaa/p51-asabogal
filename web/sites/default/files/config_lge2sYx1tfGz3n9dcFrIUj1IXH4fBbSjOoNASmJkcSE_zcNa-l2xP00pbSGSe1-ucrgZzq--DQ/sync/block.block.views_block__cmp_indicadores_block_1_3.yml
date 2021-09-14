@@ -1,0 +1,30 @@
+uuid: 7217307d-3fd1-4268-88e3-0d7e0af16f88
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.cmp_indicadores
+  module:
+    - system
+    - views
+  theme:
+    - tietheme
+id: views_block__cmp_indicadores_block_1_3
+theme: tietheme
+region: content_indicadores_f1_c1
+weight: 0
+provider: null
+plugin: 'views_block:cmp_indicadores-block_1'
+settings:
+  id: 'views_block:cmp_indicadores-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /indicadores
+    negate: false

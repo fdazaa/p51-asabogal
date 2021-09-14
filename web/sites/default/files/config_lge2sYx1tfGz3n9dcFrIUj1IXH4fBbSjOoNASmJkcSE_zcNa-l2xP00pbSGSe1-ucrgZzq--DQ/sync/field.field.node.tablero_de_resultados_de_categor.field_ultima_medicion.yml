@@ -1,0 +1,23 @@
+uuid: 59c264d4-7ba0-46f0-b42c-0433ced03f7e
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ultima_medicion
+    - node.type.tablero_de_resultados_de_categor
+id: node.tablero_de_resultados_de_categor.field_ultima_medicion
+field_name: field_ultima_medicion
+entity_type: node
+bundle: tablero_de_resultados_de_categor
+label: 'Última medición'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

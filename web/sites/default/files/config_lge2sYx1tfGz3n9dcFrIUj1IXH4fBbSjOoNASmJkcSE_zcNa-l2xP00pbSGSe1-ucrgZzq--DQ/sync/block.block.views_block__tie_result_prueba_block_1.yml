@@ -1,0 +1,57 @@
+uuid: 6893de70-4ca7-4e81-80f5-0d3939466a6e
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.tie_result_prueba
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - tietheme
+id: views_block__tie_result_prueba_block_1
+theme: tietheme
+region: content
+weight: -9
+provider: null
+plugin: 'views_block:tie_result_prueba-block_1'
+settings:
+  id: 'views_block:tie_result_prueba-block_1'
+  label: 'MIs Respuestas'
+  provider: views
+  label_display: visible
+  views_label: 'MIs Respuestas'
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /mis-formularios
+    negate: false
+  user_role:
+    id: user_role
+    roles:
+      administrator: administrator
+      admin_sitio: admin_sitio
+      ventas_estrategico: ventas_estrategico
+      ventas_tactico: ventas_tactico
+      ventas_operativo: ventas_operativo
+      compras_estrategico: compras_estrategico
+      compras_tactico: compras_tactico
+      compras_operativo: compras_operativo
+      finanzas_estrategico: finanzas_estrategico
+      finanzas_tactico: finanzas_tactico
+      finanzas_operativo: finanzas_operativo
+      direccion_estrategico: direccion_estrategico
+      direccion_tactico: direccion_tactico
+      direccion_operativo: direccion_operativo
+      operaciones_estrategico: operaciones_estrategico
+      operaciones_tactico: operaciones_tactico
+      operaciones_operativo: operaciones_operativo
+      rh_estrategico: rh_estrategico
+      rh_tactico: rh_tactico
+      rh_operativo: rh_operativo
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

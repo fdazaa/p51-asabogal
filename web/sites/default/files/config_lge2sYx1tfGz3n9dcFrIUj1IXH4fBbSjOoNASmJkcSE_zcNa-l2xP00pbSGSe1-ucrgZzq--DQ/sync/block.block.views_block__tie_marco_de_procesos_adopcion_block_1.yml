@@ -1,0 +1,30 @@
+uuid: 225e934e-5a7d-4df3-bd4a-2d800c39998f
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.tie_marco_de_procesos_adopcion
+  module:
+    - system
+    - views
+  theme:
+    - bartik
+id: views_block__tie_marco_de_procesos_adopcion_block_1
+theme: bartik
+region: content
+weight: 3
+provider: null
+plugin: 'views_block:tie_marco_de_procesos_adopcion-block_1'
+settings:
+  id: 'views_block:tie_marco_de_procesos_adopcion-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /indicadores
+    negate: false

@@ -42,6 +42,7 @@ function analisis_respuestas_page_attachments_alter(array &$attachments) {
   }
 }
 
+
 //Genera resultado de empresa
 
 function crearresultadosempresa($origen){
@@ -110,7 +111,6 @@ function crearresultadosempresa($origen){
     //}
 }
 
-
 function buscaranalisisresult($id_user,$origen){
   $datos = [];
   $storage = \Drupal::entityTypeManager()->getStorage('node');
@@ -136,7 +136,6 @@ function buscaranalisisresult($id_user,$origen){
     }
   }
 }
-
 
 function buscaresultnode($id_user){
   $datos =[];
@@ -290,6 +289,7 @@ function editempresa($id_empresa,$adop,$apro,$ipd,$result_g,$origen){
   $node->save();
 }
 
+
 // Genera Reultados
 
 function crearesultados(){
@@ -345,6 +345,7 @@ function generadorresultados($name,$adopcion, $apropiacion, $resultado){
   $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
   $entity ->save();
 }
+
 
 //Genera Indicadores
 

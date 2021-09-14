@@ -1,0 +1,5 @@
+gamification.collection:
+  title: 'Gamification'
+  description: 'View and edit Gamification configurations.'
+  parent: system.admin_config
+  route_name: gamification.collection

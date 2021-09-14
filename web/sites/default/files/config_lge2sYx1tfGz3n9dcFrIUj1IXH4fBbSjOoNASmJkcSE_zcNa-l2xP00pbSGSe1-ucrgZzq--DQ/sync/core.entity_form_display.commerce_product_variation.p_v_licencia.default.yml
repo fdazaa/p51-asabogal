@@ -1,0 +1,73 @@
+uuid: 9d139174-3a56-45b7-a4e4-a0bd32fc9a76
+langcode: es
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.p_v_licencia
+    - field.field.commerce_product_variation.p_v_licencia.license_expiration
+    - field.field.commerce_product_variation.p_v_licencia.license_type
+  module:
+    - commerce
+    - commerce_price
+id: commerce_product_variation.p_v_licencia.default
+targetEntityType: commerce_product_variation
+bundle: p_v_licencia
+mode: default
+content:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  license_expiration:
+    type: commerce_plugin_select
+    weight: 21
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  license_type:
+    type: commerce_plugin_select
+    weight: 20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  list_price:
+    type: commerce_list_price
+    weight: -1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  price:
+    type: commerce_price_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sku:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 90
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  uid: true

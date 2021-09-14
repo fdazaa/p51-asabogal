@@ -1,0 +1,65 @@
+gamification.collection:
+  path: '/admin/config/gamification'
+  defaults:
+    _entity_list: 'gamification'
+    _title: 'Gamification'
+    name: 'Gamification'
+  requirements:
+    _permission: 'access Gamification configuration'
+    
+gamification.add_form:
+  path: '/admin/config/gamification/add'
+  defaults:
+    _entity_form: 'gamification.add'
+    _title: 'Add Gamification entity'
+  requirements:
+    _permission: 'access Gamification configuration'
+    
+gamification.edit_form:
+  path: '/admin/config/gamification/{gamification}'
+  defaults:
+    _entity_form: 'gamification.edit'
+    _title: 'Edit Gamification entity'
+  requirements:
+    _permission: 'access Gamification configuration'
+
+gamification.delete_form:
+  path: '/admin/config/gamification/{gamification}/delete'
+  defaults:
+    _entity_form: 'gamification.delete'
+    _title: 'Delete Gamification entity'
+  requirements:
+    _permission: 'access Gamification configuration'
+
+entity.gamification.collection:
+  path: '/admin/config/gamification'
+  defaults:
+    _entity_list: 'gamification'
+    _title: 'Gamification'
+    name: 'Gamification'
+  requirements:
+    _permission: 'access Gamification configuration'
+    
+entity.gamification.add_form:
+  path: '/admin/config/gamification/add'
+  defaults:
+    _entity_form: 'gamification.add'
+    _title: 'Add Gamification entity'
+  requirements:
+    _permission: 'access Gamification configuration'
+    
+entity.gamification.edit_form:
+  path: '/admin/config/gamification/{gamification}'
+  defaults:
+    _entity_form: 'gamification.edit'
+    _title: 'Edit Gamification entity'
+  requirements:
+    _permission: 'access Gamification configuration'
+
+entity.gamification.delete_form:
+  path: '/admin/config/gamification/{gamification}/delete'
+  defaults:
+    _entity_form: 'gamification.delete'
+    _title: 'Delete Gamification entity'
+  requirements:
+    _permission: 'access Gamification configuration'

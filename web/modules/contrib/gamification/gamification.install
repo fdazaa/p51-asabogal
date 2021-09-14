@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the gamification module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function gamification_schema() {
+  $schema['gamification_log'] = _gamification_get_gamification_log_table();
+  return $schema;
+}
+
+/** 
+ * Create gamification_log table.
+ */
+function gamification_update_8001() {
+  $database = \Drupal::database();
+  $schema = $database->schema();
+  $table_name = 'gamification_log';
+
+  // Just return if table already exists.
+  if ($schema->tableExists($table_name)) {
+    return;
+  }
+
+  $table_schema = _gamification_get_gamification_log_table();
+
+  $schema->createTable($table_name, $table_schema);
+
+}
+
+function _gamification_get_gamification_log_table() {
+  $table = [
+    'fields' => [
+      'gid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique log ID.',
+      ],
+      'type' => [
+        'type' => 'varchar',
+        'null' => TRUE,
+        'default' => '',
+        'length' => 255,
+      ],
+      'gamification_entity_id' => [
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 255,
+      ],
+      'uid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ],
+      'entity_type' => [
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 255,
+      ],
+      'bundle' => [
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 255,
+      ],
+      'method' => [
+        'type' => 'varchar',
+        'null' => TRUE,
+        'default' => '',
+        'length' => 255,
+      ],
+      'points' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ],
+      'extra' => [
+        'type' => 'varchar',
+        'null' => TRUE,
+        'default' => '',
+        'length' => 255,
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default' => 0
+      ],
+    ],
+    'primary key' => ['gid'],
+  ];
+
+  return $table;
+}

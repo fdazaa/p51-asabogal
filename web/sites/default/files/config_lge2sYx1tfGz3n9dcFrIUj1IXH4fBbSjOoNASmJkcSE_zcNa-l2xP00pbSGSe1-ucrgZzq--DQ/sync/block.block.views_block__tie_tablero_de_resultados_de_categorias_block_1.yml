@@ -1,0 +1,29 @@
+uuid: 26721128-99a6-4791-b588-6dc9d274bcb3
+langcode: es
+status: true
+dependencies:
+  config:
+    - views.view.tie_tablero_de_resultados_de_categorias
+  module:
+    - system
+    - views
+  theme:
+    - tietheme
+id: views_block__tie_tablero_de_resultados_de_categorias_block_1
+theme: tietheme
+region: content
+weight: -2
+provider: null
+plugin: 'views_block:tie_tablero_de_resultados_de_categorias-block_1'
+settings:
+  id: 'views_block:tie_tablero_de_resultados_de_categorias-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /tablero/cadena-de-suministros-colaborativa
+    negate: false

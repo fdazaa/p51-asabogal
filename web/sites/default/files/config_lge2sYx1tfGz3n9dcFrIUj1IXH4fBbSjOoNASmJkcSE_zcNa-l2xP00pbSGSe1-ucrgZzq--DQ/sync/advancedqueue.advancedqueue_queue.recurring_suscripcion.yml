@@ -1,0 +1,12 @@
+uuid: 038fc1b5-effa-4415-9946-07f42a691da9
+langcode: es
+status: true
+dependencies: {  }
+id: recurring_suscripcion
+label: 'Recurring suscripcion'
+backend: database
+backend_configuration:
+  lease_time: 300
+processor: cron
+processing_time: 90
+locked: false

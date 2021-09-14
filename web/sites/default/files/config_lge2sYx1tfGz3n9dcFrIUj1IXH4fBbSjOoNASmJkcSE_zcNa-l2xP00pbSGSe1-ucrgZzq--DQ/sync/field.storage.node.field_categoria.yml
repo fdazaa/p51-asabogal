@@ -1,0 +1,40 @@
+uuid: 93e2ef18-ed07-476b-ab30-6466330407f6
+langcode: es
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+    - options
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_categoria
+field_name: field_categoria
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Producto/Servicio inteligente'
+      label: 'Producto/Servicio inteligente'
+    -
+      value: 'Relación con el cliente'
+      label: 'Relación con el cliente'
+    -
+      value: 'Operaciones y producción'
+      label: 'Operaciones y producción'
+    -
+      value: 'Cadena de suministros colaborativa'
+      label: 'Cadena de suministros colaborativa'
+    -
+      value: 'Gestión inteligencia'
+      label: 'Gestión inteligencia'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

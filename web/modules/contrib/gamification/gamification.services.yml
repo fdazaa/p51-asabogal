@@ -1,0 +1,4 @@
+services:
+  plugin.manager.gamification.widget:
+    class: Drupal\gamification\Plugin\GamificationWidgetManager
+    parent: default_plugin_manager

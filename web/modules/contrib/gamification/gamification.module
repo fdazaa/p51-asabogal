@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Allows to call functions related with gamification.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\user\UserInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function gamification_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.gamification':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Gamification module allows you to provide gamification concept on your drupal website. ') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('In order to use this module, you should follow these steps:') . '</p>';
+      $output .= '<ol>  ';
+      $output .= '<li>' . t('Enable Gamification module;') . '</li>';
+      $output .= '<li>' . t('Go to Gamification configuration page; (/admin/config/gamification);') . '</li>';
+      $output .= '<li>' . t('Click on "Add configuration";') . '</li>';
+      $output .= '<li>' . t('Give a title to Gamification entity and choose the gamification widget, and then click on "Save".') . '</li>';
+      $output .= '</ol>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function gamification_entity_insert($entity) {
+  _gamification_execute_entities($entity, 'entity_insert');
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function gamification_entity_update($entity) {
+  _gamification_execute_entities($entity, 'entity_update');
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function gamification_entity_delete($entity) {
+  _gamification_execute_entities($entity, 'entity_delete');
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function gamification_user_login($account) {
+  _gamification_execute_entities($account, 'user_login');
+}
+
+/**
+ * Implements hook_forward_entity().
+ */
+function gamification_forward_entity(UserInterface $account, EntityInterface $entity, FormStateInterface $form_state) {
+  _gamification_execute_entities($entity, 'forward_entity');
+}
+
+function _gamification_execute_entities($entity, $op) {
+  $entity_type_id = $entity->getEntityTypeId();
+  $bundle = $entity->bundle();
+  $entity_query = \Drupal::entityTypeManager()->getStorage('gamification')->getQuery();
+  $entity_query->condition('source_entity_type_id', $entity_type_id);
+  $entity_query->condition('source_bundle.*', [$bundle], 'IN');
+  $entity_query->condition('source_events.*', [$op], 'IN');
+  $entity_ids = $entity_query->execute();
+  foreach ($entity_ids as $id) {
+    $config_entity = \Drupal::entityTypeManager()->getStorage('gamification')->load($id);
+    $config_entity->execute($op, $entity);
+  }
+}

@@ -1,0 +1,23 @@
+uuid: 3339dbd0-265f-467c-8386-4cc6f5f816d7
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_result_proceso_15
+    - node.type.resultados_empresa
+id: node.resultados_empresa.field_result_proceso_15
+field_name: field_result_proceso_15
+entity_type: node
+bundle: resultados_empresa
+label: 'Result proceso 15'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

@@ -1,0 +1,40 @@
+uuid: 26a75c70-2c64-4f49-87fb-dc272f6a63a2
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.empresas
+id: empresas-ventas_operativo
+label: 'Ventas - Operativo'
+weight: 14
+internal: false
+audience: member
+group_type: empresas
+permissions_ui: true
+permissions:
+  - 'create group_node:analisis_de_respuesta entity'
+  - 'create group_node:resultados content'
+  - 'create group_node:resultados entity'
+  - 'delete any group_node:analisis_de_respuesta content'
+  - 'delete any group_node:analisis_de_respuesta entity'
+  - 'delete any group_node:resultados content'
+  - 'delete any group_node:resultados entity'
+  - 'delete own group_node:analisis_de_respuesta content'
+  - 'delete own group_node:analisis_de_respuesta entity'
+  - 'delete own group_node:resultados content'
+  - 'delete own group_node:resultados entity'
+  - 'update any group_node:analisis_de_respuesta content'
+  - 'update any group_node:analisis_de_respuesta entity'
+  - 'update any group_node:resultados content'
+  - 'update any group_node:resultados entity'
+  - 'update own group_node:analisis_de_respuesta content'
+  - 'update own group_node:resultados content'
+  - 'update own group_node:resultados entity'
+  - 'view any unpublished group'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_node:analisis_de_respuesta content'
+  - 'view group_node:resultados content'
+  - 'view group_node:resultados entity'
+  - 'view latest group version'
+  - 'view own unpublished group'

@@ -1,0 +1,21 @@
+uuid: 3abab028-a27f-43d5-ba17-e84319630792
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unidad_de_medida
+    - node.type.tablero_de_resultados_de_categor
+  module:
+    - options
+id: node.tablero_de_resultados_de_categor.field_unidad_de_medida
+field_name: field_unidad_de_medida
+entity_type: node
+bundle: tablero_de_resultados_de_categor
+label: 'Unidad de Medida'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

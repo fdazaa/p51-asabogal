@@ -1,0 +1,23 @@
+uuid: 599436d7-4a2e-4a2b-8148-7657b70e1a2d
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_result_proceso_7
+    - node.type.resultados_empresa
+id: node.resultados_empresa.field_result_proceso_7
+field_name: field_result_proceso_7
+entity_type: node
+bundle: resultados_empresa
+label: 'Result proceso 7'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

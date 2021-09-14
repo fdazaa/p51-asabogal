@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'e0f48795a96b03fec35c7ec94612d2cca445aa81',
+    'reference' => '95f6c5463339e72f392630be1d451081620f7d67',
     'name' => 'drupal/recommended-project',
   ),
   'versions' => 
@@ -860,6 +860,15 @@ private static $installed = array (
       ),
       'reference' => '4.1.1',
     ),
+    'drupal/dynamic_entity_reference' => 
+    array (
+      'pretty_version' => '1.12.0',
+      'version' => '1.12.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.12',
+    ),
     'drupal/dynamic_page_cache' => 
     array (
       'replaced' => 
@@ -1012,6 +1021,15 @@ private static $installed = array (
       array (
         0 => '9.2.0',
       ),
+    ),
+    'drupal/gamification' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1.0.0',
     ),
     'drupal/ginvite' => 
     array (
@@ -1313,7 +1331,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'e0f48795a96b03fec35c7ec94612d2cca445aa81',
+      'reference' => '95f6c5463339e72f392630be1d451081620f7d67',
     ),
     'drupal/recurring_period' => 
     array (
@@ -1496,6 +1514,15 @@ private static $installed = array (
         0 => '9.2.0',
       ),
     ),
+    'drupal/transaction' => 
+    array (
+      'pretty_version' => '1.0.0-beta1',
+      'version' => '1.0.0.0-beta1',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.0-beta1',
+    ),
     'drupal/typed_data' => 
     array (
       'pretty_version' => '1.0.0-alpha5',
@@ -1518,6 +1545,15 @@ private static $installed = array (
       array (
         0 => '9.2.0',
       ),
+    ),
+    'drupal/userpoints' => 
+    array (
+      'pretty_version' => '1.0.0-beta1',
+      'version' => '1.0.0.0-beta1',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.0-beta1',
     ),
     'drupal/variationcache' => 
     array (

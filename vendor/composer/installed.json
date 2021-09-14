@@ -3872,6 +3872,68 @@
             "install-path": "../../web/modules/contrib/devel"
         },
         {
+            "name": "drupal/dynamic_entity_reference",
+            "version": "1.12.0",
+            "version_normalized": "1.12.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/dynamic_entity_reference.git",
+                "reference": "8.x-1.12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/dynamic_entity_reference-8.x-1.12.zip",
+                "reference": "8.x-1.12",
+                "shasum": "ee0423f07d962ccd1c1116ac81de3e96f28ac89a"
+            },
+            "require": {
+                "drupal/core": "^8.7.7 || ^9"
+            },
+            "require-dev": {
+                "drupal/diff": "1.x-dev"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.12",
+                    "datestamp": "1620309082",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Lee Rowlands",
+                    "homepage": "https://www.drupal.org/u/larowlan",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Jibran Ijaz",
+                    "homepage": "https://www.drupal.org/u/jibran",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "larowlan",
+                    "homepage": "https://www.drupal.org/user/395439"
+                }
+            ],
+            "description": "Provides a field that allows an entity-reference field to reference more than one entity type.",
+            "homepage": "http://drupal.org/project/dynamic_entity_reference",
+            "support": {
+                "source": "http://cgit.drupalcode.org/dynamic_entity_reference",
+                "issues": "http://drupal.org/project/dynamic_entity_reference",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            },
+            "install-path": "../../web/modules/contrib/dynamic_entity_reference"
+        },
+        {
             "name": "drupal/entity",
             "version": "1.2.0",
             "version_normalized": "1.2.0.0",
@@ -4458,6 +4520,54 @@
                 "source": "https://git.drupalcode.org/project/forms_steps"
             },
             "install-path": "../../web/modules/contrib/forms_steps"
+        },
+        {
+            "name": "drupal/gamification",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/gamification.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/gamification-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "7a47a734d2359d8f94818fb475e802da2260bd47"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/userpoints": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1616278463",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "joaomarques736",
+                    "homepage": "https://www.drupal.org/user/3557181"
+                }
+            ],
+            "description": "Allows to provide gamification concept on your drupal website.",
+            "homepage": "https://www.drupal.org/project/gamification",
+            "support": {
+                "source": "https://git.drupalcode.org/project/gamification"
+            },
+            "install-path": "../../web/modules/contrib/gamification"
         },
         {
             "name": "drupal/ginvite",
@@ -5523,6 +5633,75 @@
             "install-path": "../../web/modules/contrib/token"
         },
         {
+            "name": "drupal/transaction",
+            "version": "1.0.0-beta1",
+            "version_normalized": "1.0.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/transaction.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/transaction-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "3e019e17aa431dacb06ace6bf158cd3fd3e8bf06"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/dynamic_entity_reference": "^1.0"
+            },
+            "require-dev": {
+                "drupal/inline_entity_form": "*",
+                "drupal/token": "^1.6"
+            },
+            "suggest": {
+                "drupal/token": "Provides additional tokens not supported by core (most notably fields), as well as a UI for browsing tokens.",
+                "drupal/transaction_workflow": "Light weight multipurpose workflow manager for any entity type.",
+                "drupal/userpoints": "Provides a point system for users, letting to gain or lose points for performing certain actions on your site."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1586110408",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Manuel Adan (manuel.adan)",
+                    "homepage": "https://www.drupal.org/u/manueladan",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/295403/committers"
+                }
+            ],
+            "description": "Transactional operations over entities.",
+            "homepage": "https://www.drupal.org/project/transaction",
+            "keywords": [
+                "Drupal",
+                "accounting",
+                "transaction"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/transaction",
+                "issues": "https://www.drupal.org/project/issues/transaction",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            },
+            "install-path": "../../web/modules/contrib/transaction"
+        },
+        {
             "name": "drupal/typed_data",
             "version": "1.0.0-alpha5",
             "version_normalized": "1.0.0.0-alpha5",
@@ -5573,6 +5752,95 @@
                 "issues": "https://www.drupal.org/project/issues/typed_data"
             },
             "install-path": "../../web/modules/contrib/typed_data"
+        },
+        {
+            "name": "drupal/userpoints",
+            "version": "1.0.0-beta1",
+            "version_normalized": "1.0.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/userpoints.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/userpoints-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "016ee9f6a153dbeaeb77c233c45efbdaa2bde56d"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/transaction": "^1.0.0-alpha4"
+            },
+            "require-dev": {
+                "drupal/rules": "*",
+                "drupal/token": "^1.6",
+                "drupal/userpoints_default": "*"
+            },
+            "suggest": {
+                "drupal/points": "Define point entity type and its associated functionalities."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1597767317",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Manuel Adan (manuel.adan)",
+                    "homepage": "https://www.drupal.org/u/manueladan",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Sascha Grossenbacher (Berdir)",
+                    "homepage": "https://www.drupal.org/u/berdir",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Khalid Baheyeldin (kbahey)",
+                    "homepage": "https://www.drupal.org/u/kbahey",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Jacob Redding (jredding)",
+                    "homepage": "https://www.drupal.org/u/jredding",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "wafaa (wafaa)",
+                    "homepage": "https://www.drupal.org/u/wafaa",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/25406/committers"
+                }
+            ],
+            "description": "Provides a point system for users, letting to gain or lose points for performing certain actions on your site.",
+            "homepage": "https://www.drupal.org/project/userpoints",
+            "keywords": [
+                "Drupal",
+                "community",
+                "user management",
+                "user points"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/userpoints",
+                "issues": "https://www.drupal.org/project/issues/userpoints",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            },
+            "install-path": "../../web/modules/contrib/userpoints"
         },
         {
             "name": "drupal/variationcache",

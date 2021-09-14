@@ -1,0 +1,34 @@
+gamification.gamification.*:
+  type: config_entity
+  label: 'Gamification config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    title:
+      type: string
+      label: 'Title'
+    widget:
+      type: string
+      label: 'Widget'
+    action:
+      type: string
+      label: 'Action'
+    points:
+      type: integer
+      label: 'Points'
+    widget_options:
+      type: default
+      label: 'Options'
+    source_entity_type_id:
+      type: string
+      label: 'Source entity type id'
+    source_bundle:
+      type: default
+      label: 'Source bundle'
+    source_events:
+      type: default
+      label: 'Source events'
+    limits:
+      type: default
+      label: 'Limits'

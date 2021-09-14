@@ -1,0 +1,5 @@
+gamification.add_form:
+  route_name: 'entity.gamification.add_form'
+  title: 'Add configuration'
+  appears_on:
+    - entity.gamification.collection
