@@ -250,7 +250,7 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
    *
    * @var int
    */
-  protected $uid;
+  public $uid;
 
   /**
    * The webform settings.

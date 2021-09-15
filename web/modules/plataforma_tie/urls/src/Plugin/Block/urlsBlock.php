@@ -23,6 +23,10 @@ class urlsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    $rol_as = \Drupal::currentUser()->getRoles();
+
+
+
     $gid = buscargrupo();
     if($gid == []){
       return ;
@@ -36,6 +40,7 @@ class urlsBlock extends BlockBase {
         '#title' => $this->t('Invitar Colaborador'),
       ];
     }
+
   }
 
   /**
