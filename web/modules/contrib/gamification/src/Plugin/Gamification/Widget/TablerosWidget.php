@@ -5,28 +5,25 @@ namespace Drupal\gamification\Plugin\Gamification\Widget;
 use Drupal\gamification\Plugin\GamificationWidgetUserpointsBase;
 
 /**
- * Provides a default widget.
+ * Provides a user login widget.
  *
  * @GamificationWidget(
- *   id = "ct_widget",
- *   label = @Translation("Content type"),
+ *   id = "tableros",
+ *   label = @Translation("Tableros de Categorias"),
  *   modules = {
  *     "userpoints",
  *   },
- *   actions = {
- *     "default" = @Translation("Default"),
- *   },
  *   weight = 0,
  *   entity_type = "content",
- *   source_entity_type_id = "",
- *   source_entity_bundle = {},
+ *   source_entity_type_id = "node",
+ *   source_entity_bundle = {
+ *     "tablero_de_resultados_de_categor",
+ *   },
  *   source_events = {
- *     "entity_insert" = "entity_insert",
  *     "entity_update" = "entity_update",
- *     "entity_delete" = "entity_delete",
  *   },
  *   actions = {
- *     "default" = @Translation("Default"),
+ *     "tablero_de_resultados_de_categor" = @Translation("Variaciones"),
  *   },
  *   widget_options = {
  *     "transaction_type",
@@ -35,23 +32,60 @@ use Drupal\gamification\Plugin\GamificationWidgetUserpointsBase;
  *     "reason_field",
  *     "reason_value",
  *   },
- *   hide_fields = {}
+ *   hide_fields = {
+ *     "source",
+ *   }
  * )
  */
-class DefaultWidget extends GamificationWidgetUserpointsBase {
+class TablerosWidget extends GamificationWidgetUserpointsBase {
 
   /**
    * {@inheritdoc}
    */
   public function execute($gamification_config_entity = NULL, $method = '', $entity = NULL) {
+    $variacion =[]; $j=0;
     $points = $gamification_config_entity->getPoints();
     if (empty($points)) {
       return FALSE;
     }
+    $variacion = $this->variacion();
+    if($variacion[0][1]){
+      $variacion_revision = $this->variacionrevision($variacion[0][1]);
+      if($variacion_revision<$variacion[0][0]){
+        return $this->executeTransaction($gamification_config_entity, $method, $entity, intval($points));
+      }
+    }
 
-    $points = intval($points);
+  }
 
-    return $this->executeTransaction($gamification_config_entity, $method, $entity, $points);
+  function variacion(){
+    $i=0;
+    $nodes=[];
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $query = $storage ->getQuery()
+      ->condition('type', 'tablero_de_resultados_de_categor')
+      ->condition('status',1);
+    $ids = $query->execute();
+    $tableros = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+    foreach ($tableros as $tablero){
+      $id_autor = $tablero->uid->target_id;
+      $id_user = \Drupal::currentUser()->id();
+      if($id_autor == $id_user){
+        $variacion = $tablero->get('field_variacion')->value;
+        $nodes[$i][0]=$variacion;
+        $revision = \Drupal::entityTypeManager()->getStorage('node')->revisionIds($tablero);
+        $log = sizeof($revision);
+        $nodes[$i][1]=$revision[$log-2];
+        $i++;
+      }
+    }
+    return $nodes;
+  }
+
+  function variacionrevision($id_revision){
+    $storage =\Drupal::entityTypeManager()->getStorage('node');
+    $v_revision=$storage->loadRevision($id_revision)->get('field_variacion')->getValue()[0]['value'];
+    return $v_revision;
   }
 
 }

@@ -11,7 +11,7 @@ use \Drupal\quiz\Entity\QuizQuestionAnsweringForm;
  */
 
 function analisis_respuestas_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  dpm($form_id);
+
   if($form_id == 'quiz_question_answering_form') {
     $form['#submit'][]= 'analisis_respuestas_form_submit';
   }
@@ -41,6 +41,8 @@ function analisis_respuestas_page_attachments_alter(array &$attachments) {
     crearresultadosempresa('Apropiación');
   }
 }
+
+
 
 
 //Genera resultado de empresa
