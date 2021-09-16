@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '95f6c5463339e72f392630be1d451081620f7d67',
+    'reference' => 'f5acb8c27ddd12a8c3b3736f49c61bd01f6eaed8',
     'name' => 'drupal/recommended-project',
   ),
   'versions' => 
@@ -1307,7 +1307,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '95f6c5463339e72f392630be1d451081620f7d67',
+      'reference' => 'f5acb8c27ddd12a8c3b3736f49c61bd01f6eaed8',
     ),
     'drupal/recurring_period' => 
     array (
@@ -1424,6 +1424,15 @@
       array (
         0 => '9.2.0',
       ),
+    ),
+    'drupal/subgroup' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1.0.0',
     ),
     'drupal/syslog' => 
     array (

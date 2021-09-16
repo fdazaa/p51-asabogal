@@ -5561,6 +5561,56 @@
             "install-path": "../../web/modules/contrib/state_machine"
         },
         {
+            "name": "drupal/subgroup",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/subgroup.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/subgroup-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "29d39258febd55c80a31647bd9297086b7093eaf"
+            },
+            "require": {
+                "drupal/core": "^8.9 || ^9",
+                "drupal/group": "^1.3"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1611771474",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Kristiaan Van den Eynde",
+                    "homepage": "https://www.drupal.org/u/kristiaanvandeneynde",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Allows you to structure groups into a hierarchical tree with permissions inheriting up or down",
+            "homepage": "http://drupal.org/project/subgroup",
+            "support": {
+                "source": "https://git.drupalcode.org/project/subgroup",
+                "issues": "https://drupal.org/project/issues/subgroup"
+            },
+            "install-path": "../../web/modules/contrib/subgroup"
+        },
+        {
             "name": "drupal/token",
             "version": "1.9.0",
             "version_normalized": "1.9.0.0",

@@ -189,6 +189,7 @@
         "drupal/quiz": "^6.0@alpha",
         "drupal/reference_table_formatter": "^2.0@alpha",
         "drupal/smtp": "^1.0",
+        "drupal/subgroup": "1.0",
         "drush/drush": "^10.6",
         "highcharts/3d": "9.2.2",
         "highcharts/accessibility": "9.2.2",
