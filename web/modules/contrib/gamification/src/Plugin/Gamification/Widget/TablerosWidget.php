@@ -57,7 +57,7 @@ class TablerosWidget extends GamificationWidgetUserpointsBase {
         $variacion_revision = $this->variacionrevision($variacion[$i][1]);
         if($variacion_revision<$variacion[$i][0]){
           $j++;
-          }
+        }
       }
     }
     $points = $points*$j;
