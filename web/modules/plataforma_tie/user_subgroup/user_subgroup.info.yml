@@ -1,0 +1,10 @@
+name: 'User group'
+type: module
+core_version_requirement: ^9
+
+description: 'Modulo de filtro de usuarios por grupo'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+dependencies:
+  -group:group

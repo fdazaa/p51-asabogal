@@ -1,0 +1,12 @@
+<?php
+
+use \Drupal\user;
+
+function user_subgroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form_id == 'group_content_proyectos-group_membership_add_form'){
+    dpm('es');
+    dpm($form);
+
+  }
+
+}
