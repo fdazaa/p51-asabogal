@@ -43,19 +43,26 @@ class TablerosWidget extends GamificationWidgetUserpointsBase {
    * {@inheritdoc}
    */
   public function execute($gamification_config_entity = NULL, $method = '', $entity = NULL) {
-    $variacion =[]; $j=0;
+    $j=0;
+
     $points = $gamification_config_entity->getPoints();
     if (empty($points)) {
       return FALSE;
     }
+
     $variacion = $this->variacion();
-    if($variacion[0][1]){
-      $variacion_revision = $this->variacionrevision($variacion[0][1]);
-      if($variacion_revision<$variacion[0][0]){
-        return $this->executeTransaction($gamification_config_entity, $method, $entity, intval($points));
+    $log = sizeof($variacion);
+    for ($i=0;$i<$log;$i++){
+      if($variacion[$i][1]){
+        $variacion_revision = $this->variacionrevision($variacion[$i][1]);
+        if($variacion_revision<$variacion[$i][0]){
+          $j++;
+          }
       }
     }
+    $points = $points*$j;
 
+    return $this->executeTransaction($gamification_config_entity, $method, $entity, intval($points));
   }
 
   function variacion(){
