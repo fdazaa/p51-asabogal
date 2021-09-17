@@ -3,9 +3,59 @@
 use \Drupal\user;
 
 function user_subgroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if($form_id == 'group_content_proyectos-group_membership_add_form'){
-
-
+  if($form_id = 'group_proyectos_add_form'){;
+    $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
   }
+}
 
+function add_members_for_proyects_form_submit(&$form, \Drupal\Core\Form\FormState $formState){
+  $id_subgroup =$formState->getFormObject()->getEntity()->id();
+  call_members($id_subgroup);
+}
+
+
+function call_members($id_subgroup){
+  $gid = extractidroot($id_subgroup);
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()->condition('type','empresas')->condition('status',1);
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($groups as $group){
+    $members = $group->getMembers();
+    if($group->id() == $gid){
+      foreach ($members as $member){
+        $id_members = $member->getUser();
+        if($id_members){
+          $id_member = $id_members->id();
+          $rol_member = $id_members->getRoles();
+          if($rol_member[1]!='asesor'){
+            add_member($id_subgroup,$id_member);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+function extractidroot($id_subgroup){
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()->condition('type','proyectos')->condition('status',1);
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($groups as $group){
+    if ($group->id() == $id_subgroup){
+      $gid = $group->get('subgroup_tree')->getValue()[0]['value'];
+      return $gid;
+    }
+  }
+}
+
+
+
+function add_member($id_subgroup,$id_member){
+  $user = \Drupal\user\Entity\user::load($id_member);
+  $group = \Drupal::entityTypeManager()->getStorage('group')->load($id_subgroup);
+  $group->addMember($user,['group_roles'=>'proyectos'.'-'.'colaborador']);
+  $group->save();
 }
