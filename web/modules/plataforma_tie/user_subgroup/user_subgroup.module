@@ -3,7 +3,7 @@
 use \Drupal\user;
 
 function user_subgroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if($form_id = 'group_proyectos_add_form'){;
+  if($form_id == 'group_proyectos_add_form'){
     $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
   }
 }
