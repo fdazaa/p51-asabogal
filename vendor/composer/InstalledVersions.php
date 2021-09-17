@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'f5acb8c27ddd12a8c3b3736f49c61bd01f6eaed8',
+    'reference' => '5a9f21c2b6c711a721fb46c3862ed9d0d963266e',
     'name' => 'drupal/recommended-project',
   ),
   'versions' => 
@@ -860,6 +860,24 @@ private static $installed = array (
       ),
       'reference' => '4.1.1',
     ),
+    'drupal/dropzonejs' => 
+    array (
+      'pretty_version' => '2.5.0',
+      'version' => '2.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-2.5',
+    ),
+    'drupal/dropzonejs_eb_widget' => 
+    array (
+      'pretty_version' => '2.5.0',
+      'version' => '2.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => NULL,
+    ),
     'drupal/dynamic_entity_reference' => 
     array (
       'pretty_version' => '1.12.0',
@@ -883,7 +901,34 @@ private static $installed = array (
         0 => '9.2.0',
       ),
     ),
+    'drupal/embed' => 
+    array (
+      'pretty_version' => '1.4.0',
+      'version' => '1.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.4',
+    ),
     'drupal/entity' => 
+    array (
+      'pretty_version' => '1.2.0',
+      'version' => '1.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.2',
+    ),
+    'drupal/entity_browser' => 
+    array (
+      'pretty_version' => '2.6.0',
+      'version' => '2.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-2.6',
+    ),
+    'drupal/entity_embed' => 
     array (
       'pretty_version' => '1.2.0',
       'version' => '1.2.0.0',
@@ -971,6 +1016,15 @@ private static $installed = array (
       array (
         0 => '9.2.0',
       ),
+    ),
+    'drupal/file_browser' => 
+    array (
+      'pretty_version' => '1.3.0',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.3',
     ),
     'drupal/filter' => 
     array (
@@ -1160,6 +1214,15 @@ private static $installed = array (
         0 => '9.2.0',
       ),
     ),
+    'drupal/machine_name_widget' => 
+    array (
+      'pretty_version' => '2.0.0-alpha2',
+      'version' => '2.0.0.0-alpha2',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-2.0-alpha2',
+    ),
     'drupal/media' => 
     array (
       'replaced' => 
@@ -1331,7 +1394,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'f5acb8c27ddd12a8c3b3736f49c61bd01f6eaed8',
+      'reference' => '5a9f21c2b6c711a721fb46c3862ed9d0d963266e',
     ),
     'drupal/recurring_period' => 
     array (
