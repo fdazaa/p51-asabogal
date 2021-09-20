@@ -3,13 +3,95 @@
 use \Drupal\user;
 
 function user_subgroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-
   if($form_id == 'group_proyectos_add_form'){
-    dpm('asd');
+    $id_group =$form_state->getFormObject()->getEntity()->id();
+    $all_members = $form['field_colaborador']['widget']['#options'];
+    $array = compararmiembro($all_members,5);
+    $form['field_colaborador']['widget']['#options'] = $array;
+
     $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
   }
 }
 
-function add_members_for_proyects_form_submit(&$form, \Drupal\Core\Form\FormState $formState){
 
+
+function add_members_for_proyects_form_submit(&$form, \Drupal\Core\Form\FormState $formState){
+  $id_subgroup =$formState->getFormObject()->getEntity()->id();
+  call_members($id_subgroup);
+}
+
+function compararmiembro($all_members,$gid){
+  $i =0;
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()->condition('type','empresas')->condition('status',1);
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($groups as $group){
+    if($group->id() == $gid){
+      $members = $group->getMembers();
+      foreach ($members as $member){
+        $id_members = $member->getUser();
+        if($id_members) { $id_member = $id_members->id(); }
+        $ids_users = array_keys($all_members);
+        foreach ($ids_users as $id_user){
+          if ($id_user == $id_member){
+            $colaboradores[$id_user]=$all_members[$id_user];
+          }
+        }
+      }
+      return $colaboradores;
+    }
+
+  }
+}
+
+
+
+
+
+
+function call_members($id_subgroup){
+  $gid = extractidroot($id_subgroup);
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()->condition('type','empresas')->condition('status',1);
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($groups as $group){
+    $members = $group->getMembers();
+    if($group->id() == $gid){
+      foreach ($members as $member){
+        $id_members = $member->getUser();
+        if($id_members){
+          $id_member = $id_members->id();
+          $rol_member = $id_members->getRoles();
+          if($rol_member[1]!='asesor'){
+            add_member($id_subgroup,$id_member);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+function extractidroot($id_subgroup){
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()->condition('type','proyectos')->condition('status',1);
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($groups as $group){
+    if ($group->id() == $id_subgroup){
+      $gid = $group->get('subgroup_tree')->getValue()[0]['value'];
+      return $gid;
+    }
+  }
+}
+
+
+
+function add_member($id_subgroup,$id_member){
+  $user = \Drupal\user\Entity\user::load($id_member);
+  $group = \Drupal::entityTypeManager()->getStorage('group')->load($id_subgroup);
+  $group->addMember($user,['group_roles'=>'proyectos'.'-'.'colaborador']);
+  $group->save();
 }
