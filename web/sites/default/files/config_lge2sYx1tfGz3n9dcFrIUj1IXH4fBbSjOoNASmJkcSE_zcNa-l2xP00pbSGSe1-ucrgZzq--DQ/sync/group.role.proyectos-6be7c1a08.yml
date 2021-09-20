@@ -1,0 +1,17 @@
+uuid: 53d4e3a0-d187-47c9-a77e-269e2f68609c
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.le
+id: proyectos-6be7c1a08
+label: LE
+weight: 12
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

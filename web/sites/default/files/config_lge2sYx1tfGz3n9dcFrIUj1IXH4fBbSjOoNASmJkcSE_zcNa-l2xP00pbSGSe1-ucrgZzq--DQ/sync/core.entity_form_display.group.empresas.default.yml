@@ -27,6 +27,10 @@ dependencies:
     - field.field.group.empresas.field_tipo
     - field.field.group.empresas.field_tipo_de_identifiacion_repr
     - field.field.group.empresas.field_tipo_identificacion_user
+    - field.field.group.empresas.subgroup_depth
+    - field.field.group.empresas.subgroup_left
+    - field.field.group.empresas.subgroup_right
+    - field.field.group.empresas.subgroup_tree
     - group.type.empresas
   module:
     - datetime
@@ -219,4 +223,8 @@ hidden:
   path: true
   revision_log_message: true
   status: true
+  subgroup_depth: true
+  subgroup_left: true
+  subgroup_right: true
+  subgroup_tree: true
   uid: true

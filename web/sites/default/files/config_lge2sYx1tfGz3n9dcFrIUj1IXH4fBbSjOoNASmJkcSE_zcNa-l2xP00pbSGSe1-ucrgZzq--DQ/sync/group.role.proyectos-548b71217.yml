@@ -1,0 +1,17 @@
+uuid: 53011d5d-72fe-47f5-9ec0-3a7948832ca9
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.ventas_operativo
+id: proyectos-548b71217
+label: 'Ventas - Operativo'
+weight: 17
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

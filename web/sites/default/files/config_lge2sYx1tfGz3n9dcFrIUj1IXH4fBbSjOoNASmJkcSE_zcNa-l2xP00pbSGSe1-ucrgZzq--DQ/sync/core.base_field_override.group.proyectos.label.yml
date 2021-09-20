@@ -1,0 +1,18 @@
+uuid: ffd7fafc-664b-45e4-a909-8d9c5b355683
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+id: group.proyectos.label
+field_name: label
+entity_type: group
+bundle: proyectos
+label: Título
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

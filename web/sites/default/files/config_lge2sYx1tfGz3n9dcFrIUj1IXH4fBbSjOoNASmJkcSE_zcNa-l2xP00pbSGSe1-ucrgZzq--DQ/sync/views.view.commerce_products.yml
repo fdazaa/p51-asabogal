@@ -186,7 +186,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Título
+          label: Title
           exclude: false
           alter:
             alter_text: false
@@ -384,7 +384,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Actualizado
+          label: Updated
           exclude: false
           alter:
             alter_text: false
@@ -554,7 +554,7 @@ display:
           expose:
             operator_id: title_op
             operator_limit_selection: false
-            label: Título
+            label: Title
             description: ''
             use_operator: false
             operator: title_op

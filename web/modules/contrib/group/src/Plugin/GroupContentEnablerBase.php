@@ -4,7 +4,6 @@ namespace Drupal\group\Plugin;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\group\Access\GroupAccessResult;
 use Drupal\group\Entity\GroupType;
 use Drupal\group\Entity\GroupInterface;
@@ -161,10 +160,7 @@ abstract class GroupContentEnablerBase extends PluginBase implements GroupConten
    * {@inheritdoc}
    */
   public function getContentLabel(GroupContentInterface $group_content) {
-    if ($group_content->getEntity() instanceof EntityInterface) {
-      return $group_content->getEntity()->label();
-    }
-    return '' ;
+    return $group_content->getEntity()->label();
   }
 
   /**

@@ -1,0 +1,17 @@
+uuid: 32f20601-8202-449d-a164-77707471fcaf
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.finanzas_tactico
+id: proyectos-be1657391
+label: 'Finanzas - Táctico'
+weight: 22
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

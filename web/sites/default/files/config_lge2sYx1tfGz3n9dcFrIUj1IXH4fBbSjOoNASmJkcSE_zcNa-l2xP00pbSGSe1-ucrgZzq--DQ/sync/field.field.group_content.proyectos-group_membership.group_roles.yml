@@ -1,0 +1,22 @@
+uuid: 80c4b06e-a8a6-45e2-91ed-30ff0f4b6d56
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.group_content.group_roles
+    - group.content_type.proyectos-group_membership
+id: group_content.proyectos-group_membership.group_roles
+field_name: group_roles
+entity_type: group_content
+bundle: proyectos-group_membership
+label: Rol
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'group_type:group_role'
+  handler_settings:
+    group_type_id: proyectos
+field_type: entity_reference

@@ -1,0 +1,17 @@
+uuid: 0f2ec6ed-c3a6-4516-ac92-8f56b026f2f7
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.compras_tactico
+id: proyectos-bcde35867
+label: 'Compras - Táctico'
+weight: 19
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

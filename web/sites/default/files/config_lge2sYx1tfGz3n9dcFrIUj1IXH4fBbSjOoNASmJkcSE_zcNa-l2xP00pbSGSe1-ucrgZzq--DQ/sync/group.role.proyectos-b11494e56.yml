@@ -1,0 +1,17 @@
+uuid: 893fb0c0-f7cf-474d-b1a0-abbc5b1c33a1
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.finanzas_operativo
+id: proyectos-b11494e56
+label: 'Finanzas - Operativo'
+weight: 23
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

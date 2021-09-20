@@ -1,0 +1,21 @@
+uuid: 769aeb4e-67f1-4389-86d9-2ba6e19d4b28
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_users
+    - paragraphs.paragraphs_type.user_group
+id: paragraph.user_group.field_users
+field_name: field_users
+entity_type: paragraph
+bundle: user_group
+label: Users
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings: {  }
+field_type: entity_reference

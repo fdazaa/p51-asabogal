@@ -1,0 +1,21 @@
+uuid: b8f663cc-20d2-45e0-8c57-888e9f22b111
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.user_group.field_users
+    - paragraphs.paragraphs_type.user_group
+id: paragraph.user_group.default
+targetEntityType: paragraph
+bundle: user_group
+mode: default
+content:
+  field_users:
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden: {  }

@@ -1,0 +1,11 @@
+uuid: e7dd20d3-dc79-49ec-9192-cf6f2cac5372
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.role.empresas-ventas_operativo
+    - group.role.proyectos-colaborador
+id: subgroup_role_inheritance_802a7e
+source: empresas-ventas_operativo
+target: proyectos-colaborador
+tree: empresas

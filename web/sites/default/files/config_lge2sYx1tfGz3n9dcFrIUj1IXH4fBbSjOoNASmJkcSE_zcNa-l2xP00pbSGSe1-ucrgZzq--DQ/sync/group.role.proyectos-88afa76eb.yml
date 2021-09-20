@@ -1,0 +1,17 @@
+uuid: 4dd32e7b-365c-405b-a76e-31e36a26ce1c
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.direccion_operativo
+id: proyectos-88afa76eb
+label: 'Dirección - Operativo'
+weight: 26
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

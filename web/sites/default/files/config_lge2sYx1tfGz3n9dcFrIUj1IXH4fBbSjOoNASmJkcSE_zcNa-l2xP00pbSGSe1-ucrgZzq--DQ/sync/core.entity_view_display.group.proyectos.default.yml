@@ -1,0 +1,32 @@
+uuid: 1f3695bd-1bc6-4b2f-94c4-6fe8f5c0c1c9
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.field.group.proyectos.subgroup_depth
+    - field.field.group.proyectos.subgroup_left
+    - field.field.group.proyectos.subgroup_right
+    - field.field.group.proyectos.subgroup_tree
+    - group.type.proyectos
+id: group.proyectos.default
+targetEntityType: group
+bundle: proyectos
+mode: default
+content:
+  label:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  changed: true
+  created: true
+  langcode: true
+  subgroup_depth: true
+  subgroup_left: true
+  subgroup_right: true
+  subgroup_tree: true
+  uid: true

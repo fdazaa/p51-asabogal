@@ -1,0 +1,17 @@
+uuid: 496cddd7-682f-432c-9327-a6393bc832ae
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.rh_estrategico
+id: proyectos-1ea809caf
+label: 'RH - Estratégico'
+weight: 30
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

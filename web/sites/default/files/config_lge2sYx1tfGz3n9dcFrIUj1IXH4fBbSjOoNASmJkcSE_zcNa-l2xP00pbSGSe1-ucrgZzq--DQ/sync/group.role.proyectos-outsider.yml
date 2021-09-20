@@ -1,0 +1,14 @@
+uuid: 6e21c664-088e-4124-85ec-5bdc802c49f7
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+id: proyectos-outsider
+label: Outsider
+weight: -101
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: true
+permissions: {  }

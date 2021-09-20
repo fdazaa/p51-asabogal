@@ -965,7 +965,7 @@ display:
           relationship: qid
           group_type: group
           admin_label: ''
-          label: Título
+          label: Title
           exclude: false
           alter:
             alter_text: false

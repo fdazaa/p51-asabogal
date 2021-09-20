@@ -1,7 +1,15 @@
 uuid: 074a14aa-52d7-4db1-96fc-7d8bffc9cd85
 langcode: es
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - subgroup
+third_party_settings:
+  subgroup:
+    depth: 0
+    left: 1
+    right: 4
+    tree: empresas
 id: empresas
 label: Empresa
 description: 'A continuación debe crear la empresa con los datos más importante. Debe ser lo más preciso con la información suministrada. '

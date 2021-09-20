@@ -8,7 +8,7 @@ dependencies:
 _core:
   default_config_hash: hfAVzEhCVBiV_vsgQ0UP4CfSHmh2YSiEUhfRz-LMYAQ
 id: files
-label: Archivos
+label: Files
 module: file
 description: 'Buscar y administrar archivos.'
 tag: default
@@ -585,7 +585,7 @@ display:
           exposed: true
           expose:
             operator_id: filemime_op
-            label: 'Nombre de archivo'
+            label: Filename
             description: ''
             use_operator: false
             operator: filename_op
@@ -700,7 +700,7 @@ display:
           entity_type: file
           entity_field: status
       sorts: {  }
-      title: Archivos
+      title: Files
       header: {  }
       footer: {  }
       empty:
@@ -742,7 +742,7 @@ display:
       path: admin/content/files
       menu:
         type: tab
-        title: Archivos
+        title: Files
         description: ''
         menu_name: admin
         weight: 0

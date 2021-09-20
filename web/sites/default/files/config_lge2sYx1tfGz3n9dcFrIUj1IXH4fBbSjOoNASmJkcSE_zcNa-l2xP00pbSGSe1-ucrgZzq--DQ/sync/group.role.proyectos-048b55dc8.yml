@@ -1,0 +1,17 @@
+uuid: e0a9e300-52eb-4b92-aaf6-f5d95eea9e99
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.direccion_estrategico
+id: proyectos-048b55dc8
+label: 'Dirección - Estratégico'
+weight: 24
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

@@ -1,0 +1,17 @@
+uuid: 63d96ec5-deaf-48e2-b061-e09bd2faf88b
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.operaciones_operativo
+id: proyectos-8c68d1034
+label: 'Operaciones - Operativo'
+weight: 29
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

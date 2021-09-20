@@ -1,0 +1,144 @@
+uuid: b4eddafd-df08-48a9-ad07-a40454e25ccd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.transaction.field_userpoints_default_linkref
+    - transaction.type.userpoints_default_points
+  module:
+    - dynamic_entity_reference
+_core:
+  default_config_hash: RhsSgvpacI1-DhBgsNDB-vI1Teqk5AlS0gLqhIY3J0U
+id: transaction.userpoints_default_points.field_userpoints_default_linkref
+field_name: field_userpoints_default_linkref
+entity_type: transaction
+bundle: userpoints_default_points
+label: Reference
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  user:
+    handler: 'default:user'
+    handler_settings:
+      include_anonymous: true
+      filter:
+        type: _none
+      target_bundles: null
+      sort:
+        field: _none
+      auto_create: false
+  comment:
+    handler: 'default:comment'
+    handler_settings: {  }
+  contact_message:
+    handler: 'default:contact_message'
+    handler_settings: {  }
+  node:
+    handler: 'default:node'
+    handler_settings: {  }
+  commerce_promotion_coupon:
+    handler: 'default:commerce_promotion_coupon'
+    handler_settings: {  }
+  block_content:
+    handler: 'default:block_content'
+    handler_settings: {  }
+  menu_link_content:
+    handler: 'default:menu_link_content'
+    handler_settings: {  }
+  entity_embed_fake_entity:
+    handler: 'default:entity_embed_fake_entity'
+    handler_settings: {  }
+  file:
+    handler: 'default:file'
+    handler_settings: {  }
+  group:
+    handler: 'default:group'
+    handler_settings: {  }
+  group_content:
+    handler: 'default:group_content'
+    handler_settings: {  }
+  commerce_license:
+    handler: 'default:commerce_license'
+    handler_settings: {  }
+  commerce_log:
+    handler: 'default:commerce_log'
+    handler_settings: {  }
+  media:
+    handler: 'default:media'
+    handler_settings: {  }
+  commerce_order:
+    handler: 'default:commerce_order'
+    handler_settings: {  }
+  commerce_order_item:
+    handler: 'default:commerce_order_item'
+    handler_settings: {  }
+  paragraph:
+    handler: 'default:paragraph'
+    handler_settings: {  }
+  commerce_payment:
+    handler: 'default:commerce_payment'
+    handler_settings: {  }
+  commerce_payment_method:
+    handler: 'default:commerce_payment_method'
+    handler_settings: {  }
+  commerce_product:
+    handler: 'default:commerce_product'
+    handler_settings: {  }
+  commerce_product_attribute_value:
+    handler: 'default:commerce_product_attribute_value'
+    handler_settings: {  }
+  commerce_product_variation:
+    handler: 'default:commerce_product_variation'
+    handler_settings: {  }
+  profile:
+    handler: 'default:profile'
+    handler_settings: {  }
+  commerce_promotion:
+    handler: 'default:commerce_promotion'
+    handler_settings: {  }
+  quiz:
+    handler: 'default:quiz'
+    handler_settings: {  }
+  quiz_question:
+    handler: 'default:quiz_question'
+    handler_settings: {  }
+  quiz_question_relationship:
+    handler: 'default:quiz_question_relationship'
+    handler_settings: {  }
+  quiz_result:
+    handler: 'default:quiz_result'
+    handler_settings: {  }
+  quiz_result_answer:
+    handler: 'default:quiz_result_answer'
+    handler_settings: {  }
+  business_rules_schedule:
+    handler: 'default:business_rules_schedule'
+    handler_settings: {  }
+  shortcut:
+    handler: 'default:shortcut'
+    handler_settings: {  }
+  commerce_store:
+    handler: 'default:commerce_store'
+    handler_settings: {  }
+  commerce_subscription:
+    handler: 'default:commerce_subscription'
+    handler_settings: {  }
+  taxonomy_term:
+    handler: 'default:taxonomy_term'
+    handler_settings: {  }
+  transaction:
+    handler: 'default:transaction'
+    handler_settings: {  }
+  path_alias:
+    handler: 'default:path_alias'
+    handler_settings: {  }
+  webform_submission:
+    handler: 'default:webform_submission'
+    handler_settings: {  }
+  forms_steps_workflow:
+    handler: 'default:forms_steps_workflow'
+    handler_settings: {  }
+field_type: dynamic_entity_reference

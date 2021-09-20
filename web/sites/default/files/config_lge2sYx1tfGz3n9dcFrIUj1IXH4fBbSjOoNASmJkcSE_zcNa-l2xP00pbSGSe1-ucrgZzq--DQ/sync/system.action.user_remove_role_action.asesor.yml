@@ -1,0 +1,14 @@
+uuid: f9fcec0b-d63e-49ce-9f91-b905aecf4c53
+langcode: es
+status: true
+dependencies:
+  config:
+    - user.role.asesor
+  module:
+    - user
+id: user_remove_role_action.asesor
+label: 'Elimina el rol Asesor al(los) usuario(s) seleccionado(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: asesor

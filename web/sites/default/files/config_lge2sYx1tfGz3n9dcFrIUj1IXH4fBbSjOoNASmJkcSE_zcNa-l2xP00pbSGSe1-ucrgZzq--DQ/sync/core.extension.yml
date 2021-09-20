@@ -46,9 +46,12 @@ module:
   dblog: 0
   dbug: 0
   devel: 0
+  dynamic_entity_reference: 0
   dynamic_page_cache: 0
   editor: 0
+  embed: 0
   entity: 0
+  entity_embed: 0
   entity_reference_revisions: 0
   epayco: 0
   field: 0
@@ -61,6 +64,7 @@ module:
   fontawesome_iconpicker_widget: 0
   fontawesome_menu_icons: 0
   forms_steps: 0
+  gamification: 0
   ginvite: 0
   gnode: 0
   grafico_indicadores: 0
@@ -73,11 +77,14 @@ module:
   interval: 0
   language: 0
   link: 0
-  locale: 0
+  machine_name_widget: 0
   media: 0
   menu_link_content: 0
   menu_per_role: 0
   menu_ui: 0
+  migrate: 0
+  migrate_drupal: 0
+  migrate_drupal_ui: 0
   node: 0
   options: 0
   page_cache: 0
@@ -98,6 +105,7 @@ module:
   shortcut: 0
   smtp: 0
   state_machine: 0
+  subgroup: 0
   system: 0
   taxonomy: 0
   telephone: 0
@@ -106,10 +114,14 @@ module:
   token: 0
   toolbar: 0
   tour: 0
+  transaction: 0
   typed_data: 0
   update: 0
   urls: 0
   user: 0
+  user_subgroup: 0
+  userpoints: 0
+  userpoints_default: 0
   variationcache: 0
   views_bulk_operations: 0
   views_data_export: 0

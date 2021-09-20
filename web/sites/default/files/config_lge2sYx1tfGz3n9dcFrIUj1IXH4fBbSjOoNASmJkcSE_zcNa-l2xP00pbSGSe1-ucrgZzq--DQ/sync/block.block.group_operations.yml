@@ -21,4 +21,12 @@ settings:
   label_display: visible
   context_mapping:
     group: '@group.group_route_context:group'
-visibility: {  }
+visibility:
+  group_type:
+    id: group_type
+    group_types:
+      empresas: empresas
+      proyectos: proyectos
+    negate: false
+    context_mapping:
+      group: '@group.group_route_context:group'

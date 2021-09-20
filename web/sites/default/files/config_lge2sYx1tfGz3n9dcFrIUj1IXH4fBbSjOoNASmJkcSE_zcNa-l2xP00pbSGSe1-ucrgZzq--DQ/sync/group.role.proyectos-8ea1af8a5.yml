@@ -1,0 +1,17 @@
+uuid: 74826c92-1273-4e74-8868-cee7e7a52636
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.compras_operativo
+id: proyectos-8ea1af8a5
+label: 'Compras - Operativo'
+weight: 20
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

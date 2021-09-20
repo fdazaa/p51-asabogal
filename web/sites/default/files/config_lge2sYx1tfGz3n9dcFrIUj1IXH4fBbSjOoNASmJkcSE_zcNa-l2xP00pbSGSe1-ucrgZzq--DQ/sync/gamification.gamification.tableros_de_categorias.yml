@@ -1,0 +1,24 @@
+uuid: 68bf1839-9249-440c-ae0b-d06ce06a92be
+langcode: es
+status: true
+dependencies: {  }
+id: tableros_de_categorias
+title: 'Tableros de Categorias'
+widget: tableros
+action: tablero_de_resultados_de_categor
+points: '1'
+widget_options:
+  transaction_type: ''
+  operation: ''
+  amount_field: ''
+  reason_field: ''
+  reason_value: ''
+source_entity_type_id: node
+source_bundle:
+  - tablero_de_resultados_de_categor
+source_events:
+  entity_update: entity_update
+limits:
+  entity_id: 0
+  bundle: 0
+  time: '-1'

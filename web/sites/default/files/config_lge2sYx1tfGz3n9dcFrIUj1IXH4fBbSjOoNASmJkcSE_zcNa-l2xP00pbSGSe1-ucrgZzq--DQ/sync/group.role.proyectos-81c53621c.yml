@@ -1,0 +1,17 @@
+uuid: 16543513-2441-4f70-8cea-96b02811f2f4
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.operaciones_tactico
+id: proyectos-81c53621c
+label: 'Operaciones - Táctico'
+weight: 28
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }

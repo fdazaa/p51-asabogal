@@ -1,0 +1,17 @@
+uuid: a63adf6a-ef66-480c-8c24-d08afd90a9a0
+langcode: es
+status: true
+dependencies:
+  config:
+    - group.type.proyectos
+  enforced:
+    config:
+      - user.role.rh_tactico
+id: proyectos-39a7998d0
+label: 'RH - Táctico'
+weight: 31
+internal: true
+audience: outsider
+group_type: proyectos
+permissions_ui: false
+permissions: {  }
