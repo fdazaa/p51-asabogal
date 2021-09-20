@@ -3,10 +3,17 @@
 use \Drupal\user;
 
 function user_subgroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
   if($form_id == 'group_proyectos_add_form'){
-    $id_group =$form_state->getFormObject()->getEntity()->id();
+    $url = \Drupal::service('path.current')->getPath();
+    $arguments = explode('/', $url);
+    foreach ($arguments as $value) {
+      if (is_numeric($value)) {
+        $gid=$value;
+      }
+    }
     $all_members = $form['field_colaborador']['widget']['#options'];
-    $array = compararmiembro($all_members,5);
+    $array = compararmiembro($all_members,$gid);
     $form['field_colaborador']['widget']['#options'] = $array;
 
     $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
