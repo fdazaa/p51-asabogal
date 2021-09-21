@@ -53,7 +53,7 @@ function crearresultadosempresa($origen){
   $result_g = [];
 
   $rol_user = \Drupal::currentUser()->getRoles()[1];
-    //if($rol_user == 'direccion_estrategico'){
+    if($rol_user == 'direccion_estrategico'){
 
       $storage = \Drupal::entityTypeManager()->getStorage('group');
       $query = $storage->getQuery();
@@ -109,7 +109,7 @@ function crearresultadosempresa($origen){
         createresultempresa($empresa,$result_adop,$result_apro,$result_ipd, $result_g,$origen);
       }
 
-    //}
+    }
 }
 
 function buscaranalisisresult($id_user,$origen){

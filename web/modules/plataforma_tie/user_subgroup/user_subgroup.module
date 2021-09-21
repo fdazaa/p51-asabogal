@@ -4,36 +4,113 @@ use \Drupal\user;
 
 function user_subgroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
-  if($form_id == 'group_proyectos_add_form'){
-    $url = \Drupal::service('path.current')->getPath();
-    $arguments = explode('/', $url);
-    foreach ($arguments as $value) {
-      if (is_numeric($value)) {
-        $gid=$value;
-      }
-    }
-    $all_members = $form['field_colaborador']['widget']['#options'];
-    $array = compararmiembro($all_members,$gid);
-    $form['field_colaborador']['widget']['#options'] = $array;
+  $type = explode('_',$form_id);
+  if (($type[0]=='group'&& $type[1]=='proyectos')||($type[0]=='group'&& $type[1]=='tareas')){
+    if($form_id == 'group_'.$type[1].'_add_form'||$form_id == 'group_'.$type[1].'_edit_form'){
 
-    $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
+      $type = explode('_',$form_id);
+      $gt = $type[1];
+
+      $url = \Drupal::service('path.current')->getPath();
+      $arguments = explode('/', $url);
+      foreach ($arguments as $value) {
+        if (is_numeric($value)) {
+          $gid=$value;
+          break;
+        }
+      }
+
+      $all_members = $form['field_colaborador']['widget']['#options'];
+
+      if ($form_id == 'group_'.$type[1].'_edit_form'){
+        $active = active($gid,$gt);
+        $form['field_colaborador']['widget']['#default_value']=$active;
+        $gid = extractidroot($gid,$gt);
+      }
+      $gid = intval($gid);
+      $array = compararmiembro($all_members,$gid);
+      dpm($array);
+      $form['field_colaborador']['widget']['#options'] = $array;
+      $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
+    }
+
   }
+
+
 }
 
 
 
 function add_members_for_proyects_form_submit(&$form, \Drupal\Core\Form\FormState $formState){
+  $i=0;
   $id_subgroup =$formState->getFormObject()->getEntity()->id();
+  $text = $form['#attributes']['class'][0];
+  $type = explode('-',$text);
+  foreach ($type as $value){
+    if($i==1){
+      $gt = $value;
+      break;
+    }
+    $i++;
+  }
   $ids_colaboradores = $form['field_colaborador']['widget']['#value'];
-  call_members($id_subgroup, $ids_colaboradores);
+  call_members($id_subgroup, $ids_colaboradores,$gt);
+  $all_members = $form['field_colaborador']['widget']['#options'];
+  deletemiembro($id_subgroup,$all_members,$ids_colaboradores);
 }
 
 
+function active($gid,$gt){
+  $i=0; $active =[];
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()->condition('type',$gt)->condition('status',1);
+  $ids = $query->execute();
+  $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($groups as $group){
+    if ($group->id() == $gid){
+      $members = $group->getMembers();
+      foreach ($members as $member) {
+        $id_members = $member->getUser();
+        if ($id_members) {
+          $id_member = $id_members->id();
+          $active[$i]=$id_member;
+          $i++;
+        }
+      }
+      $log = sizeof($active);
+      for ($i=0;$i<($log); $i++){
+        if($i!=$log-1){
+          $active[$i]=$active[$i+1];
+        }
+      }
+      return $active;
+
+    }
+  }
+
+}
+
+
+function deletemiembro($id_subgrupo,$all_members,$ids_colaboradores){
+
+  foreach ($ids_colaboradores as $id_colaborador){
+    $posicion=array_search($id_colaborador,$ids_colaboradores);
+    unset($all_members[$posicion]);
+  }
+  $ids_users = array_keys($all_members);
+  foreach ($ids_users as $id_user){
+    $user = \Drupal\user\Entity\user::load($id_user);
+    $group = \Drupal::entityTypeManager()->getStorage('group')->load($id_subgrupo);
+    $group->removeMember($user);
+    $group->save();
+  }
+}
+
 
 function compararmiembro($all_members,$gid){
-  $i =0;
+  $i =0; $colaboradores = [];
   $storage = \Drupal::entityTypeManager()->getStorage('group');
-  $query = $storage->getQuery()->condition('type','empresas')->condition('status',1);
+  $query = $storage->getQuery()->condition('status',1);
   $ids = $query->execute();
   $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($groups as $group){
@@ -41,11 +118,12 @@ function compararmiembro($all_members,$gid){
       $members = $group->getMembers();
       foreach ($members as $member){
         $id_members = $member->getUser();
-        if($id_members) { $id_member = $id_members->id(); }
-        $ids_users = array_keys($all_members);
-        foreach ($ids_users as $id_user){
-          if ($id_user == $id_member){
-            $colaboradores[$id_user]=$all_members[$id_user];
+        if($id_members) { $id_member = $id_members->id();
+          $ids_users = array_keys($all_members);
+          foreach ($ids_users as $id_user){
+            if ($id_user == $id_member && $id_members->getRoles()[1] != 'asesor' && $id_user!=\Drupal::currentUser()->id()){
+              $colaboradores[$id_user]=$all_members[$id_user];
+            }
           }
         }
       }
@@ -56,13 +134,10 @@ function compararmiembro($all_members,$gid){
 }
 
 
-
-
-
-function call_members($id_subgroup, $ids_colaboradores){
-  $gid = extractidroot($id_subgroup);
+function call_members($id_subgroup, $ids_colaboradores,$gt){
+  $gid = extractidroot($id_subgroup,$gt);
   $storage = \Drupal::entityTypeManager()->getStorage('group');
-  $query = $storage->getQuery()->condition('type','empresas')->condition('status',1);
+  $query = $storage->getQuery()->condition('status',1);
   $ids = $query->execute();
   $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($groups as $group){
@@ -73,10 +148,10 @@ function call_members($id_subgroup, $ids_colaboradores){
         if($id_members){
           $id_member = $id_members->id();
           foreach ($ids_colaboradores as $id_colaborador){
-            if ($id_colaborador == $id_member){
-              $rol_member = $id_members->getRoles();
-              if($rol_member[1]!='asesor'){
-                add_member($id_subgroup,$id_member);
+            $rol_member = $id_members->getRoles();
+            if($rol_member[1]!='asesor'){
+              if ($id_colaborador == $id_member){
+                add_member($id_subgroup,$id_member,$gt);
               }
             }
           }
@@ -87,9 +162,9 @@ function call_members($id_subgroup, $ids_colaboradores){
 }
 
 
-function extractidroot($id_subgroup){
+function extractidroot($id_subgroup,$gt){
   $storage = \Drupal::entityTypeManager()->getStorage('group');
-  $query = $storage->getQuery()->condition('type','proyectos')->condition('status',1);
+  $query = $storage->getQuery()->condition('type',$gt)->condition('status',1);
   $ids = $query->execute();
   $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($groups as $group){
@@ -102,9 +177,9 @@ function extractidroot($id_subgroup){
 
 
 
-function add_member($id_subgroup,$id_member){
+function add_member($id_subgroup,$id_member,$gt){
   $user = \Drupal\user\Entity\user::load($id_member);
   $group = \Drupal::entityTypeManager()->getStorage('group')->load($id_subgroup);
-  $group->addMember($user,['group_roles'=>'proyectos'.'-'.'colaborador']);
+  $group->addMember($user,['group_roles'=>$gt.'-'.'colaborador']);
   $group->save();
 }
