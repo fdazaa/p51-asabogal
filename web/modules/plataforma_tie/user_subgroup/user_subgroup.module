@@ -4,57 +4,69 @@ use \Drupal\user;
 
 function user_subgroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
-  $type = explode('_',$form_id);
-  if (($type[0]=='group'&& $type[1]=='proyectos')||($type[0]=='group'&& $type[1]=='tareas')){
-    if($form_id == 'group_'.$type[1].'_add_form'||$form_id == 'group_'.$type[1].'_edit_form'){
-
-      $type = explode('_',$form_id);
-      $gt = $type[1];
-
-      $url = \Drupal::service('path.current')->getPath();
-      $arguments = explode('/', $url);
-      foreach ($arguments as $value) {
-        if (is_numeric($value)) {
-          $gid=$value;
-          break;
-        }
+  if($form_id == 'group_proyectos_add_form'||$form_id == 'group_proyectos_edit_form'){
+    $url = \Drupal::service('path.current')->getPath();
+    $arguments = explode('/', $url);
+    foreach ($arguments as $value) {
+      if (is_numeric($value)) {
+        $gid=$value;
+        break;
       }
-
-      $all_members = $form['field_colaborador']['widget']['#options'];
-
-      if ($form_id == 'group_'.$type[1].'_edit_form'){
-        $active = active($gid,$gt);
-        $form['field_colaborador']['widget']['#default_value']=$active;
-        $gid = extractidroot($gid,$gt);
-      }
-      $gid = intval($gid);
-      $array = compararmiembro($all_members,$gid);
-      dpm($array);
-      $form['field_colaborador']['widget']['#options'] = $array;
-      $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
     }
+    $all_members = $form['field_colaborador']['widget']['#options'];
 
+    if ($form_id == 'group_proyectos_edit_form'){
+      $active = active($gid,'proyectos');
+      $form['field_colaborador']['widget']['#default_value']=$active;
+      $gid = extractidroot($gid,'proyectos');
+    }
+    $gid = intval($gid);
+    $array = compararmiembro($all_members,$gid);
+    $form['field_colaborador']['widget']['#options'] = $array;
+    $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
   }
 
+  elseif($form_id == 'group_tareas_add_form'){
+    $all_members = $form['field_colaborador']['widget']['#options'];
+    $url = \Drupal::service('path.current')->getPath();
+    $arguments = explode('/', $url);
+    $gid = $arguments[2];
+    $array = compararmiembro($all_members,$gid);
+    $form['field_colaborador']['widget']['#options'] = $array;
+    $form['field_id_proyecto']['widget'][0]['value']['#default_value'] = $gid;
+    $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
+  }
 
+  elseif($form_id == 'group_tareas_edit_form'){
+    $url = \Drupal::service('path.current')->getPath();
+    $arguments = explode('/', $url);
+
+    $all_members = $form['field_colaborador']['widget']['#options'];
+    //$gid = extractidroot($arguments[2],'tareas');
+    $gid=$form['field_id_proyecto']['widget'][0]['value']['#default_value'];
+    $array = compararmiembro($all_members,$gid);
+    $form['field_colaborador']['widget']['#options'] = $array;
+    $form['field_id_proyecto']['widget'][0]['value']['#default_value'] = $gid;
+
+
+
+    $active = active($arguments[2],'tareas');
+    $form['field_colaborador']['widget']['#default_value']=$active;
+
+
+    $form['actions']['submit']['#submit'][]='add_members_for_proyects_form_submit';
+  }
 }
 
 
 
 function add_members_for_proyects_form_submit(&$form, \Drupal\Core\Form\FormState $formState){
-  $i=0;
+
   $id_subgroup =$formState->getFormObject()->getEntity()->id();
   $text = $form['#attributes']['class'][0];
   $type = explode('-',$text);
-  foreach ($type as $value){
-    if($i==1){
-      $gt = $value;
-      break;
-    }
-    $i++;
-  }
   $ids_colaboradores = $form['field_colaborador']['widget']['#value'];
-  call_members($id_subgroup, $ids_colaboradores,$gt);
+  call_members($id_subgroup, $ids_colaboradores,$type[1]);
   $all_members = $form['field_colaborador']['widget']['#options'];
   deletemiembro($id_subgroup,$all_members,$ids_colaboradores);
 }
@@ -121,7 +133,9 @@ function compararmiembro($all_members,$gid){
         if($id_members) { $id_member = $id_members->id();
           $ids_users = array_keys($all_members);
           foreach ($ids_users as $id_user){
-            if ($id_user == $id_member && $id_members->getRoles()[1] != 'asesor' && $id_user!=\Drupal::currentUser()->id()){
+            $rol_member = $id_members->getRoles();
+
+            if ($id_user == $id_member  &&$id_user!=\Drupal::currentUser()->id()){
               $colaboradores[$id_user]=$all_members[$id_user];
             }
           }
@@ -169,6 +183,7 @@ function extractidroot($id_subgroup,$gt){
   $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($groups as $group){
     if ($group->id() == $id_subgroup){
+      dpm($group);
       $gid = $group->get('subgroup_tree')->getValue()[0]['value'];
       return $gid;
     }
