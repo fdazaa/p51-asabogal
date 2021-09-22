@@ -183,7 +183,6 @@ function extractidroot($id_subgroup,$gt){
   $groups = !empty($ids) ? $storage->loadMultiple($ids):NULL;
   foreach ($groups as $group){
     if ($group->id() == $id_subgroup){
-      dpm($group);
       $gid = $group->get('subgroup_tree')->getValue()[0]['value'];
       return $gid;
     }

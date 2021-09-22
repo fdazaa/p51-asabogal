@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '5a9f21c2b6c711a721fb46c3862ed9d0d963266e',
+    'reference' => '1a7c2391aba58d640229bf4d6a6a7f9298fc0262',
     'name' => 'drupal/recommended-project',
   ),
   'versions' => 
@@ -391,6 +391,24 @@
       array (
       ),
       'reference' => '5.0.0-alpha2',
+    ),
+    'drupal/checklist_entity_reference' => 
+    array (
+      'pretty_version' => '1.0.0-beta1',
+      'version' => '1.0.0.0-beta1',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.0-beta1',
+    ),
+    'drupal/checklistapi' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2.0.0',
     ),
     'drupal/ckeditor' => 
     array (
@@ -1370,7 +1388,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '5a9f21c2b6c711a721fb46c3862ed9d0d963266e',
+      'reference' => '1a7c2391aba58d640229bf4d6a6a7f9298fc0262',
     ),
     'drupal/recurring_period' => 
     array (

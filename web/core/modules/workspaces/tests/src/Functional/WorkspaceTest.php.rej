@@ -1,0 +1,72 @@
+--- modules/workspaces/tests/src/Functional/WorkspaceTest.php
++++ modules/workspaces/tests/src/Functional/WorkspaceTest.php
+@@ -57,23 +57,24 @@ public function setUp() {
+   }
+ 
+   /**
+-   * Test creating a workspace with special characters.
++   * Test creating a workspace.
+    */
+-  public function testSpecialCharacters() {
++  public function testWorkspaceCreate() {
+     $this->drupalLogin($this->editor1);
++    $page = $this->getSession()->getPage();
+ 
+-    // Test a valid workspace name.
+-    $this->createWorkspaceThroughUi('Workspace 1', 'a0_$()+-/');
++    // Test a valid workspace ID.
++    $workspace = $this->createWorkspaceThroughUi('Workspace 1', 'workspace_1');
++    $this->assertEquals('workspace_1', $workspace->id());
+ 
+-    // Test and invalid workspace name.
+-    $this->drupalGet('/admin/config/workflow/workspaces/add');
+-    $this->assertSession()->statusCodeEquals(200);
++    // Test an invalid workspace ID.
++    $workspace = $this->createWorkspaceThroughUi('Workspace 2', 'workspace A@-');
++    $this->assertNull($workspace);
++    $this->assertTrue($page->hasContent('The machine-readable name must contain only lowercase letters, numbers, and underscores.'));
+ 
+-    $page = $this->getSession()->getPage();
+-    $page->fillField('label', 'workspace2');
+-    $page->fillField('id', 'A!"£%^&*{}#~@?');
+-    $page->findButton('Save')->click();
+-    $page->hasContent("This value is not valid");
++    // Test a duplicate workspace ID.
++    $this->createWorkspaceThroughUi('Workspace 1 again', 'workspace_1');
++    $this->assertTrue($page->hasContent('A workspace with workspace id workspace_1 already exists.'));
+   }
+ 
+   /**
+@@ -82,10 +83,7 @@ public function testSpecialCharacters() {
+   public function testWorkspaceToolbar() {
+     $this->drupalLogin($this->editor1);
+ 
+-    $this->drupalPostForm('/admin/config/workflow/workspaces/add', [
+-      'id' => 'test_workspace',
+-      'label' => 'Test workspace',
+-    ], 'Save');
++    $this->createWorkspaceThroughUi('Test workspace', 'test_workspace');
+ 
+     // Activate the test workspace.
+     $this->drupalPostForm('/admin/config/workflow/workspaces/manage/test_workspace/activate', [], 'Confirm');
+@@ -97,7 +95,7 @@ public function testWorkspaceToolbar() {
+ 
+     // Change the workspace label.
+     $this->drupalPostForm('/admin/config/workflow/workspaces/manage/test_workspace/edit', [
+-      'label' => 'New name',
++      'label[0][value]' => 'New name',
+     ], 'Save');
+ 
+     $this->drupalGet('<front>');
+@@ -112,10 +110,7 @@ public function testWorkspaceToolbar() {
+   public function testWorkspaceOwner() {
+     $this->drupalLogin($this->editor1);
+ 
+-    $this->drupalPostForm('/admin/config/workflow/workspaces/add', [
+-      'id' => 'test_workspace',
+-      'label' => 'Test workspace',
+-    ], 'Save');
++    $this->createWorkspaceThroughUi('Test workspace', 'test_workspace');
+ 
+     $storage = \Drupal::entityTypeManager()->getStorage('workspace');
+     $test_workspace = $storage->load('test_workspace');

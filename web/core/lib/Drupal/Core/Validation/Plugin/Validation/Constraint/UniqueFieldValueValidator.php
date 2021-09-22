@@ -28,11 +28,10 @@ class UniqueFieldValueValidator extends ConstraintValidator {
     // @todo Don't check access. http://www.drupal.org/node/3171047
     $query->accessCheck(TRUE);
 
-    $entity_id = $entity->id();
-    // Using isset() instead of !empty() as 0 and '0' are valid ID values for
-    // entity types using string IDs.
-    if (isset($entity_id)) {
-      $query->condition($id_key, $entity_id, '<>');
+    // If the entity already exists in the storage, ensure that we don't compare
+    // the field value with the pre-existing one.
+    if (!$entity->isNew()) {
+      $query->condition($id_key, $entity->id(), '<>');
     }
 
     $value_taken = (bool) $query

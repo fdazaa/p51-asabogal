@@ -261,6 +261,23 @@ field.widget.settings.entity_reference_autocomplete:
       type: label
       label: 'Placeholder'
 
+field.widget.settings.machine_name:
+  type: mapping
+  label: 'Machine Name'
+  mapping:
+    source_field:
+      type: string
+      label: 'The source field for the machine name'
+    disable_on_edit:
+      type: boolean
+      label: 'Disable the machine name after initial creation'
+    replace_pattern:
+      type: string
+      label: 'A regular expression (without delimiters) matching disallowed characters in the machine name'
+    replace:
+      type: string
+      label: 'A character to replace disallowed characters in the machine name'
+
 field.formatter.settings.boolean:
   type: mapping
   mapping:

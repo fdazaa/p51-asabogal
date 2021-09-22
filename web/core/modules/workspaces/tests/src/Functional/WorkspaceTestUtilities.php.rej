@@ -1,0 +1,18 @@
+--- modules/workspaces/tests/src/Functional/WorkspaceTestUtilities.php
++++ modules/workspaces/tests/src/Functional/WorkspaceTestUtilities.php
+@@ -57,13 +57,11 @@ protected function getOneEntityByLabel($type, $label) {
+    */
+   protected function createWorkspaceThroughUi($label, $id, $parent = '_none') {
+     $this->drupalPostForm('/admin/config/workflow/workspaces/add', [
+-      'id' => $id,
+-      'label' => $label,
++      'id[0][value]' => $id,
++      'label[0][value]' => $label,
+       'parent' => $parent,
+     ], 'Save');
+ 
+-    $this->getSession()->getPage()->hasContent("$label ($id)");
+-
+     return Workspace::load($id);
+   }
+ 

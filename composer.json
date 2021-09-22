@@ -164,6 +164,8 @@
         "drupal/backup_migrate": "^5.0",
         "drupal/business_rules": "^2.0@beta",
         "drupal/charts": "^5.0@alpha",
+        "drupal/checklist_entity_reference": "^1.0@beta",
+        "drupal/checklistapi": "^2.0",
         "drupal/commerce": "^2.24",
         "drupal/commerce_license": "^2.0@alpha",
         "drupal/commerce_recurring": "^1.0@beta",

@@ -64,7 +64,7 @@ class Vocabulary extends ConfigEntityBundleBase implements VocabularyInterface {
    *
    * @var string
    */
-  public $vid;
+  protected $vid;
 
   /**
    * Name of the vocabulary.
