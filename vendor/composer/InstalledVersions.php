@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1a7c2391aba58d640229bf4d6a6a7f9298fc0262',
+    'reference' => '9f678b18364bb2a0937fb9928852793486672486',
     'name' => 'drupal/recommended-project',
   ),
   'versions' => 
@@ -1051,6 +1051,15 @@ private static $installed = array (
         0 => '9.2.0',
       ),
     ),
+    'drupal/flag' => 
+    array (
+      'pretty_version' => '4.0.0-beta2',
+      'version' => '4.0.0.0-beta2',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-4.0-beta2',
+    ),
     'drupal/fontawesome' => 
     array (
       'pretty_version' => '2.19.0',
@@ -1412,7 +1421,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1a7c2391aba58d640229bf4d6a6a7f9298fc0262',
+      'reference' => '9f678b18364bb2a0937fb9928852793486672486',
     ),
     'drupal/recurring_period' => 
     array (

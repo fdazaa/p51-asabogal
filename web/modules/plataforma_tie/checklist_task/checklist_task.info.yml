@@ -1,0 +1,10 @@
+name: 'Checklist Task'
+type: module
+core_version_requirement: ^9
+
+description: 'Modulo que provee la configuracion de checklist para task de  TIE'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+dependencies:
+  -group:group
