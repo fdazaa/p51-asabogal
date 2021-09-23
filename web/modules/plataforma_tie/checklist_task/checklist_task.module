@@ -11,88 +11,7 @@ use Drupal\webform\Entity\WebformSubmission;
 /**
  * Implements hook_form_alter().
  */
-/*function checklist_task_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
-{
-  if ($form_id =='group_tareas_edit_form'){
 
-    $url = \Drupal::service('path.current')->getPath();
-    $arguments = explode('/', $url);
-    foreach ($arguments as $value) {
-      if (is_numeric($value)) {
-        $gid=$value;
-        break;
-      }
-    }
-    edit_webform($gid);
-
-    $form['actions']['submit']['#submit'][]='edit_webform_form_submit';
-
-  }
-}
-
-function edit_webform_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
-
-  $i=0;
-  foreach ($form['field_tareas']['widget'] as $item){
-    if (is_numeric($item)){
-
-      $i++;
-    }
-  }
-
-  for ($j=0;$j<$i-1;$j++){
-    $options[$j] =$form['field_tareas']['widget'][$j]['value']['#default_value'];
-  }
-
-  $url = \Drupal::service('path.current')->getPath();
-  $arguments = explode('/', $url);
-  foreach ($arguments as $value) {
-    if (is_numeric($value)) {
-      $gid=$value;
-      break;
-    }
-  }
-  $name = $form['label']['widget'][0]['value']['#default_value'];
-
-  //edit_webform($form,$gid,$options);
-
-  //webform_function($name,$gid,$options);
-
-}*/
-
-
-/*function edit_webform($gid){
-  $webform = \Drupal::entityTypeManager()->getStorage('webform')->load($gid);
-  $webform->set('Actividades',)
-
-}*/
-
-
-
-
-
-
-/*function edit_webform($form,$gid,$options){
-  $webform_id = $form['label']['widget'][0]['value']['#default_value'].' - '.strval($gid);
-  $webform = Webform::load($webform_id);
-  $values = [
-    'webform_id' => $gid,
-    'Actividades'=> [
-      '#type'=>'checkboxes',
-      '#title'=> 'Actividades',
-      '#options' =>$options,
-    ]
-  ];
-
-  $webform_submission = WebformSubmission::create($values);
-  $webform_submission->save();
-
-}*/
-
-
-/**
- * Implements hook_page_attachments_alter().
- */
 function checklist_task_page_attachments_alter(array &$attachments)
 {
   $gid =0;
@@ -111,7 +30,6 @@ function checklist_task_page_attachments_alter(array &$attachments)
     if ($existe!=[]){
       $ext_web = revisionwebform($gid);
       if ($ext_web!=[]){
-
         $fields = extraetareas($gid);
         editwebform($gid,$fields[1]);
       }else{
@@ -207,4 +125,12 @@ function webform_function($title,$gid,$options){
 
 function editwebform($gid,$options){
   $webform = Webform::load($gid);
+  $elements = Yaml::decode($webform->get('elements'));
+  $elements['Actividades']= [
+      '#type'=>'checkboxes',
+      '#title'=> 'Actividades',
+      '#options' =>$options,
+  ];
+  $webform->set('elements', Yaml::encode($elements));
+  $webform->save();
 }
