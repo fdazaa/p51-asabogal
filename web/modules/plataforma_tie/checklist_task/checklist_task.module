@@ -1,0 +1,92 @@
+<?php
+
+use Drupal\webform\Entity\Webform;
+use Drupal\webform\WebformSubmissionForm;
+use Drupal\Core\Serialization\Yaml;
+use Drupal\webform\Entity\WebformSubmission;
+//use Symfony\Component\Yaml\Yaml;
+
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function checklist_task_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+  if ($form_id =='group_tareas_edit_form'){
+
+    $i=0;
+    foreach ($form['field_tareas']['widget'] as $item){
+      if (is_numeric($item)){
+        $options[$i] =$form['field_tareas']['widget'][$i]['value']['#default_value'];
+        $i++;
+      }
+    }
+    $gid = 5;
+    $name = $form['label']['widget'][0]['value']['#default_value'];
+    webform_function($name,$gid,$options);
+
+    $form['field_actividades']['widget'][0]['target_id']['#default_value'] = strval($gid);
+    $form['actions']['submit']['#submit'][]='create_webform';
+
+  }
+}
+
+function create_webform_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
+
+  $i=0;
+  foreach ($form['field_tareas']['widget'] as $item){
+    if (is_numeric($item)){
+      $options[$i] =$form['field_tareas']['widget'][$i]['value']['#default_value'];
+      $i++;
+    }
+  }
+
+  $url = \Drupal::service('path.current')->getPath();
+  $arguments = explode('/', $url);
+  foreach ($arguments as $value) {
+    if (is_numeric($value)) {
+      $gid=$value;
+      break;
+    }
+  }
+  $name = $form['label']['widget'][0]['value']['#default_value'];
+
+
+  webform_function($name,$gid,$options);
+  $form['field_actividades']['widget'][0]['target_id']['#default_value'] = $gid;
+
+}
+
+
+
+
+
+function webform_function($title,$gid,$options){
+
+  $elements = [
+    'Actividades'=> [
+      '#type'=>'checkboxes',
+      '#title'=> 'Actividades',
+      '#options' =>$options,
+    ]
+  ];
+
+  $settings = [
+    // Define settings.
+  ];
+
+// Append default settings.
+  $settings += Webform::getDefaultSettings();
+
+// Create a webform.
+  $webform = Webform::create([
+    'id' => $gid,
+    'title' => $title.' - '.$gid,
+    'elements' => Yaml::encode($elements),
+    'settings' => $settings,
+  ]);
+  $webform->save();
+
+
+}
