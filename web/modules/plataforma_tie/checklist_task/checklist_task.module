@@ -11,35 +11,37 @@ use Drupal\webform\Entity\WebformSubmission;
 /**
  * Implements hook_form_alter().
  */
-function checklist_task_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+/*function checklist_task_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
   if ($form_id =='group_tareas_edit_form'){
 
-    $i=0;
-    foreach ($form['field_tareas']['widget'] as $item){
-      if (is_numeric($item)){
-        $options[$i] =$form['field_tareas']['widget'][$i]['value']['#default_value'];
-        $i++;
+    $url = \Drupal::service('path.current')->getPath();
+    $arguments = explode('/', $url);
+    foreach ($arguments as $value) {
+      if (is_numeric($value)) {
+        $gid=$value;
+        break;
       }
     }
-    $gid = 5;
-    $name = $form['label']['widget'][0]['value']['#default_value'];
-    webform_function($name,$gid,$options);
+    edit_webform($gid);
 
-    $form['field_actividades']['widget'][0]['target_id']['#default_value'] = strval($gid);
-    $form['actions']['submit']['#submit'][]='create_webform';
+    $form['actions']['submit']['#submit'][]='edit_webform_form_submit';
 
   }
 }
 
-function create_webform_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
+function edit_webform_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
 
   $i=0;
   foreach ($form['field_tareas']['widget'] as $item){
     if (is_numeric($item)){
-      $options[$i] =$form['field_tareas']['widget'][$i]['value']['#default_value'];
+
       $i++;
     }
+  }
+
+  for ($j=0;$j<$i-1;$j++){
+    $options[$j] =$form['field_tareas']['widget'][$j]['value']['#default_value'];
   }
 
   $url = \Drupal::service('path.current')->getPath();
@@ -52,14 +54,125 @@ function create_webform_form_submit(&$form, \Drupal\Core\Form\FormState $form_st
   }
   $name = $form['label']['widget'][0]['value']['#default_value'];
 
+  //edit_webform($form,$gid,$options);
 
-  webform_function($name,$gid,$options);
-  $form['field_actividades']['widget'][0]['target_id']['#default_value'] = $gid;
+  //webform_function($name,$gid,$options);
+
+}*/
+
+
+/*function edit_webform($gid){
+  $webform = \Drupal::entityTypeManager()->getStorage('webform')->load($gid);
+  $webform->set('Actividades',)
+
+}*/
+
+
+
+
+
+
+/*function edit_webform($form,$gid,$options){
+  $webform_id = $form['label']['widget'][0]['value']['#default_value'].' - '.strval($gid);
+  $webform = Webform::load($webform_id);
+  $values = [
+    'webform_id' => $gid,
+    'Actividades'=> [
+      '#type'=>'checkboxes',
+      '#title'=> 'Actividades',
+      '#options' =>$options,
+    ]
+  ];
+
+  $webform_submission = WebformSubmission::create($values);
+  $webform_submission->save();
+
+}*/
+
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function checklist_task_page_attachments_alter(array &$attachments)
+{
+  $gid =0;
+  $fields =[];
+  $url = \Drupal::service('path.current')->getPath();
+  $arguments = explode('/', $url);
+  foreach ($arguments as $value) {
+    if (is_numeric($value)) {
+      $gid=$value;
+      break;
+    }
+  }
+
+  if ($gid!=0 && $url == '/group/'.strval($gid)){
+    $existe = revisiongrouptareas($gid);
+    if ($existe!=[]){
+      $ext_web = revisionwebform($gid);
+      if ($ext_web!=[]){
+
+        $fields = extraetareas($gid);
+        editwebform($gid,$fields[1]);
+      }else{
+        $fields = extraetareas($gid);
+        webform_function($fields[0],$gid,$fields[1]);
+      }
+
+    }
+  }
 
 }
 
 
 
+
+
+function revisiongrouptareas($gid){
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()
+    ->condition('type','tareas')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($resultados as $resultado){
+    if ($resultado->id() == $gid){
+      return 1;
+    }
+
+  }
+  return;
+}
+
+
+function revisionwebform($gid){
+  $storage = \Drupal::entityTypeManager()->getStorage('webform');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($resultados as $resultado){
+    if ($resultado->id() == $gid){
+      return 1;
+    }
+
+  }
+  return;
+}
+
+
+function extraetareas($gid){
+  $group = \Drupal::entityTypeManager()->getStorage('group')->load($gid);
+  $title = $group->label();
+  $field_tareas = $group->get('field_tareas')->getValue();
+  $log = sizeof($field_tareas);
+  for ($i=0;$i<$log;$i++){
+    $opciones[$i]= $field_tareas[$i]['value'];
+  }
+  $field[0]=$title;
+  $field[1]=$opciones;
+
+  return $field;
+}
 
 
 function webform_function($title,$gid,$options){
@@ -89,4 +202,9 @@ function webform_function($title,$gid,$options){
   $webform->save();
 
 
+}
+
+
+function editwebform($gid,$options){
+  $webform = Webform::load($gid);
 }
