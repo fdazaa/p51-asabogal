@@ -102,20 +102,18 @@ function webform_function($title,$gid,$options){
       '#options' =>$options,
     ]
   ];
+  $settings =[
 
-  $settings = [
-    // Define settings.
   ];
 
-// Append default settings.
-  $settings += Webform::getDefaultSettings();
+  $settings=Webform::getDefaultSettings();
 
 // Create a webform.
   $webform = Webform::create([
     'id' => $gid,
     'title' => $title.' - '.$gid,
     'elements' => Yaml::encode($elements),
-    'settings' => $settings,
+    'settings'=> $settings,
   ]);
   $webform->save();
 
@@ -131,6 +129,8 @@ function editwebform($gid,$options){
       '#title'=> 'Actividades',
       '#options' =>$options,
   ];
+
   $webform->set('elements', Yaml::encode($elements));
   $webform->save();
+
 }
