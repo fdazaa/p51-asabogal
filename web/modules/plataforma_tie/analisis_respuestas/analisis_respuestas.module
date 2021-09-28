@@ -1,0 +1,643 @@
+<?php
+
+use \Drupal\quiz\Entity\QuizQuestionAnsweringForm;
+
+
+/**
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ *
+ */
+
+function analisis_respuestas_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form_id == 'quiz_question_answering_form') {
+    $form['#submit'][]= 'analisis_respuestas_form_submit';
+  }
+
+}
+
+function analisis_respuestas_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Aquí el código al hacer submit.
+  $last = $form['navigation']['#last'];
+  if($last == 1){
+    foreach ($form_state->getBuildInfo() as $item){
+      foreach ($item as $items){
+        if($items instanceof  Drupal\quiz\Entity\QuizResult){
+          $id = $items->id();
+        }
+      }
+    }
+    generadorindicadores($id);
+    crearesultados();
+  }
+}
+
+function analisis_respuestas_page_attachments_alter(array &$attachments) {
+  $url = \Drupal::service('path.current')->getPath();
+  if($url == "/node/119"){
+    crearresultadosempresa('Adopción');
+    crearresultadosempresa('Apropiación');
+  }
+}
+
+
+
+
+//Genera resultado de empresa
+
+function crearresultadosempresa($origen){
+
+  $adopcion = []; $apropiacion = []; $datos = []; $ipd = []; $existe = [];
+  $proceso =[];
+  $result_g = [];
+
+  $rol_user = \Drupal::currentUser()->getRoles()[1];
+    if($rol_user == 'direccion_estrategico'){
+
+      $storage = \Drupal::entityTypeManager()->getStorage('group');
+      $query = $storage->getQuery();
+      $ids =$query->execute();
+      $groups = !empty($ids) ? $storage->loadMultiple($ids): NULL;
+      foreach ($groups as $group){
+        $members = $group->getMembers();
+        foreach ($members as $member){
+          $id_member = $member->getUser();
+          if ($id_member) {  $id_member=$id_member->id();}
+          $id_user = \Drupal::currentUser()->id();
+          if($id_member == $id_user){
+            $empresa =$group->label();
+            foreach ($members as $member){
+              $id_member = $member->getUser();
+              if ($id_member) {  $id_member=$id_member->id();}
+              $p_adop = sizeof($adopcion);
+              $p_apro = sizeof($apropiacion);
+              $p_ipd = sizeof($ipd);
+              $datos = buscaresultnode($id_member);
+              if($datos[0]!=[] && $datos[1]!=[] && $datos[2]!=[]){
+                $adopcion[$p_adop]=$datos[0];
+                $apropiacion[$p_apro]=$datos[1];
+                $ipd[$p_ipd]=$datos[2];
+                $datos_ar = buscaranalisisresult($id_member,$origen);
+                $log_s = sizeof($datos_ar);
+                for ($i=0;$i<$log_s;$i++){
+                  $log = sizeof($proceso[$i]);
+                  $proceso[$i][$log]=$datos_ar[$i];
+                }
+              }
+            }
+          }
+        }
+      }
+      for ($i=0;$i<$log_s;$i++){
+        $result_g[$i]=calculoresultempresa($proceso[$i]);
+        if ($result_g[$i]==0){
+          $result_g[$i]=[];
+        }
+      }
+      if($adopcion!= [] && $apropiacion!=[] && $ipd!=[]){
+        $result_adop = calculoresultempresa($adopcion);
+        $result_apro = calculoresultempresa($apropiacion);
+        $result_ipd = calculoresultempresa($ipd);
+      }else{$result_apro=[];$result_adop=[];$result_ipd=[];}
+
+
+      $existe= existe($id_user,$origen);
+      if($existe[1] == 1){
+        editempresa($existe[0],$result_adop,$result_apro,$result_ipd, $result_g,$origen);
+      }elseif($existe[1]==0 && $result_adop!=[] && $result_ipd !=[] && $result_apro!=[]){
+        createresultempresa($empresa,$result_adop,$result_apro,$result_ipd, $result_g,$origen);
+      }
+
+    }
+}
+
+function buscaranalisisresult($id_user,$origen){
+  $datos = [];
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type','analisis_de_respuesta')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($resultados as $resultado){
+    $id_autor = $resultado->uid->target_id;
+    $origen_ar = $resultado->get('field_origen')->value;
+    if($origen_ar == $origen){
+      if ($id_user == $id_autor){
+        for($i=0;$i<16;$i++){
+          $datos[$i]=$resultado->get('field_proceso_'.($i+1))->value;
+        }
+        for($i=0;$i<5;$i++){
+          $log = sizeof($datos);
+          $datos[$log]=$resultado->get('field_c'.($i+1).'ad')->value;
+        }
+        return $datos;
+      }
+    }
+  }
+}
+
+function buscaresultnode($id_user){
+  $datos =[];
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type','resultados')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($resultados as $resultado){
+    $id_autor = $resultado->uid->target_id;
+    if ($id_user == $id_autor){
+      $adopcion = $resultado->get('field_total_adopcion')->value;
+      $apropiacion = $resultado->get('field_total_apropiacion')->value;
+      $ipd = $resultado->get('field_total_ipd')->value;
+      $datos[0] = $adopcion;
+      $datos[1] = $apropiacion;
+      $datos[2] = $ipd;
+      return $datos;
+    }
+  }
+}
+
+function calculoresultempresa($datos){
+  $suma = 0;
+  $log = sizeof($datos);
+  foreach ($datos as $dato){
+    $suma = $suma + $dato;
+  }
+  $result = $suma/$log;
+  return $result;
+}
+
+function createresultempresa($empresa,$adop,$apro,$ipd,$result_g,$origen){
+  $values = [
+    'title'=>$empresa,
+    'type'=> 'resultados_empresa',
+    'field_result_adopcion'=>$adop,
+    'field_result_apropiacion'=>$apro,
+    'field_result_ipd'=>$ipd,
+    'field_result_proceso_1'=>$result_g[0],
+    'field_result_proceso_2'=>$result_g[1],
+    'field_result_proceso_3'=>$result_g[2],
+    'field_result_proceso_4'=>$result_g[3],
+    'field_result_proceso_5'=>$result_g[4],
+    'field_result_proceso_6'=>$result_g[5],
+    'field_result_proceso_7'=>$result_g[6],
+    'field_result_proceso_8'=>$result_g[7],
+    'field_result_proceso_9'=>$result_g[8],
+    'field_result_proceso_10'=>$result_g[9],
+    'field_result_proceso_11'=>$result_g[10],
+    'field_result_proceso_12'=>$result_g[11],
+    'field_result_proceso_13'=>$result_g[12],
+    'field_result_proceso_14'=>$result_g[13],
+    'field_result_proceso_15'=>$result_g[14],
+    'field_result_proceso_16'=>$result_g[15],
+    'field_result_cat_1'=>$result_g[16],
+    'field_result_cat_2'=>$result_g[17],
+    'field_result_cat_3'=>$result_g[18],
+    'field_result_cat_4'=>$result_g[19],
+    'field_result_cat_5'=>$result_g[20],
+    'field_origen_re'=>$origen
+  ];
+
+  $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+  $node->save();
+
+  $gid = buscargrupo();
+
+  $values = [
+    'type' => 'group_content_type_0da85507a3985',
+    'gid' => $gid,
+    'entity_id' => ['target_id'=>$node->id()],
+  ];
+
+  $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
+  $entity ->save();
+}
+
+function existe($id_user,$origen){
+  $datos = [];
+  $em_user =[];
+  $i=0;
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type','resultados_empresa')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $empresas = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($empresas as $empresa){
+    $id_autor =$empresa->getOwner()->id();
+    if($id_autor == \Drupal::currentUser()->id()){
+      $em_user[$i]=$empresa;
+      $i++;
+    }
+    /*$id_empresa = $empresa->id();
+    $datos[0]=$id_empresa;
+    $origen_e = $empresa->get('field_origen_re')->getString();
+
+    $id_autor =$empresa->getOwner()->id();
+
+    if($origen==$origen_e &&$id_autor == $id_user){ $datos[1]=1;}
+    else{ $datos[1]=0;}*/
+  }
+  if($em_user!=[] && sizeof($em_user)!=1){
+    if($origen=='Adopción'){
+      $datos[0]=$em_user[0]->id();
+    }elseif($origen=='Apropiación'){
+      $datos[0]=$em_user[1]->id();
+    }
+    $datos[1]=1;
+
+  }else{
+    $datos[0]=0;
+    $datos[1]=0;
+  }
+
+
+  return $datos;
+
+}
+
+function editempresa($id_empresa,$adop,$apro,$ipd,$result_g,$origen){
+
+  $node = \Drupal::entityTypeManager()->getStorage('node')->load($id_empresa);
+  $node->set('field_result_adopcion', $adop);
+  $node->set('field_result_apropiacion', $apro);
+  $node->set('field_result_ipd', $ipd);
+  $node->set('field_result_proceso_1',$result_g[0]);
+  $node->set('field_result_proceso_2',$result_g[1]);
+  $node->set('field_result_proceso_3',$result_g[2]);
+  $node->set('field_result_proceso_4',$result_g[3]);
+  $node->set('field_result_proceso_5',$result_g[4]);
+  $node->set('field_result_proceso_6',$result_g[5]);
+  $node->set('field_result_proceso_7',$result_g[6]);
+  $node->set('field_result_proceso_8',$result_g[7]);
+  $node->set('field_result_proceso_9',$result_g[8]);
+  $node->set('field_result_proceso_10',$result_g[9]);
+  $node->set('field_result_proceso_11',$result_g[10]);
+  $node->set('field_result_proceso_12',$result_g[11]);
+  $node->set('field_result_proceso_13',$result_g[12]);
+  $node->set('field_result_proceso_14',$result_g[13]);
+  $node->set('field_result_proceso_15',$result_g[14]);
+  $node->set('field_result_proceso_16',$result_g[15]);
+  $node->set('field_result_cat_1',$result_g[16]);
+  $node->set('field_result_cat_2',$result_g[17]);
+  $node->set('field_result_cat_3',$result_g[18]);
+  $node->set('field_result_cat_4',$result_g[19]);
+  $node->set('field_result_cat_5',$result_g[20]);
+  //$node->set('field_origen_re',$origen);
+  $node->save();
+}
+
+
+// Genera Reultados
+
+function crearesultados(){
+  $i = 0;
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    -> condition('type','analisis_de_respuesta')
+    -> condition('status',1);
+  $ids = $query->execute();
+  $nodes = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($nodes as $node){
+    $id_author = $node->uid->target_id;
+    $id = \Drupal::currentUser()->id();
+    if($id_author == $id){
+      $origen=$node->get('field_origen')->getString();
+      if($origen == 'Adopción'){
+        $adopcion = $node->get('field_total')->value;
+        $i++;
+      }elseif ($origen == 'Apropiación'){
+        $apropiacion = $node -> get('field_total')->value;
+        $i++;
+      }
+    }
+  }
+  if($i==2) {
+    $resultado = ($adopcion + $apropiacion)/2;
+    $name = \Drupal::currentUser()->getAccountName();
+    generadorresultados($name,$adopcion, $apropiacion, $resultado);
+  }
+}
+
+function generadorresultados($name,$adopcion, $apropiacion, $resultado){
+  $values = [
+    'title' => $name,
+    'type' => 'resultados',
+    'field_total_adopcion' => $adopcion,
+    'field_total_apropiacion' => $apropiacion,
+    'field_total_ipd' => $resultado
+
+  ];
+
+  $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+  $node->save();
+
+  $gid = buscargrupo();
+
+  $values = [
+    'type' => 'empresas-group_node-resultados',
+    'gid' => $gid,
+    'entity_id' => ['target_id'=>$node->id()],
+  ];
+
+  $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
+  $entity ->save();
+}
+
+
+//Genera Indicadores
+
+function generadorindicadores($id) {
+
+  $i=0;
+  $result=[];
+
+  $array_adopcion =[];
+  $proceso1 =[]; $proceso2 =[]; $proceso3 =[]; $proceso4 =[]; $proceso5 =[]; $proceso6 =[]; $proceso7 =[]; $proceso8 =[]; $proceso9 =[];
+  $proceso10 =[]; $proceso11 =[]; $proceso12 =[]; $proceso13 =[]; $proceso14 =[]; $proceso15 =[]; $proceso16 =[];
+
+  $categoria1 =[];    $categoria2 =[];    $categoria3 =[];    $categoria4 =[];    $categoria5 =[];
+
+  $tmp =[];
+  $ids_answer = \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->getQuery()->execute();
+  $quiz_answer = !empty($ids_answer) ? \Drupal::entityTypeManager()->getStorage('quiz_result_answer')->loadMultiple($ids_answer):[];
+  foreach ($quiz_answer as $answers){
+    if($answers->referencedEntities()[0]->id() == $id){
+      $id_question = $answers->referencedEntities()[1]->id(); // Extrae ID de las preguntas
+      $storage = \Drupal::entityTypeManager()->getStorage('quiz_question');
+      $query = $storage->getQuery();
+      $ids_questions = $query->execute();
+      $questions = !empty($ids_questions) ? $storage->loadMultiple($ids_questions):[];
+      foreach ($questions as $question){
+        $id_qs = $question->id();
+        if($id_qs == $id_question){
+          $tipo_qs = $question->get('field_tipo')->entity;
+          $tipo_1 = $tipo_qs ? $tipo_qs->get('field_tipo_form')[0]->getString() : NULL;
+          if($tipo_1 == 'adopcion'){
+            $tipo = 'Adopción';
+          }elseif ($tipo_1 == 'apropiacion'){
+            $tipo = 'Apropiación';
+          }
+            $clase_qs = $question->get('field_clasificacion')->entity;
+            $clase = $clase_qs ? $clase_qs->get('field_id_estatico_terms')[0]->getString() :NULL;
+            $valor = buscarscore($answers,$question,$tipo_1);
+            $score = $valor[0];
+            $max_value = $valor[1];
+
+            if($clase == 'P') {
+              $proceso_txt = $question->get('field_categoria_proceso')->referencedEntities()[1];
+              $process = $proceso_txt ? $proceso_txt->get('field_id_proceso')[0]->getString(): NULL;
+              $cat = $proceso_txt ? $proceso_txt->get('field_id_categoria')[0]->getString(): NULL;
+              //$score = $answers->getPoints();
+
+              //-----------------------------------------------------------------------------------------
+              //if($tipo == 'adopcion'){
+
+              if($process == 'proceso1'){$log = sizeof($proceso1); $proceso1[$log] = $score;}
+              elseif($process == 'proceso2'){$log = sizeof($proceso2);$proceso2[$log] = $score;}
+              elseif($process == 'proceso3'){$log = sizeof($proceso3);$proceso3[$log] = $score;}
+              elseif($process == 'proceso4'){$log = sizeof($proceso4);$proceso4[$log] = $score;}
+              elseif($process == 'proceso5'){$log = sizeof($proceso5);$proceso5[$log] = $score;}
+              elseif($process == 'proceso6'){$log = sizeof($proceso6);$proceso6[$log] = $score;}
+              elseif($process == 'proceso7'){ $log = sizeof($proceso7);$proceso7[$log] = $score;}
+              elseif($process == 'proceso8'){ $log = sizeof($proceso8);$proceso8[$log] = $score;}
+              elseif($process == 'proceso9'){ $log = sizeof($proceso9);$proceso9[$log] = $score;}
+              elseif($process == 'proceso10'){$log = sizeof($proceso10);$proceso10[$log] = $score;}
+              elseif($process == 'proceso11'){$log = sizeof($proceso11);$proceso11[$log] = $score;}
+              elseif($process == 'proceso12'){$log = sizeof($proceso12);$proceso12[$log] = $score;}
+              elseif($process == 'proceso13'){$log = sizeof($proceso13);$proceso13[$log] = $score;}
+              elseif($process == 'proceso14'){$log = sizeof($proceso14);$proceso14[$log] = $score;}
+              elseif($process == 'proceso15'){$log = sizeof($proceso15);$proceso15[$log] = $score;}
+              else{$log = sizeof($proceso16);$proceso16[$log] = $score;}
+
+              //}
+              //-----------------------------------------------------------------------------------------
+
+
+            }elseif($clase == 'TC'){
+
+              $categoria_txt = $question->get('field_categoria_proceso')->referencedEntities()[0];
+              $categoria = $categoria_txt ? $categoria_txt->get('field_id_categoria')[0]->getString(): NULL;
+              //$score = $answers->getPoints();
+              if($categoria == 'categoria1'){$log = sizeof($categoria1); $categoria1[$log] = $score;}
+              elseif($categoria == 'categoria2'){$log = sizeof($categoria2);$categoria2[$log] = $score;}
+              elseif($categoria == 'categoria3'){$log = sizeof($categoria3);$categoria3[$log] = $score;}
+              elseif($categoria == 'categoria4'){$log = sizeof($categoria4);$categoria4[$log] = $score;}
+              elseif($categoria == 'categoria5'){$log = sizeof($categoria5);$categoria5[$log] = $score;}
+
+            }else{
+              //$score = $answers->getPoints();
+              $log=sizeof($tmp);
+              $tmp[$log]=$score;
+            }
+            $cc[0]=$categoria1;     $cc[1]=$categoria2;     $cc[2]=$categoria3;      $cc[3]=$categoria4;     $cc[4]=$categoria5;
+
+
+            //ARRAY DE ADOPCION
+            $array_adopcion[0]=$proceso1; $array_adopcion[1]=$proceso2; $array_adopcion[2]=$proceso3; $array_adopcion[3]=$proceso4;
+            $array_adopcion[4]=$proceso5; $array_adopcion[5]=$proceso6; $array_adopcion[6]=$proceso7; $array_adopcion[7]=$proceso8;
+            $array_adopcion[8]=$proceso9; $array_adopcion[9]=$proceso10; $array_adopcion[10]=$proceso11; $array_adopcion[11]=$proceso12;
+            $array_adopcion[12]=$proceso13; $array_adopcion[13]=$proceso14; $array_adopcion[14]=$proceso15; $array_adopcion[15]=$proceso16;
+         //}
+        }
+      }
+    }
+  }
+
+  $nombre_user = \Drupal::currentUser()->getAccountName();
+  if($array_adopcion!=[]) {
+    foreach ($array_adopcion as $proceso) {
+      $result[$i] = calculodeprocesos($proceso, $max_value); //resultados pro proceso
+      $i++;
+    }
+
+
+    $cpp = [];
+    $cpp[0] = [$result[0], $result[1]];
+    $cpp[1] = [$result[2], $result[3], $result[4]];
+    $cpp[2] = [$result[5], $result[6], $result[7], $result[8], $result[9]];
+    $cpp[3] = [$result[10], $result[11], $result[12]];
+    $cpp[4] = [$result[13], $result[14], $result[15]];
+
+    for ($i = 0; $i <= sizeof($cpp) - 1; $i++) {
+      $result_cpp[$i] = calculodecategoriasproceso($cpp[$i]); //resultados de promedios por categoria
+    }
+
+    for ($i = 0; $i <= sizeof($cc) - 1; $i++) {
+      $result_ctc[$i] = calculodeprocesos($cc[$i], $max_value); //resultados de promedios por categoria
+    }
+
+    $result_tmp = calculodeprocesos($tmp, $max_value);
+
+
+    $result_total = calculofinal($result_cpp, $result_ctc, $result_tmp);
+
+    $total = calculototal($result_total);
+
+    adopcionCreateIndicadores($result, $result_cpp, $result_ctc, $result_tmp, $result_total, $total, $nombre_user, $tipo);
+  }
+}
+
+function calculototal($result){
+  for($i=0; $i<=4;$i++){
+    $total = $total+$result[$i];
+  }
+  $rt = $total/5;
+  return $rt;
+}
+
+function calculofinal($cpp,$ctc,$tmp){
+  $log = 1;
+  for($i=0;$i<=4;$i++){
+    if($cpp[$i]!=[]){$log++;}
+    if($ctc[$i]!=[]){$log++;}
+
+    $result_total[$i]=($cpp[$i] + $ctc[$i] + $tmp)/$log;
+    $log=1;
+  }
+  return $result_total;
+}
+
+function  calculodeprocesos($proceso,$max_value){
+  $suma =0;
+  if($proceso == []){
+    return;
+  }
+  foreach ($proceso as $result){
+    $suma = $suma +$result;
+  }
+  $longitud = sizeof($proceso);
+  $valor_maximo = $longitud *$max_value; //cambiar 60, por valor de maximo score
+  $porcentaje = ($suma*100)/$valor_maximo;
+
+  return $porcentaje;
+
+}
+
+function  calculodecategoriasproceso($result_cpp){
+
+  if($result_cpp == []){return ;};
+
+  foreach ($result_cpp as $rp){
+    if($rp == []){$rp=0;}
+    else{$log++;}
+    $suma=$suma+$rp;
+  }
+  if($log==0){return;}
+  $cppt=$suma/$log;
+
+  return $cppt;
+
+}
+
+function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
+
+
+  $values = [
+    'title' => $name,
+    'type' => 'analisis_de_respuesta',
+    'field_origen' => $form,
+    'field_proceso_1'=> $p[0],
+    'field_proceso_2'=> $p[1],
+    'field_proceso_3'=> $p[2],
+    'field_proceso_4'=> $p[3],
+    'field_proceso_5'=> $p[4],
+    'field_proceso_6'=> $p[5],
+    'field_proceso_7'=> $p[6],
+    'field_proceso_8'=> $p[7],
+    'field_proceso_9'=> $p[8],
+    'field_proceso_10'=> $p[9],
+    'field_proceso_11'=> $p[10],
+    'field_proceso_12'=> $p[11],
+    'field_proceso_13'=> $p[12],
+    'field_proceso_14'=> $p[13],
+    'field_proceso_15'=> $p[14],
+    'field_proceso_16'=> $p[15],
+    'field_ppc1'=> $rcp[0],
+    'field_ppc2'=> $rcp[1],
+    'field_ppc3'=> $rcp[2],
+    'field_ppc4'=> $rcp[3],
+    'field_ppc5'=> $rcp[4],
+    'field_ptcc1'=> $ctc[0],
+    'field_ptcc2'=> $ctc[1],
+    'field_ptcc3'=> $ctc[2],
+    'field_ptcc4'=> $ctc[3],
+    'field_ptcc5'=> $ctc[4],
+    'field_tmp'=> $tmp,
+    'field_c1ad'=>$tad[0],
+    'field_c2ad'=>$tad[1],
+    'field_c3ad'=>$tad[2],
+    'field_c4ad'=>$tad[3],
+    'field_c5ad'=>$tad[4],
+    'field_total' => $rt
+  ];
+
+  $gid = buscargrupo();
+
+  $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+  $node->save();
+
+  $values = [
+    'type' => 'group_content_type_0b89a4774c92a',
+    'gid' => $gid,
+    'entity_id' => ['target_id' => $node->id()],
+  ];
+
+  $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
+  $entity->save();
+
+}
+
+function buscargrupo(){
+  $storage=\Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()
+    ->condition('type','empresas');
+  $ids = $query->execute();
+  $groups =!empty($ids) ? $storage->loadMultiple($ids):[];
+  foreach($groups as $group){
+    $members = $group->getMembers();
+
+    foreach($members as $member){
+      $id_members = $member->getUser();
+      if ($id_members) {  $id_member=$id_members->id();}
+      $id_general = \Drupal::currentUser()->id(); //EXTRAER ID DEL USUARIO LOG IN
+      if($id_general == $id_member){
+        $gid = $group->id();
+      }
+    }
+  }
+  return $gid;
+}
+
+function buscarscore($answers,$question,$tipo){
+  $id_answer =$answers->get('multichoice_answer')->value;
+  $alternatives =$question->get('alternatives')->getValue();
+  $log = sizeof($alternatives);
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type', 'score_de_respuestas')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $scores = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($scores as $score){
+    $tipo_score = $score->get('field_tipo')->entity->get('field_tipo_form')[0]->getString();
+    if($tipo_score == $tipo){
+      for($i=0;$i<$log;$i++){
+        $points[$i]=$score->get('field_respuesta_'.($i+1))->value;
+        $id_question = $alternatives[$i]['target_revision_id'];
+        if($id_answer == $id_question){
+          $opcion = $i;
+        }
+      }
+
+    }
+  }
+  $valor[0] = $points[$opcion];
+  $valor[1] = $points[$log-1];
+  return $valor;
+}
+
