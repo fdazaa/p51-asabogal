@@ -1,0 +1,10 @@
+name: 'Checklis task'
+type: module
+core_version_requirement: ^9
+
+description: '--------------'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+dependencies:
+  -group:group

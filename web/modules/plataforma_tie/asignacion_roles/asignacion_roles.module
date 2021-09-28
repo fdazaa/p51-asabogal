@@ -16,19 +16,22 @@ function asignacion_roles_page_attachments_alter(array &$attachments) {
 function activacionroles(){
   $gid = buscargrupo();
   $id_autor=buscarautorgrupo($gid);
-  $state = licencia($id_autor);
   $rol_grupo=buscarolgrupo();
   $rol=extraerstring($rol_grupo);
-  if($state=='active'){
-    rolactualgeneral($rol);
-  }elseif($state =='expired'){
-    $link = \Drupal\Core\Link::fromTextAndUrl(' Aquí ',\Drupal\Core\Url::fromUri("internal:/licencia"))->toString();
-    if($rol == 'direccion_estrategico'){
-      \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta la vigencia de tu licencia. Debes adquirir una nueva  @link',array('@link'=>$link)));
-    }else{
-      \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta con el Lider de tu empresa'));
+  dpm($rol);
+  if($rol!='asesor' && $rol!=''){
+    $state = licencia($id_autor);
+    if($state=='active'){
+      rolactualgeneral($rol);
+    }elseif($state =='expired'){
+      $link = \Drupal\Core\Link::fromTextAndUrl(' Aquí ',\Drupal\Core\Url::fromUri("internal:/licencia"))->toString();
+      if($rol == 'direccion_estrategico'){
+        \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta la vigencia de tu licencia. Debes adquirir una nueva  @link',array('@link'=>$link)));
+      }else{
+        \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta con el Lider de tu empresa'));
+      }
+      quitarrol();
     }
-    quitarrol();
   }
 }
 
@@ -47,13 +50,8 @@ function quitarrol(){
 
 
 function extraerstring($rol_grupo){
-
-  for ($i=9;$i<40;$i++){
-    if($rol_grupo[$i]!=' ' && $rol_grupo[$i]!='-'){
-      $rol=$rol.$rol_grupo[$i];
-    }
-  }
-  return $rol;
+  $rol = explode('-', $rol_grupo);
+  return $rol[1];
 }
 
 
@@ -71,7 +69,8 @@ function rolactualgeneral($rol_st){
 
 function buscarolgrupo(){
   $storage=\Drupal::entityTypeManager()->getStorage('group');
-  $query = $storage->getQuery();
+  $query = $storage->getQuery()
+    ->condition('type','empresas');
   $ids = $query->execute();
   $groups =!empty($ids) ? $storage->loadMultiple($ids):[];
   foreach($groups as $group){
@@ -114,6 +113,10 @@ function licencia($id_autor){
       $licencias[$i]=$license;
       $i++;
     }
+  }
+
+  if ($i==0){
+    $i=1;
   }
   $state = $licencias[$i-1]->state[0]->value;
   return $state;

@@ -1,0 +1,7 @@
+checklist_task.checklist_form:
+  path: 'checklist-form'
+  defaults:
+    _form: '\Drupal\checklist_task\Form\checklistForm'
+    _title: 'Checklist Task'
+  requirements:
+    _permission: 'access content'

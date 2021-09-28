@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9f678b18364bb2a0937fb9928852793486672486',
+    'reference' => '5017f9fa6b72b770804b725c07e784207eed3de8',
     'name' => 'drupal/recommended-project',
   ),
   'versions' => 
@@ -1421,7 +1421,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9f678b18364bb2a0937fb9928852793486672486',
+      'reference' => '5017f9fa6b72b770804b725c07e784207eed3de8',
     ),
     'drupal/recurring_period' => 
     array (
@@ -1431,6 +1431,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '8.x-1.0',
+    ),
+    'drupal/redirect' => 
+    array (
+      'pretty_version' => '1.6.0',
+      'version' => '1.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.6',
     ),
     'drupal/reference_table_formatter' => 
     array (

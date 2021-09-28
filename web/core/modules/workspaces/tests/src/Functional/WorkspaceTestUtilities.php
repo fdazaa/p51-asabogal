@@ -60,10 +60,12 @@ trait WorkspaceTestUtilities {
   protected function createWorkspaceThroughUi($label, $id, $parent = '_none') {
     $this->drupalGet('/admin/config/workflow/workspaces/add');
     $this->submitForm([
-      'id[0][value]' => $id,
-      'label[0][value]' => $label,
+      'id' => $id,
+      'label' => $label,
       'parent' => $parent,
     ], 'Save');
+
+    $this->getSession()->getPage()->hasContent("$label ($id)");
 
     return Workspace::load($id);
   }

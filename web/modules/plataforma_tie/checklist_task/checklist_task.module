@@ -1,0 +1,143 @@
+<?php
+
+use Drupal\Core\Url;
+use Drupal\redirect\Entity\Redirect;
+
+
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function checklist_task_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+  if($form_id == 'group_tareas_edit_form'){
+
+
+
+    $current_path = \Drupal::service('path.current')->getPath();
+    $arguments = explode('/', $current_path);
+    foreach ($arguments as $value) {
+      if (is_numeric($value)) {
+        $gid=$value;
+        break;
+      }
+    }
+    edit_group($gid);
+
+
+
+
+    $k=0;
+    $keys = array_keys($form['field_tareas']['widget']);
+    foreach ($keys as $key){
+      $strk = strval($key);
+      if ($strk[0]!='#'){
+        if ($strk[0]!='a'){
+          $k++;
+        }
+      }
+
+    }
+
+
+    for ($i=0;$i<$k-1;$i++){
+      $act =$form['field_tareas']['widget'][$i]['value']['#default_value'];
+      $options[$i] = \Drupal\Core\Field\FieldFilteredMarkup::create($act);
+    }
+    $form['field_actividades']['widget']['#options']=$options;
+
+    $form['actions']['submit']['#submit'][] = 'edit_options_form_submit';
+  }elseif($form_id == 'group_tareas_add_form'){
+    $form['label']['widget'][0]['value']['#default_value']=$form['field_titulo_de_tarea']['widget'][0]['value']['#default_value'];
+    dpm($form);
+    $form['actions']['submit']['#submit'][] = 'create_options_form_submit';
+
+  }
+}
+
+function edit_options_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
+
+  $current_path = \Drupal::service('path.current')->getPath();
+  $arguments = explode('/', $current_path);
+  foreach ($arguments as $value) {
+    if (is_numeric($value)) {
+      $gid=$value;
+      break;
+    }
+  }
+  edit_group($gid);
+
+  $url_object = \Drupal::service('path.validator')->getUrlIfValid($current_path);
+  $route_name = $url_object->getRouteName();
+  $route_parameters = $url_object->getrouteParameters();
+  $form_state->setRedirect($route_name,$route_parameters);
+
+
+
+
+}
+
+
+
+function create_options_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
+
+  $current_path = \Drupal::service('path.current')->getPath();
+  $arguments = explode('/', $current_path);
+  foreach ($arguments as $value) {
+    if (is_numeric($value)) {
+      $gid=$value;
+      break;
+    }
+  }
+
+}
+
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function checklist_task_page_attachments_alter(array &$attachments)
+{
+  $gid =0;
+  $url = \Drupal::service('path.current')->getPath();
+  $arguments = explode('/', $url);
+  foreach ($arguments as $value) {
+    if (is_numeric($value)) {
+      $gid=$value;
+      break;
+    }
+  }
+
+  if ($gid!=0 && $url == '/group/'.strval($gid)){
+    $existe = revisiongrouptareas($gid);
+    if ($existe == 1){
+      edit_group($gid);
+    }
+  }
+}
+
+
+function revisiongrouptareas($gid){
+  $storage = \Drupal::entityTypeManager()->getStorage('group');
+  $query = $storage->getQuery()
+    ->condition('type','tareas')
+    ->condition('status',1);
+  $ids = $query->execute();
+  $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($resultados as $resultado){
+    if ($resultado->id() == $gid){
+      return 1;
+    }
+
+  }
+  return;
+}
+
+
+function edit_group($gid){
+  $group = \Drupal::entityTypeManager()->getStorage('group')->load($gid);
+  $label = $group->get('field_titulo_de_tarea')->value;
+  $group->set('label',$label);
+  $group->save();
+}
