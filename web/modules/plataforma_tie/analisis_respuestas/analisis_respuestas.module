@@ -593,7 +593,8 @@ function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
 
 function buscargrupo(){
   $storage=\Drupal::entityTypeManager()->getStorage('group');
-  $query = $storage->getQuery();
+  $query = $storage->getQuery()
+    ->condition('type','empresas');
   $ids = $query->execute();
   $groups =!empty($ids) ? $storage->loadMultiple($ids):[];
   foreach($groups as $group){
