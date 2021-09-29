@@ -1,0 +1,8 @@
+name: 'Asignacion de indicadores'
+type: module
+core_version_requirement: ^9
+
+description: 'Provee las configuraciones y acciones necesarias para la asignacion y asociacion de indicadores a una empresa'
+version: 1.0.0
+
+package: 'Plataforma TIE'

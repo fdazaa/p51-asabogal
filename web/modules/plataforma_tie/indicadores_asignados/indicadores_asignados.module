@@ -1,0 +1,46 @@
+<?php
+
+
+use Drupal\taxonomy\Entity\Term;
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function indicadores_asignados_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+  if ($form_id == 'node_indicadores_form'||$form_id=='node_indicadores_edit_form'){
+    $form['#validate'][] = 'add_title_indicadores_form_submit';
+    $form['actions']['submit']['#submit'][]='add_title_indicadores_form_submit';
+  }
+}
+
+function add_title_indicadores_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
+  $id_empresa = $form_state->getValue('field_empresa')[0]['target_id'];
+  $empresa = \Drupal::entityTypeManager()->getStorage('group')->load($id_empresa)->label();
+  $id_indicador = $form_state->getValue('field_indicador')[0]['target_id'];
+  $indicador = Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id_indicador)->label();
+  $code = search_code($indicador);
+  $title = $empresa.' - '.$code;
+  $url = \Drupal::service('path.current')->getPath();
+  $arguments = explode('/', $url);
+  $id = $arguments[2];
+  $node = \Drupal::entityTypeManager()->getStorage('node')->load($id);
+  $node->set('title',$title);
+  $node->save();
+}
+
+function search_code($indicador_asignado){
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()->condition('type','banco_de_indicadores');
+  $ids = $query->execute();
+  $indicadores = !empty($ids) ? $storage->loadMultiple($ids) : NULL;
+  foreach ($indicadores as $indicador){
+    $name = $indicador->get('field_nombre_del_indicador')->value;
+    if($name == $indicador_asignado){
+      $code = $indicador->label();
+      return $code;
+    }
+  }
+  return ;
+}

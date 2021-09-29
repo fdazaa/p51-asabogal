@@ -19,20 +19,22 @@ function deletemember(){
   $query = $storage->getQuery();
   $ids = $query->execute();
   $groups = !empty($ids) ? $storage->loadMultiple($ids): NULL;
-  foreach ($groups as $group){
-    $members = $group->getMembers();
-    foreach ($members as $member){
-      $id_member = $member->getUser();
-      if($id_member){
-        $id_member=$id_member->id();
-      }
-      if($id_member ==  \Drupal::currentUser()->id()){
-        $type = $group->bundle();
-        $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-        $gid = $group->id();
-        $group = \Drupal\group\Entity\Group::load($gid);
-        $group->removeMember($account);
-        crearmember($gid,$type);
+  if ($groups){
+    foreach ($groups as $group){
+      $members = $group->getMembers();
+      foreach ($members as $member){
+        $id_member = $member->getUser();
+        if($id_member){
+          $id_member=$id_member->id();
+        }
+        if($id_member ==  \Drupal::currentUser()->id()){
+          $type = $group->bundle();
+          $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+          $gid = $group->id();
+          $group = \Drupal\group\Entity\Group::load($gid);
+          $group->removeMember($account);
+          crearmember($gid,$type);
+        }
       }
     }
   }

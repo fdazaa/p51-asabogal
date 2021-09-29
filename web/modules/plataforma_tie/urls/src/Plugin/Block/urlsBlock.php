@@ -40,7 +40,6 @@ class urlsBlock extends BlockBase {
         '#title' => $this->t('Invitar Colaborador'),
       ];
     }
-
   }
 
   /**

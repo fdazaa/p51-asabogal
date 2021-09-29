@@ -15,21 +15,23 @@ function asignacion_roles_page_attachments_alter(array &$attachments) {
 
 function activacionroles(){
   $gid = buscargrupo();
-  $id_autor=buscarautorgrupo($gid);
-  $rol_grupo=buscarolgrupo();
-  $rol=extraerstring($rol_grupo);
-  if($rol!='asesor' && $rol!=''){
-    $state = licencia($id_autor);
-    if($state=='active'){
-      rolactualgeneral($rol);
-    }elseif($state =='expired'){
-      $link = \Drupal\Core\Link::fromTextAndUrl(' Aquí ',\Drupal\Core\Url::fromUri("internal:/licencia"))->toString();
-      if($rol == 'direccion_estrategico'){
-        \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta la vigencia de tu licencia. Debes adquirir una nueva  @link',array('@link'=>$link)));
-      }else{
-        \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta con el Lider de tu empresa'));
+  if($gid) {
+    $id_autor = buscarautorgrupo($gid);
+    $rol_grupo = buscarolgrupo();
+    $rol = extraerstring($rol_grupo);
+    if ($rol != 'asesor' && $rol != '') {
+      $state = licencia($id_autor);
+      if ($state == 'active') {
+        rolactualgeneral($rol);
+      } elseif ($state == 'expired') {
+        $link = \Drupal\Core\Link::fromTextAndUrl(' Aquí ', \Drupal\Core\Url::fromUri("internal:/licencia"))->toString();
+        if ($rol == 'direccion_estrategico') {
+          \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta la vigencia de tu licencia. Debes adquirir una nueva  @link', array('@link' => $link)));
+        } else {
+          \Drupal::messenger()->addWarning(t('Ups! parece ser que tu acceso fue restringido. Consulta con el Lider de tu empresa'));
+        }
+        quitarrol();
       }
-      quitarrol();
     }
   }
 }

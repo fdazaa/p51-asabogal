@@ -336,15 +336,16 @@ function generadorresultados($name,$adopcion, $apropiacion, $resultado){
   $node->save();
 
   $gid = buscargrupo();
+  if($gid) {
+    $values = [
+      'type' => 'empresas-group_node-resultados',
+      'gid' => $gid,
+      'entity_id' => ['target_id' => $node->id()],
+    ];
 
-  $values = [
-    'type' => 'empresas-group_node-resultados',
-    'gid' => $gid,
-    'entity_id' => ['target_id'=>$node->id()],
-  ];
-
-  $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
-  $entity ->save();
+    $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
+    $entity->save();
+  }
 }
 
 
@@ -533,65 +534,68 @@ function  calculodecategoriasproceso($result_cpp){
 
 }
 
-function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form){
+function adopcioncreateindicadores($p,$rcp,$ctc,$tmp,$tad,$rt,$name,$form)
+{
 
 
   $values = [
     'title' => $name,
     'type' => 'analisis_de_respuesta',
     'field_origen' => $form,
-    'field_proceso_1'=> $p[0],
-    'field_proceso_2'=> $p[1],
-    'field_proceso_3'=> $p[2],
-    'field_proceso_4'=> $p[3],
-    'field_proceso_5'=> $p[4],
-    'field_proceso_6'=> $p[5],
-    'field_proceso_7'=> $p[6],
-    'field_proceso_8'=> $p[7],
-    'field_proceso_9'=> $p[8],
-    'field_proceso_10'=> $p[9],
-    'field_proceso_11'=> $p[10],
-    'field_proceso_12'=> $p[11],
-    'field_proceso_13'=> $p[12],
-    'field_proceso_14'=> $p[13],
-    'field_proceso_15'=> $p[14],
-    'field_proceso_16'=> $p[15],
-    'field_ppc1'=> $rcp[0],
-    'field_ppc2'=> $rcp[1],
-    'field_ppc3'=> $rcp[2],
-    'field_ppc4'=> $rcp[3],
-    'field_ppc5'=> $rcp[4],
-    'field_ptcc1'=> $ctc[0],
-    'field_ptcc2'=> $ctc[1],
-    'field_ptcc3'=> $ctc[2],
-    'field_ptcc4'=> $ctc[3],
-    'field_ptcc5'=> $ctc[4],
-    'field_tmp'=> $tmp,
-    'field_c1ad'=>$tad[0],
-    'field_c2ad'=>$tad[1],
-    'field_c3ad'=>$tad[2],
-    'field_c4ad'=>$tad[3],
-    'field_c5ad'=>$tad[4],
+    'field_proceso_1' => $p[0],
+    'field_proceso_2' => $p[1],
+    'field_proceso_3' => $p[2],
+    'field_proceso_4' => $p[3],
+    'field_proceso_5' => $p[4],
+    'field_proceso_6' => $p[5],
+    'field_proceso_7' => $p[6],
+    'field_proceso_8' => $p[7],
+    'field_proceso_9' => $p[8],
+    'field_proceso_10' => $p[9],
+    'field_proceso_11' => $p[10],
+    'field_proceso_12' => $p[11],
+    'field_proceso_13' => $p[12],
+    'field_proceso_14' => $p[13],
+    'field_proceso_15' => $p[14],
+    'field_proceso_16' => $p[15],
+    'field_ppc1' => $rcp[0],
+    'field_ppc2' => $rcp[1],
+    'field_ppc3' => $rcp[2],
+    'field_ppc4' => $rcp[3],
+    'field_ppc5' => $rcp[4],
+    'field_ptcc1' => $ctc[0],
+    'field_ptcc2' => $ctc[1],
+    'field_ptcc3' => $ctc[2],
+    'field_ptcc4' => $ctc[3],
+    'field_ptcc5' => $ctc[4],
+    'field_tmp' => $tmp,
+    'field_c1ad' => $tad[0],
+    'field_c2ad' => $tad[1],
+    'field_c3ad' => $tad[2],
+    'field_c4ad' => $tad[3],
+    'field_c5ad' => $tad[4],
     'field_total' => $rt
   ];
 
   $gid = buscargrupo();
 
-  $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
-  $node->save();
+  if ($gid) {
+    $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+    $node->save();
 
-  $values = [
-    'type' => 'group_content_type_0b89a4774c92a',
-    'gid' => $gid,
-    'entity_id' => ['target_id' => $node->id()],
-  ];
+    $values = [
+      'type' => 'group_content_type_0b89a4774c92a',
+      'gid' => $gid,
+      'entity_id' => ['target_id' => $node->id()],
+    ];
 
-  $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
-  $entity->save();
-
+    $entity = \Drupal::entityTypeManager()->getStorage('group_content')->create($values);
+    $entity->save();
+  }
 }
 
 function buscargrupo(){
+  $gid='';
   $storage=\Drupal::entityTypeManager()->getStorage('group');
   $query = $storage->getQuery()
     ->condition('type','empresas');
@@ -609,7 +613,11 @@ function buscargrupo(){
       }
     }
   }
-  return $gid;
+  if ($gid){
+    return $gid;
+  }
+  return ;
+
 }
 
 function buscarscore($answers,$question,$tipo){

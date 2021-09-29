@@ -125,12 +125,14 @@ function revisiongrouptareas($gid){
     ->condition('status',1);
   $ids = $query->execute();
   $resultados = !empty($ids) ? $storage->loadMultiple($ids):NULL;
-  foreach ($resultados as $resultado){
-    if ($resultado->id() == $gid){
-      return 1;
+  if ($resultados){
+    foreach ($resultados as $resultado){
+      if ($resultado->id() == $gid){
+        return 1;
+      }
     }
-
   }
+
   return;
 }
 
