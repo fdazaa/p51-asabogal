@@ -1,0 +1,107 @@
+<?php
+
+
+use Drupal\taxonomy\Entity\Term;
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function indicadores_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+  if ($form_id == 'node_indicadores_form'){
+    $form['#validate'][] = 'validar_existencia';
+    $form['actions']['submit']['#submit'][]='create_indicador_form_submit';
+  }elseif($form_id=='node_indicadores_edit_form'){
+    $form['actions']['submit']['#submit'][]='edit_term_form_submit';
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function indicadores_entity_delete(\Drupal\Core\Entity\EntityInterface $entity)
+{
+
+  if($entity->getEntityTypeId()=='node' && $entity->bundle()=='indicadores'){
+    $indicador = $entity->get('field_indicador')->getValue()[0]['value'];
+    $id = id_term($indicador);
+    $term = Term::load($id);
+    $term->delete();
+  }
+}
+
+
+
+function edit_term_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
+  $name_indicador = $form['field_indicador']['widget'][0]['value']['#default_value'];
+  $id = id_term($name_indicador);
+  $term = Term::load($id);
+  $term->setName($form_state->getValue('field_indicador'));
+  $term->save();
+}
+
+function id_term($name_indicador){
+  $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $query = $storage->getQuery();
+  $ids = $query->execute();
+  $taxonomies = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  foreach ($taxonomies as $taxonomy){
+    if ($taxonomy->label() == $name_indicador){
+      return $taxonomy->id();
+    }
+  }
+}
+
+
+
+
+function create_indicador_form_submit(&$form, \Drupal\Core\Form\FormState $form_state){
+  $indicador = $form_state->getValue('field_indicador');
+  $categoria = $form_state->getValue('field_categoria_ind');
+  createtaxonomy($indicador,$categoria);
+}
+
+function validar_existencia(&$form, \Drupal\Core\Form\FormState  $form_state){
+  $title = $form_state->getValue('title')[0]['value'];
+  $va_title = validar_title($title);
+  if($va_title==1){
+    $form_state->setErrorByName('title','El codigo ingresado ya existe');
+  }
+}
+
+function validar_title($title){
+  $storage = Drupal::entityTypeManager()->getStorage('node');
+  $query = $storage->getQuery()
+    ->condition('type','indicadores');
+  $ids = $query->execute();
+  $indicadores = !empty($ids) ? $storage->loadMultiple($ids):NULL;
+  if($indicadores){
+    foreach ($indicadores as $indicador){
+      if ($indicador->label() == $title){
+        return 1;
+      }
+    }
+  }
+  return ;
+
+}
+
+
+
+function createtaxonomy($indicador,$categoria){
+  $new_term = Term::create([
+      'name'=>$indicador,
+      'vid'=> 'indicadores',
+      'parent'=>$categoria
+    ]
+  ) ;
+
+  $new_term->save();
+}
+
+
+
+
+
+

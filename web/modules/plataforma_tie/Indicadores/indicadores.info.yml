@@ -1,0 +1,9 @@
+name: 'Indicadores'
+type: module
+core_version_requirement: ^9
+
+description: 'Provee las configuraciones y acciones necesarias para la creacion y asociacion de indicadores'
+version: 1.0.0
+
+package: 'Plataforma TIE'
+
