@@ -3,18 +3,17 @@
 
 
 function group_tools_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-
-  if($form_id=='group_empresas_add_form'){
-    deletemember();
+  if($form_id=='group_content_empresas-group_membership_add_form'){
+    $form['actions']['submit']['#submit'][]='create_empresa_form_submit';
   }
 }
 
 function create_empresa_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
-  //AQUI VA LO QUE VA A HACER SUBMIT
   deletemember();
 }
 
 function deletemember(){
+  $i=0;
   $storage = \Drupal::entityTypeManager()->getStorage('group');
   $query = $storage->getQuery();
   $ids = $query->execute();
@@ -28,16 +27,22 @@ function deletemember(){
           $id_member=$id_member->id();
         }
         if($id_member ==  \Drupal::currentUser()->id()){
-          $type = $group->bundle();
           $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
           $gid = $group->id();
           $group = \Drupal\group\Entity\Group::load($gid);
           $group->removeMember($account);
-          crearmember($gid,$type);
+          $group->save();
+          $grupos[$i]=$group;
+          $i++;
+
         }
       }
     }
   }
+  $log = sizeof($grupos);
+  $group = $grupos[$log-1];
+  $type = $group->bundle();
+  crearmember($gid,$type);
 }
 
 function crearmember($gid,$type){
@@ -45,4 +50,5 @@ function crearmember($gid,$type){
   $group = \Drupal\group\Entity\Group::load($gid);
   $values =['group_roles'=>$type.'-'.'direccion_estrategico'];
   $group->addMember($account,$values);
+  $group->save();
 }

@@ -10,10 +10,41 @@ use Drupal\taxonomy\Entity\Term;
 function indicadores_asignados_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
   if ($form_id == 'node_indicadores_form'||$form_id=='node_indicadores_edit_form'){
+    $opciones_empresas = $form['field_empresa']['widget']['#options'];
+    $options = pertenece_empresa($opciones_empresas);
+    $form['field_empresa']['widget']['#options'] = $options;
     $form['#validate'][] = 'add_title_indicadores_form_submit';
     $form['actions']['submit']['#submit'][]='add_title_indicadores_form_submit';
   }
 }
+
+
+function pertenece_empresa($opciones_empresa){
+  $ids_empresas = array_keys($opciones_empresa);
+  dpm($ids_empresas);
+  $log = sizeof($ids_empresas);
+  for ($i=1;$i<$log;$i++){
+    $empresa = \Drupal::entityTypeManager()->getStorage('group')->load($ids_empresas[$i]);
+    $members = $empresa->getMembers();
+    foreach ($members as $member){
+      $id_members = $member->getUser();
+      if($id_members) {
+        $id_member = $id_members->id();
+        if($id_member == \Drupal::currentUser()->id()){
+          $options[$ids_empresas[$i]]=$opciones_empresa[$ids_empresas[$i]];
+        }
+      }
+    }
+  }
+  if ($options){
+    return $options;
+  }
+
+  return ;
+
+}
+
+
 
 function add_title_indicadores_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
   $id_empresa = $form_state->getValue('field_empresa')[0]['target_id'];
