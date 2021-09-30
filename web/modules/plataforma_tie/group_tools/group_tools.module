@@ -27,14 +27,8 @@ function deletemember(){
           $id_member=$id_member->id();
         }
         if($id_member ==  \Drupal::currentUser()->id()){
-          $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-          $gid = $group->id();
-          $group = \Drupal\group\Entity\Group::load($gid);
-          $group->removeMember($account);
-          $group->save();
           $grupos[$i]=$group;
           $i++;
-
         }
       }
     }
@@ -42,6 +36,12 @@ function deletemember(){
   $log = sizeof($grupos);
   $group = $grupos[$log-1];
   $type = $group->bundle();
+  $gid = $group->id();
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $group = \Drupal\group\Entity\Group::load($gid);
+  for ($i=0;$i<=1;$i++){
+    $group->removeMember($account);
+  }
   crearmember($gid,$type);
 }
 
