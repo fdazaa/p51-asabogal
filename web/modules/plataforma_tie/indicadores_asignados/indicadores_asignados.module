@@ -13,15 +13,58 @@ function indicadores_asignados_form_alter(&$form, \Drupal\Core\Form\FormStateInt
     $opciones_empresas = $form['field_empresa']['widget']['#options'];
     $options = pertenece_empresa($opciones_empresas);
     $form['field_empresa']['widget']['#options'] = $options;
-    $form['#validate'][] = 'add_title_indicadores_form_submit';
-    $form['actions']['submit']['#submit'][]='add_title_indicadores_form_submit';
+    //$form['actions']['submit']['#submit'][]='add_title_indicadores_form_submit';
   }
 }
 
+function indicadores_asignados_node_presave(\Drupal\node\NodeInterface $node){
+  if ($node->bundle() == 'indicadores'){
+    //Datos para generar titulo
+    $id_empresa = $node->get('field_empresa')->getValue()[0]['target_id'];
+    $empresa = \Drupal::entityTypeManager()->getStorage('group')->load($id_empresa)->label();
+    $id_indicador = $node->get('field_indicador')->getValue()[0]['target_id'];
+    $indicador = Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id_indicador)->label();
+    $code = search_code($indicador);
+    $title = $empresa.' - '.$code;
+    //Datos para generar variacion
+    $base = $node ->get('field_linea_base')->getValue()[0]['value'];
+    $medicion = $node ->get('field_ultima_medicion')->getValue()[0]['value'];
+    $variacion = $medicion - $base;
+    //Generar campo categoria);
+    $parent = term_parent($id_indicador);
+    //Agregar miembros a CT
+    $miembros = list_members($id_empresa);
+    $node->set('title',$title);
+    $node->set('field_variacion',$variacion);
+    $node->set('field_categoria_indicador',$parent);
+    $node->set('field_miembros',$miembros);
+
+  }
+}
+
+function list_members($id){
+  $i=0;
+  $empresa = \Drupal::entityTypeManager()->getStorage('group')->load($id);
+  $members = $empresa->getMembers();
+  foreach ($members as $member) {
+    $id_members = $member->getUser();
+    if ($id_members) {
+      $id_member = $id_members->id();
+      $miembros[$i]['target_id']=$id_member;
+      $i++;
+    }
+  }
+  return $miembros;
+}
+
+function term_parent($indicador){
+  $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($indicador);
+  $parent = $term->get('parent')->getValue()[0]['target_id'];
+  return $parent;
+}
 
 function pertenece_empresa($opciones_empresa){
   $ids_empresas = array_keys($opciones_empresa);
-  dpm($ids_empresas);
   $log = sizeof($ids_empresas);
   for ($i=1;$i<$log;$i++){
     $empresa = \Drupal::entityTypeManager()->getStorage('group')->load($ids_empresas[$i]);
@@ -42,23 +85,6 @@ function pertenece_empresa($opciones_empresa){
 
   return ;
 
-}
-
-
-
-function add_title_indicadores_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
-  $id_empresa = $form_state->getValue('field_empresa')[0]['target_id'];
-  $empresa = \Drupal::entityTypeManager()->getStorage('group')->load($id_empresa)->label();
-  $id_indicador = $form_state->getValue('field_indicador')[0]['target_id'];
-  $indicador = Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id_indicador)->label();
-  $code = search_code($indicador);
-  $title = $empresa.' - '.$code;
-  $url = \Drupal::service('path.current')->getPath();
-  $arguments = explode('/', $url);
-  $id = $arguments[2];
-  $node = \Drupal::entityTypeManager()->getStorage('node')->load($id);
-  $node->set('title',$title);
-  $node->save();
 }
 
 function search_code($indicador_asignado){
