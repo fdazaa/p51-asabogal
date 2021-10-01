@@ -10,10 +10,12 @@ use Drupal\taxonomy\Entity\Term;
 function indicadores_asignados_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
   if ($form_id == 'node_indicadores_form'||$form_id=='node_indicadores_edit_form'){
-    $opciones_empresas = $form['field_empresa']['widget']['#options'];
-    $options = pertenece_empresa($opciones_empresas);
-    $form['field_empresa']['widget']['#options'] = $options;
-    //$form['actions']['submit']['#submit'][]='add_title_indicadores_form_submit';
+    $rol = \Drupal::currentUser()->getRoles();
+    if ($rol[1]!='admin_sitio'){
+      $opciones_empresas = $form['field_empresa']['widget']['#options'];
+      $options = pertenece_empresa($opciones_empresas);
+      $form['field_empresa']['widget']['#options'] = $options;
+    }
   }
 }
 
