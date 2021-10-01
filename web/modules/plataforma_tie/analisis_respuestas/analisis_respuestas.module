@@ -74,16 +74,22 @@ function crearresultadosempresa($origen){
               $p_apro = sizeof($apropiacion);
               $p_ipd = sizeof($ipd);
               $datos = buscaresultnode($id_member);
-              if($datos[0]!=[] && $datos[1]!=[] && $datos[2]!=[]){
+              if($datos && $datos[0]!=[] && $datos[1]!=[] && $datos[2]!=[]){
                 $adopcion[$p_adop]=$datos[0];
                 $apropiacion[$p_apro]=$datos[1];
                 $ipd[$p_ipd]=$datos[2];
                 $datos_ar = buscaranalisisresult($id_member,$origen);
                 $log_s = sizeof($datos_ar);
-                for ($i=0;$i<$log_s;$i++){
-                  $log = sizeof($proceso[$i]);
-                  $proceso[$i][$log]=$datos_ar[$i];
+                if($log_s>1){
+                  for ($i=0;$i<$log_s;$i++){
+                    $log = sizeof($proceso[$i]);
+                    $proceso[$i][$log]=$datos_ar[$i];
+                  }
+                }else{
+                  $log = sizeof($proceso[0]);
+                  $proceso[0][$log] = $datos_ar[0];
                 }
+
               }
             }
           }
